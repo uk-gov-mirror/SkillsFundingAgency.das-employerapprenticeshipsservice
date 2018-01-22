@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EAS.Web", "SFA.DAS.EAS.Web\SFA.DAS.EAS.Web.csproj", "{65DB60B1-80F0-432C-926E-7A6DD02A5645}"
 EndProject
@@ -102,6 +102,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureConfiguration", "Azure
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EAS.EmployerAccount.Events.UnitTests", "SFA.DAS.EAS.EmployerAccount.Events.UnitTests\SFA.DAS.EAS.EmployerAccount.Events.UnitTests.csproj", "{DAB6A8E4-22E7-4447-AD93-819425F6FAF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EAS.Account.Api.Tests", "SFA.DAS.EAS.Account.Api.Tests\SFA.DAS.EAS.Account.Api.Tests.csproj", "{708CC4B1-4BB6-4BBF-BD5F-C1D8B806B920}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -250,6 +252,10 @@ Global
 		{DAB6A8E4-22E7-4447-AD93-819425F6FAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAB6A8E4-22E7-4447-AD93-819425F6FAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAB6A8E4-22E7-4447-AD93-819425F6FAF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{708CC4B1-4BB6-4BBF-BD5F-C1D8B806B920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{708CC4B1-4BB6-4BBF-BD5F-C1D8B806B920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{708CC4B1-4BB6-4BBF-BD5F-C1D8B806B920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{708CC4B1-4BB6-4BBF-BD5F-C1D8B806B920}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

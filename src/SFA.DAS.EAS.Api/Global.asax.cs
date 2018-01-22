@@ -15,13 +15,11 @@ namespace SFA.DAS.EAS.Api
     {
         protected void Application_Start()
         {
-            LoggingConfig.ConfigureLogging();
+            //LoggingConfig.ConfigureLogging();
 
-            TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
+            //TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
 
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
-
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }

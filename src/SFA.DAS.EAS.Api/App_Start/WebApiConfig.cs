@@ -7,6 +7,8 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using SFA.DAS.ApiTokens.Client;
 using System.Web.Http.ExceptionHandling;
+using SFA.DAS.EAS.Api.DependencyResolution;
+using StructureMap;
 
 namespace SFA.DAS.EAS.Api
 {
@@ -19,6 +21,18 @@ namespace SFA.DAS.EAS.Api
             config.MapHttpAttributeRoutes();
 
             config.Services.Replace(typeof(IExceptionHandler), new CustomExceptionHandler());
+        }
+    }
+
+    public static class IocConfig
+    {
+        public static IContainer Container { get; set; }
+        public static void RegisterServices(HttpConfiguration config)
+        {
+            Container = IoC.Initialize();
+
+            // Register
+            config.DependencyResolver = new StructureMapWebApiDependencyResolver(Container);
         }
     }
 }

@@ -66,6 +66,14 @@ namespace SFA.DAS.EAS.Api.DependencyResolution {
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
             For<IMediator>().Use<Mediator>();
+
+            //Assembly.GetGetAssembly("SFA.DAS.EAS.Application");
+
+            Scan(scanner => {
+                scanner.TheCallingAssembly();
+                scanner.AddAllTypesOf(typeof(IRequestHandler<,>));
+                scanner.AddAllTypesOf(typeof(INotificationHandler<>));
+            });
         }
 
         private void RegisterMapper()
@@ -92,10 +100,10 @@ namespace SFA.DAS.EAS.Api.DependencyResolution {
 
         private void RegisterLogger()
         {
-            For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
+            //For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
             For<ILog>().Use(x => new NLogLogger(
                 x.ParentType,
-                x.GetInstance<IRequestContext>(),
+                null,//x.GetInstance<IRequestContext>(),
                 null)).AlwaysUnique();
         }
 
