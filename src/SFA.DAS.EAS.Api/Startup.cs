@@ -22,9 +22,10 @@ namespace SFA.DAS.EAS.Api
         {
             LoggingConfig.ConfigureLogging();
 
+            var container = IoC.Initialize();
             //StructureMapDependencyScope = new StructureMapDependencyScope(container);
             //DependencyResolver.SetResolver(StructureMapDependencyScope);
-            //GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
 
             var instrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
             if (!string.IsNullOrEmpty(instrumentationKey))
