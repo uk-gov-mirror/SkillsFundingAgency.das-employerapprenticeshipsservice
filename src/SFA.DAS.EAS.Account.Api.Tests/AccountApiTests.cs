@@ -25,7 +25,7 @@ namespace SFA.DAS.EAS.Account.Api.Tests
         private Mock<IDasLevyRepository> mockLevyRepo;
 
         [Test]
-        public async Task ShouldRetreiveAnAccountWithBalane()
+        public async Task ShouldRetreiveAnAccountWithBalance()
         {
             var account = new Domain.Data.Entities.Account.Account { HashedId = "KAKAKA", Id = 123, Name = "Test", RoleId = 1};
             var accounts = new Accounts<Domain.Data.Entities.Account.Account>{AccountList = new List<Domain.Data.Entities.Account.Account>()
@@ -51,7 +51,7 @@ namespace SFA.DAS.EAS.Account.Api.Tests
             });
 
             var pageOfAccounts = await _client.GetPageOfAccounts(1, 10, null);
-            Console.WriteLine(JsonConvert.SerializeObject(pageOfAccounts));
+            //Console.WriteLine(JsonConvert.SerializeObject(pageOfAccounts));
 
             Assert.AreEqual(1, pageOfAccounts.Data.Count);
             Assert.AreEqual(balance.IsLevyPayer == 1, pageOfAccounts.Data[0].IsLevyPayer);
