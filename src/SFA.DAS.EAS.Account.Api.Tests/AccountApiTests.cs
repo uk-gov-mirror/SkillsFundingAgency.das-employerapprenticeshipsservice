@@ -17,7 +17,7 @@ using SFA.DAS.EAS.Domain.Data.Repositories;
 namespace SFA.DAS.EAS.Account.Api.Tests
 {
     [TestFixture]
-    public class Class1
+    public class AccountApiTests
     {
         private TestServer _server;
         private IAccountApiClient _client;
