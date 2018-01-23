@@ -16,16 +16,14 @@ namespace SFA.DAS.EAS.Api
 {
     public partial class Startup
     {
-        public static IContainer Container => IoC.Initialize();
-
         public void Configuration(IAppBuilder app)
         {
             LoggingConfig.ConfigureLogging();
 
-            var container = IoC.Initialize();
+            //var container = IoC.Initialize();
             //StructureMapDependencyScope = new StructureMapDependencyScope(container);
             //DependencyResolver.SetResolver(StructureMapDependencyScope);
-            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            //GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
 
             var instrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
             if (!string.IsNullOrEmpty(instrumentationKey))

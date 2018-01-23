@@ -33,6 +33,7 @@ namespace SFA.DAS.EAS.Api
 
             // Register
             config.DependencyResolver = new StructureMapWebApiDependencyResolver(Container);
+            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(Container);
         }
     }
 }

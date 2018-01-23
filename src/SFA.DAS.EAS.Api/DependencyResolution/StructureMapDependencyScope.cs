@@ -51,8 +51,14 @@ namespace SFA.DAS.EAS.Api.DependencyResolution {
         public IContainer Container { get; set; }
 
         public IContainer CurrentNestedContainer {
-            get {
-                return (IContainer)HttpContext.Items[NestedContainerKey];
+            get
+            {
+                if (HttpContext != null && HttpContext.Items.Contains(NestedContainerKey))
+                {
+                    return (IContainer) HttpContext.Items[NestedContainerKey];
+                }
+
+                return null;
             }
             set {
                 HttpContext.Items[NestedContainerKey] = value;
@@ -65,8 +71,15 @@ namespace SFA.DAS.EAS.Api.DependencyResolution {
 
         private HttpContextBase HttpContext {
             get {
-                var ctx = Container.TryGetInstance<HttpContextBase>();
-                return ctx ?? new HttpContextWrapper(System.Web.HttpContext.Current);
+                try
+                {
+                    var ctx = Container.TryGetInstance<HttpContextBase>();
+                    return ctx ?? new HttpContextWrapper(System.Web.HttpContext.Current);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
         }
 

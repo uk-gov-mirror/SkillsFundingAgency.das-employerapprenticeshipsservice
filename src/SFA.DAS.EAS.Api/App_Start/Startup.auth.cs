@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Microsoft.Azure;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Owin;
 
