@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SFA.DAS.EAS.Domain.Models.AccountTeam;
 using SFA.DAS.EAS.Domain.Models.TransferConnections;
 using SFA.DAS.EAS.Domain.Models.UserProfile;
 
@@ -9,15 +10,16 @@ namespace SFA.DAS.EAS.Domain.Models.Account
     public class Account
     {
         public virtual long Id { get; set; }
-        public virtual ICollection<EmployerAgreement> Agreements { get; set; } = new List<EmployerAgreement>();
         public virtual DateTime CreatedDate { get; set; }
         public virtual string HashedId { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual string Name { get; set; }
         public virtual string PublicHashedId { get; set; }
-        public virtual ICollection<TransferConnectionInvitation> ReceivedTransferConnectionInvitations { get; set; } = new List<TransferConnectionInvitation>();
         public virtual int RoleId { get; set; }
         public string RoleName => ((Role)RoleId).ToString();
+        public virtual ICollection<EmployerAgreement> Agreements { get; set; } = new List<EmployerAgreement>();
+        public virtual ICollection<Membership> Memberships { get; protected set; } = new List<Membership>();
+        public virtual ICollection<TransferConnectionInvitation> ReceivedTransferConnectionInvitations { get; set; } = new List<TransferConnectionInvitation>();
         public virtual ICollection<TransferConnectionInvitation> SentTransferConnectionInvitations { get; set; } = new List<TransferConnectionInvitation>();
 
         public bool IsTransferConnectionInvitationSender()

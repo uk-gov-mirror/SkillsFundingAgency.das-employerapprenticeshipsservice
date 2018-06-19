@@ -307,6 +307,9 @@
     <Compile Include="ScenarioCommonSteps\AccountSteps.cs" />
     <Compile Include="ScenarioCommonSteps\LevyWorkerSteps.cs" />
     <Compile Include="ScenarioCommonSteps\UserSteps.cs" />
+    <Compile Include="Steps\AccountSteps.cs" />
+    <Compile Include="Steps\ObjectContext.cs" />
+    <Compile Include="Steps\UserSteps.cs" />
     <Compile Include="TestModels\TestAccount.cs" />
     <Compile Include="TestModels\TestUser.cs" />
   </ItemGroup>
