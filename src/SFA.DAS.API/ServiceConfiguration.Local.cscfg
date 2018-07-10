@@ -15,7 +15,7 @@
       <Setting name="InstrumentationKey" value=""/>
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="WebSslCert" thumbprint="7E0C8989B70195C9AF040EBAD6F6E5012E07F050" thumbprintAlgorithm="sha1" />
+      <Certificate name="WebSslCert" thumbprint="9D922D0785282FE6F0B057231D6B45F5169F9E01" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>
