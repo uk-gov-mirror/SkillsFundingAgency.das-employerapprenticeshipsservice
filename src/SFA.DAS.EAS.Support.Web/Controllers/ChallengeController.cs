@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.ApplicationServices.Models;
@@ -21,24 +19,24 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
         }
 
         [HttpGet]
-        [Route("challenge/{id}")]
-        public async Task<ActionResult> Index(string id)
+        [Route("accounts/{accountId}/challenges")]
+        public async Task<ActionResult> Index(string accountId)
         {
-            var response = await _handler.Get(id);
+            var response = await _handler.Get(accountId);
 
             if (response.StatusCode != SearchResponseCodes.Success)
-                return HttpNotFound($"There was a problem finding the account {id}");
+                return HttpNotFound($"There was a problem finding the account {accountId}");
 
             return View(new ChallengeViewModel
             {
                 Characters = response.Characters,
-                Id = id
+                Id = accountId
             });
         }
 
         [HttpPost]
-        [Route("challenge/{id}")]
-        public async Task<ActionResult> Index(string id, ChallengeEntry challengeEntry)
+        [Route("accounts/{accountId}/challenges")]
+        public async Task<ActionResult> Index(string accountId, ChallengeEntry challengeEntry)
         {
             var response = await _handler.Handle(Map(challengeEntry));
 

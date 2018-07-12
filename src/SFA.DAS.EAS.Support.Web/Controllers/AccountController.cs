@@ -27,7 +27,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             _payeLevyMapper = payeLevyDeclarationMapper;
         }
 
-        [Route("account/{id}")]
+        [Route("accounts/{id}")]
         public async Task<ActionResult> Index(string id)
         {
             var response = await _accountHandler.FindOrganisations(id);
@@ -37,7 +37,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
                 var vm = new AccountDetailViewModel
                 {
                     Account = response.Account,
-                    AccountUri = $"/resource/index/{{0}}?key={SupportServiceResourceKey.EmployerUser}"
+                    AccountUri = $"views/resource/index/{{0}}?key={SupportServiceResourceKey.EmployerUser}"
 
                 };
 
@@ -47,17 +47,17 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return HttpNotFound();
         }
 
-        [Route("account/payeschemes/{id}")]
-        public async Task<ActionResult> PayeSchemes(string id)
+        [Route("accounts/{accountId}/payeschemes")]
+        public async Task<ActionResult> PayeSchemes(string accountId)
         {
-            var response = await _accountHandler.FindPayeSchemes(id);
+            var response = await _accountHandler.FindPayeSchemes(accountId);
 
             if (response.StatusCode == SearchResponseCodes.Success)
             {
                 var vm = new AccountDetailViewModel
                 {
                     Account = response.Account,
-                    AccountUri = $"/resource/index/{{0}}?key={SupportServiceResourceKey.EmployerUser}"
+                    AccountUri = $"views/employer/users/{{0}}"
                 };
 
                 return View(vm);
@@ -66,28 +66,28 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return new HttpNotFoundResult();
         }
 
-        [Route("account/header/{id}")]
-        public async Task<ActionResult> Header(string id)
+        //[Route("accounts/header/{id}")]
+        //public async Task<ActionResult> Header(string id)
+        //{
+        //    var response = await _accountHandler.Find(id);
+
+        //    if (response.StatusCode != SearchResponseCodes.Success)
+        //        return HttpNotFound();
+
+        //    return View("SubHeader", response.Account);
+        //}
+
+        [Route("accounts/{accountId}/teams")]
+        public async Task<ActionResult> Team(string accountId)
         {
-            var response = await _accountHandler.Find(id);
-
-            if (response.StatusCode != SearchResponseCodes.Success)
-                return HttpNotFound();
-
-            return View("SubHeader", response.Account);
-        }
-
-        [Route("account/team/{id}")]
-        public async Task<ActionResult> Team(string id)
-        {
-            var response = await _accountHandler.FindTeamMembers(id);
+            var response = await _accountHandler.FindTeamMembers(accountId);
 
             if (response.StatusCode == SearchResponseCodes.Success)
             {
                 var vm = new AccountDetailViewModel
                 {
                     Account = response.Account,
-                    AccountUri = $"/resource/index/{{0}}?key={SupportServiceResourceKey.EmployerUser}"
+                    AccountUri = $"views/employers/users/{{0}}"
                 };
 
                 return View(vm);
@@ -96,10 +96,10 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return HttpNotFound();
         }
 
-        [Route("account/finance/{id}")]
-        public async Task<ActionResult> Finance(string id)
+        [Route("accounts/{accountId}/finance")]
+        public async Task<ActionResult> Finance(string accountId)
         {
-            var response = await _accountHandler.FindFinance(id);
+            var response = await _accountHandler.FindFinance(accountId);
 
             if (response.StatusCode == SearchResponseCodes.Success)
             {
@@ -115,10 +115,10 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return HttpNotFound();
         }
 
-        [Route("account/levysubmissions/{id}/{payeSchemeId}")]
-        public async Task<ActionResult> PayeSchemeLevySubmissions(string id, string payeSchemeId)
+        [Route("accounts/{accountId}/levysubmissions/{payeSchemeId}")]
+        public async Task<ActionResult> PayeSchemeLevySubmissions(string accountId, string payeSchemeId)
         {
-            var response = await _payeLevySubmissionsHandler.FindPayeSchemeLevySubmissions(id, payeSchemeId);
+            var response = await _payeLevySubmissionsHandler.FindPayeSchemeLevySubmissions(accountId, payeSchemeId);
 
             if (response.StatusCode != PayeLevySubmissionsResponseCodes.AccountNotFound)
             {
