@@ -9,6 +9,7 @@ using SFA.DAS.Support.Shared.Discovery;
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {
+    [RoutePrefix("employers")]
     public class AccountController : Controller
     {
         private readonly IAccountHandler _accountHandler;
