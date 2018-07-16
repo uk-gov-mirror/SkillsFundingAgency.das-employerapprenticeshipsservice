@@ -20,11 +20,27 @@ namespace SFA.DAS.EAS.Finance.AcceptanceTests.Steps
 
             _container = new Container(c =>
             {
+                //c.AddRegistry<AuditRegistry>();
                 c.AddRegistry<ConfigurationRegistry>();
+
+                //c.For<IEventsApi>().Use(objectContext.EventsApiMock.Object);
+
                 c.AddRegistry<HashingRegistry>();
+                c.AddRegistry<LoggerRegistry>();
+                c.AddRegistry<LevyRegistry>();
+                c.AddRegistry<MapperRegistry>();
+                c.AddRegistry<MessagePublisherRegistry>();
                 c.AddRegistry<MediatorRegistry>();
                 c.AddRegistry<PaymentsRegistry>();
+                c.AddRegistry<RepositoriesRegistry>();
+                c.AddRegistry<RepositoriesRegistry>();
+                c.Scan(scanner =>
+                {
+                    scanner.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS"));
+                    scanner.RegisterConcreteTypesAgainstTheFirstInterface();
+                });
             });
+
         }
 
         [BeforeScenario]
@@ -34,6 +50,22 @@ namespace SFA.DAS.EAS.Finance.AcceptanceTests.Steps
             _objectContainer.RegisterInstanceAs(_container.GetInstance<EmployerAccountDbContext>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IHashingService>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IPublicHashingService>());
+
+
+            //_objectContainer.RegisterInstanceAs(_container);
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IEventsApi>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IEventsApiClientConfiguration>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IHashingService>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IMapper>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IMediator>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IPayeRepository>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IPublicHashingService>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<ILog>());
+
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<IMultiVariantTestingService>());
+
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<EmployerAccountDbContext>());
+            //_objectContainer.RegisterInstanceAs(_container.GetInstance<EmployerFinancialDbContext>());
         }
 
         [AfterScenario]

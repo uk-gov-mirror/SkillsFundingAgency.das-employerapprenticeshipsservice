@@ -115,23 +115,6 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Viewer removes paye scheme")]
-        public virtual void ViewerRemovesPayeScheme()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewer removes paye scheme", ((string[])(null)));
-#line 25
-this.ScenarioSetup(scenarioInfo);
-#line 26
- testRunner.Given("user Bob has role Viewer for account A with a paye scheme \"123/456\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
- testRunner.When("user Bob removes paye scheme \"123/456\" from account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
- testRunner.Then("The an PAYE scheme \"123/456\" is not removed from account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore

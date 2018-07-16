@@ -22,12 +22,12 @@ Scenario: Owner removes paye scheme
 	And The user is redirected to the paye index view
 	And A Paye Scheme Removed event is raised
 
-Scenario: Viewer removes paye scheme
-	Given user Dave has role Owner for account A 
-	And user Dave adds paye scheme "123/456" to account A
-	And user Bob has role Viewer for account A
-	When user Bob removes paye scheme "123/456" from account A
-	Then The an PAYE scheme "123/456" is not removed from account A
+#Scenario: Viewer removes paye scheme
+	#Given user Dave has role Owner for account A 
+	#And user Dave adds paye scheme "123/456" to account A
+	#And user Bob has role Viewer for account A
+	#When user Bob removes paye scheme "123/456" from account A
+	#Then The an PAYE scheme "123/456" is not removed from account A
 	#And The user is redirected to the paye index view
 	#And A Paye Scheme Removed event is raised
 
