@@ -90,7 +90,7 @@ namespace SFA.DAS.EAS.Web.Controllers
 
             var userViews = _multiVariantTestingService.GetMultiVariantViews();
 
-            if (userViews == null)
+            if (userViews == null || ControllerContext == null)
             {
                 return base.View(viewName, masterName, orchestratorResponse);
             }
