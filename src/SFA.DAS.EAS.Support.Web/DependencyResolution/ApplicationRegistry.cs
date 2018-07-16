@@ -16,7 +16,7 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
         {
             For<IAccountHandler>().Use<AccountHandler>();
             For<IChallengeRepository>().Use<ChallengeRepository>();
-            For<IChallengeService>().Use<ChallengeService>();
+            For<IChallengeEvaluator>().Use<ChallengeEvaluator>();
             For<IDatetimeService>().Use<DatetimeService>();
             For<IChallengeHandler>().Use<ChallengeHandler>();
             For<ILevySubmissionsRepository>().Use<LevySubmissionsRepository>();

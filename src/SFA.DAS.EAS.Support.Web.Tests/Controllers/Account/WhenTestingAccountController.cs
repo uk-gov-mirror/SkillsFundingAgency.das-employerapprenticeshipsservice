@@ -9,6 +9,8 @@ using SFA.DAS.EAS.Support.Web.Controllers;
 using SFA.DAS.EAS.Support.Web.Models;
 using SFA.DAS.EAS.Support.Web.Services;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Support.Shared.Navigation;
+using System.Web.Mvc;
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
 {
@@ -20,6 +22,11 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
         protected Mock<IPayeLevyMapper> _payeLevyDeclarationMapper;
         protected AccountController Unit;
 
+        protected Mock<IMenuService> _mockMenuService;
+        protected Mock<IMenuTemplateTransformer> _mockMenuTemplateTransformer;
+        protected Mock<IChallengeService> _mockIChallengeService;
+        protected Mock<IChallengeRepository<PayeSchemeChallengeViewModel>> _mockPayeChallengeViewModelRepository;
+
 
         [SetUp]
         public void Setup()
@@ -29,10 +36,18 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
             _logger = new Mock<ILog>();
             _payeLevyDeclarationMapper = new Mock<IPayeLevyMapper>();
 
-            Unit = new AccountController(AccountHandler.Object,
+            Unit = new AccountController(
+                AccountHandler.Object,
                 _payeLevySubmissionsHandler.Object,
                 _logger.Object,
-                _payeLevyDeclarationMapper.Object);
+                _payeLevyDeclarationMapper.Object, 
+                _mockMenuService.Object, 
+                _mockMenuTemplateTransformer.Object,
+                _mockIChallengeService. Object, 
+                _mockPayeChallengeViewModelRepository.Object, 
+                3, 
+                "https://localhost/", 
+                10);
         }
     }
 

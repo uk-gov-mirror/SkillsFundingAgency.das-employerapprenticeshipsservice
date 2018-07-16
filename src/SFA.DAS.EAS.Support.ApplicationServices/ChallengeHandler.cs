@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SFA.DAS.EAS.Support.ApplicationServices.Models;
 using SFA.DAS.EAS.Support.ApplicationServices.Services;
 using SFA.DAS.EAS.Support.Core.Models;
@@ -12,9 +11,9 @@ namespace SFA.DAS.EAS.Support.ApplicationServices
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IChallengeRepository _challengeRepository;
-        private readonly IChallengeService _challengeService;
+        private readonly IChallengeEvaluator _challengeService;
 
-        public ChallengeHandler(IAccountRepository accountRepository, IChallengeService challengeService,
+        public ChallengeHandler(IAccountRepository accountRepository, IChallengeEvaluator challengeService,
             IChallengeRepository challengeRepository)
         {
             _accountRepository = accountRepository;

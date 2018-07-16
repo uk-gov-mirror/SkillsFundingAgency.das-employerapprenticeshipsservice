@@ -4,7 +4,7 @@ using SFA.DAS.EAS.Support.Core.Models;
 
 namespace SFA.DAS.EAS.Support.ApplicationServices.Services
 {
-    public interface IChallengeService
+    public interface IChallengeEvaluator
     {
         List<int> GetPayeSchemesCharacters(IEnumerable<PayeSchemeModel> payeSchemes);
     }

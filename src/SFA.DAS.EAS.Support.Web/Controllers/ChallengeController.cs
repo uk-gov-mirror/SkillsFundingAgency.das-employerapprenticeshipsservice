@@ -1,76 +1,72 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFA.DAS.EAS.Support.ApplicationServices;
-using SFA.DAS.EAS.Support.ApplicationServices.Models;
-using SFA.DAS.EAS.Support.Core.Models;
 using SFA.DAS.EAS.Support.Infrastructure.Models;
 using SFA.DAS.EAS.Support.Web.Models;
-using SFA.DAS.Support.Shared.Authentication;
+using SFA.DAS.EAS.Support.Web.Services;
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {
     public class ChallengeController : Controller
     {
-        private readonly IChallengeHandler _handler;
-
-        public ChallengeController(IChallengeHandler handler)
+        private readonly IChallengeRepository<PayeSchemeChallengeViewModel> _challengeRepository;
+        private IChallengeHandler _handler;
+        public ChallengeController(
+            IChallengeRepository<PayeSchemeChallengeViewModel> challengeRepository,
+            IChallengeHandler handler)
         {
+            _challengeRepository = challengeRepository;
             _handler = handler;
         }
 
         [HttpGet]
-        [Route("accounts/{accountId}/challenges")]
-        public async Task<ActionResult> Index(string accountId)
+        [Route("challenges/{challengeId:guid}")]
+        public async Task<ActionResult> Challenge(Guid challengeId)
         {
-            var response = await _handler.Get(accountId);
-
-            if (response.StatusCode != SearchResponseCodes.Success)
-                return HttpNotFound($"There was a problem finding the account {accountId}");
-
-            return View(new ChallengeViewModel
+            var model = await _challengeRepository.Retrieve(challengeId);
+            if (model == null)
             {
-                Characters = response.Characters,
-                Id = accountId
-            });
-        }
-
-        [HttpPost]
-        [Route("accounts/{accountId}/challenges")]
-        public async Task<ActionResult> Index(string accountId, ChallengeEntry challengeEntry)
-        {
-            var response = await _handler.Handle(Map(challengeEntry));
-
-            if (response.IsValid)
-            {
-                return Json(new ChallengeValidationResult
-                {
-                    IsValidResponse = true
-                });
+                return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{challengeId}" } } });
             }
-
-
-            var model = new ChallengeViewModel
-            {
-                Characters = response.Characters,
-                Id = challengeEntry.Id,
-                Url = challengeEntry.Url,
-                HasError = true
-            };
-
             return View(model);
         }
 
-        private ChallengePermissionQuery Map(ChallengeEntry challengeEntry)
+        [HttpPost]
+        [Route("challenges/response")]
+        public async Task<ActionResult> Response(PayeSchemeChallengeViewModel model)
+        {
+
+            var challenge = await _challengeRepository.Retrieve(model.ChallengeId);
+            if (challenge == null)
+            {
+                return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{model.ChallengeId}" } } });
+            }
+            
+            var response = await _handler.Handle(Map(model));
+
+            if (response.IsValid)
+            {
+                return Redirect(model.ReturnTo);
+            }
+            
+            model.Characters = response.Characters;
+            model.HasError = true;
+            return View(model);
+        }
+
+        private ChallengePermissionQuery Map(PayeSchemeChallengeViewModel model)
         {
             return new ChallengePermissionQuery
             {
-                Id = challengeEntry.Id,
-                Url = challengeEntry.Url,
-                ChallengeElement1 = challengeEntry.Challenge1,
-                ChallengeElement2 = challengeEntry.Challenge2,
-                Balance = challengeEntry.Balance,
-                FirstCharacterPosition = challengeEntry.FirstCharacterPosition,
-                SecondCharacterPosition = challengeEntry.SecondCharacterPosition
+                Id = model.ChallengeId.ToString(),
+                Url = model.ReturnTo,
+                ChallengeElement1 = model.Challenge1,
+                ChallengeElement2 = model.Challenge2,
+                Balance = model.Balance,
+                FirstCharacterPosition = model.FirstCharacterPosition,
+                SecondCharacterPosition = model.SecondCharacterPosition
             };
         }
     }

@@ -1,0 +1,87 @@
+[
+  {
+    "Perspective": 2,
+    "MenuItems": [
+      {
+        "Key": "User.Details",
+        "Text": "Overview",
+        "NavigateUrl": "views/users/{userId}",
+        "Ordinal": 0,
+        "Roles": [],
+        "MenuItems": []
+      }
+    ]
+  },
+  {
+    "Perspective": 1,
+    "MenuItems": [
+      {
+        "Key": "Account.Organisations",
+        "Text": "Organisations",
+        "NavigateUrl": "views/accounts/{accountId}/organisations",
+        "Ordinal": 0,
+        "Roles": [],
+        "MenuItems": []
+      },
+      {
+        "Key": "Account.Finance",
+        "Text": "Finance",
+        "NavigateUrl": "accounts/{accountId}/finance",
+        "Ordinal": 1,
+        "Roles": [ "Tier2" ],
+        "MenuItems": [
+          {
+            "Key": "Account.Finance.PAYE",
+            "Text": "PAYE",
+            "NavigateUrl": "accounts/{accountId}/finance/paye",
+            "Ordinal": 0,
+            "Roles": [ "Tier2" ],
+            "MenuItems": [
+              {
+                "Key": "Account.Finance.PAYE.Submissions",
+                "Text": "Submissions",
+                "NavigateUrl": "accounts/{accountId}/finance/paye/{payeshchemeId}",
+                "Ordinal": 0,
+                "Roles": [ "Tier2" ],
+                "MenuItems": []
+              }
+            ]
+          },
+          {
+            "Key": "Account.Finance.Transactions",
+            "Text": "Transactions",
+            "NavigateUrl": "accounts/{accountId}/finance/transactions",
+            "Ordinal": 1,
+            "Roles": ["Tier2"],
+            "MenuItems": []
+          }
+        ]
+      },
+      {
+        "Key": "Account.Commitments",
+        "Text": "Commitments",
+        "NavigateUrl": "views/commitments/accounts/{accountId}",
+        "Ordinal": 0,
+        "Roles": [],
+        "MenuItems": [
+          {
+            "Key": "Account.Commitments.Apprentices",
+            "Text": "Apprentices",
+            "NavigateUrl": "views/commitments/accounts/{accountId}/apprentices",
+            "Ordinal": 0,
+            "Roles": [],
+            "MenuItems": []
+          },
+          {
+            "Key": "Account.Commitments.Payments",
+            "Text": "Payments",
+            "NavigateUrl": "views/commitments/accounts/{accountId}/payments",
+            "Ordinal": 1,
+            "Roles": [],
+            "MenuItems": []
+          }
+        ]
+      }
+    ]
+  }
+]

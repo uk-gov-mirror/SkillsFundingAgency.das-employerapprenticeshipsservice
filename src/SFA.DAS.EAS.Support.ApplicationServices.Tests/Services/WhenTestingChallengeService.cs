@@ -11,12 +11,12 @@ namespace SFA.DAS.EAS.Support.ApplicationServices.Tests.Services
     public class WhenTestingChallengeService
     {
 
-      private ChallengeService _sut;
+      private ChallengeEvaluator _sut;
 
         [SetUp]
         public void Setup()
         {
-            _sut = new ChallengeService();
+            _sut = new ChallengeEvaluator();
         }
 
         [Test]

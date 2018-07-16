@@ -6,6 +6,9 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.Web.Controllers;
+using SFA.DAS.EAS.Support.Web.Models;
+using SFA.DAS.EAS.Support.Web.Services;
+
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 {
@@ -20,11 +23,18 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
         protected ChallengeController Unit;
         protected ControllerContext UnitControllerContext;
 
+
+        protected Mock<IChallengeRepository<PayeSchemeChallengeViewModel>> MockChallengeRepository;
+        
+
+
         [SetUp]
         public void Setup()
         {
             MockChallengeHandler = new Mock<IChallengeHandler>();
-            Unit = new ChallengeController(MockChallengeHandler.Object);
+            MockChallengeRepository = new Mock<IChallengeRepository<PayeSchemeChallengeViewModel>>();
+
+            Unit = new ChallengeController(MockChallengeRepository.Object, MockChallengeHandler.Object);
 
             RouteData = new RouteData();
             MockContextBase = new Mock<HttpContextBase>();

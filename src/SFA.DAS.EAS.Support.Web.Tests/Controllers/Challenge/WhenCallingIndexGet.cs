@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
     public class WhenCallingIndexGet : WhenTestingChallengeController
     {
         [Test]
-        public async Task ItShouldReturnHttpNoFoundWhenThereIsNotAMatch()
+        public async Task ItShouldReturnNoFoundViewWhenThereIsNotAMatch()
         {
             var challengeResponse = new ChallengeResponse
             {
@@ -19,14 +20,15 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
                 StatusCode = SearchResponseCodes.NoSearchResultsFound
             };
 
-            var id = "123";
+            var id = Guid.NewGuid();
 
-            MockChallengeHandler.Setup(x => x.Get(id))
+            MockChallengeHandler.Setup(x => x.Get(id.ToString()))
                 .ReturnsAsync(challengeResponse);
 
-            var actual = await Unit.Index(id);
+            var actual = await Unit.Challenge(id);
 
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
+            Assert.IsInstanceOf<object>(actual);
+            
         }
 
         [Test]
@@ -38,12 +40,12 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
                 StatusCode = SearchResponseCodes.SearchFailed
             };
 
-            var id = "123";
+            var id = Guid.NewGuid();
 
-            MockChallengeHandler.Setup(x => x.Get(id))
+            MockChallengeHandler.Setup(x => x.Get(id.ToString()))
                 .ReturnsAsync(challengeResponse);
 
-            var actual = await Unit.Index(id);
+            var actual = await Unit.Challenge(id);
 
             Assert.IsInstanceOf<HttpNotFoundResult>(actual);
         }
@@ -62,16 +64,16 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
                 StatusCode = SearchResponseCodes.Success
             };
 
-            var id = "123";
+            var id = Guid.NewGuid();
 
-            MockChallengeHandler.Setup(x => x.Get(id))
+            MockChallengeHandler.Setup(x => x.Get(id.ToString()))
                 .ReturnsAsync(challengeResponse);
 
-            var actual = await Unit.Index(id);
+            var actual = await Unit.Challenge(id);
 
             Assert.IsInstanceOf<ViewResult>(actual);
             var viewResult = (ViewResult) actual;
-            Assert.IsInstanceOf<ChallengeViewModel>(viewResult.Model);
+            Assert.IsInstanceOf<PayeSchemeChallengeViewModel>(viewResult.Model);
         }
     }
 }

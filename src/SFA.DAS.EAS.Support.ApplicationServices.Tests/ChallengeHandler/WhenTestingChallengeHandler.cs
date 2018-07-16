@@ -12,7 +12,7 @@ namespace SFA.DAS.EAS.Support.ApplicationServices.Tests.ChallengeHandler
         public void Setup()
         {
             _accountRepository = new Mock<IAccountRepository>();
-            _challengeService = new Mock<IChallengeService>();
+            _challengeService = new Mock<IChallengeEvaluator>();
             _challengeRepository = new Mock<IChallengeRepository>();
 
             _unit = new ApplicationServices.ChallengeHandler(_accountRepository.Object, _challengeService.Object,
@@ -21,7 +21,7 @@ namespace SFA.DAS.EAS.Support.ApplicationServices.Tests.ChallengeHandler
 
         protected IChallengeHandler _unit;
         protected Mock<IAccountRepository> _accountRepository;
-        protected Mock<IChallengeService> _challengeService;
+        protected Mock<IChallengeEvaluator> _challengeService;
         protected Mock<IChallengeRepository> _challengeRepository;
     }
 }

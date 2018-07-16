@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.EAS.Support.Core.Models;
 
 namespace SFA.DAS.EAS.Support.ApplicationServices.Services
 {
-    public class ChallengeService : IChallengeService
+    public class ChallengeEvaluator : IChallengeEvaluator
     {
         public List<int> GetPayeSchemesCharacters(IEnumerable<PayeSchemeModel> payeSchemes)
         {

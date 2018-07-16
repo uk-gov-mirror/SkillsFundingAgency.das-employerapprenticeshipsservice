@@ -132,8 +132,8 @@
     <Reference Include="SFA.DAS.NLog.Targets.Redis, Version=1.0.0.47445, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Targets.Redis.1.0.0.47445\lib\net45\SFA.DAS.NLog.Targets.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Support.Shared, Version=2.1.52.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Support.Shared.2.1.52\lib\net462\SFA.DAS.Support.Shared.dll</HintPath>
+    <Reference Include="SFA.DAS.Support.Shared, Version=2.1.73.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Support.Shared.2.1.73\lib\net462\SFA.DAS.Support.Shared.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.TokenService.Api.Client, Version=1.0.0.26382, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -236,9 +236,15 @@
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChallengeController.cs" />
+    <Compile Include="Services\InMemoryChallengeService.cs" />
+    <Compile Include="Services\PayeSchemeChallengeRepository.cs" />
+    <Compile Include="Models\ChallengeViewModelBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Services\IChallengeService.cs" />
+    <Compile Include="Services\IChallengeRepository.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="Models\SupportAgentChallenge.cs" />
     <Compile Include="DependencyResolution\ApplicationRegistry.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\CoreRegistry.cs" />
@@ -280,10 +286,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Account\SubHeader.cshtml" />
+    <Content Include="App_Data\MenuTemplates.json" />
     <None Include="packages.config" />
     <Content Include="Views\Account\PayeSchemeLevySubmissions.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Account\Team.cshtml" />
+    <Content Include="Views\Shared\PanelLayout.cshtml" />
+    <Content Include="Views\Shared\_header.cshtml" />
+    <Content Include="Views\Shared\_navigation.cshtml" />
+    <Content Include="Views\Shared\_notfound.cshtml" />
+    <Content Include="Views\Shared\_notUnderstood.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -292,11 +305,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\" />
-    <Folder Include="Views\Search\" />
-    <Folder Include="Views\Shared\" />
-    <Folder Include="Views\Status\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Account.Api.Client\SFA.DAS.EAS.Account.Api.Client.csproj">
