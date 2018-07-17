@@ -8,11 +8,15 @@ using SFA.DAS.EAS.Support.ApplicationServices.Services;
 using SFA.DAS.EAS.Support.Web.Models;
 using SFA.DAS.EAS.Support.Web.Services;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Support.Shared.Authentication;
+using SFA.DAS.Support.Shared.Challenge;
 using SFA.DAS.Support.Shared.Navigation;
 using SFA.DAS.Support.Shared.ViewModels;
+using SupportAgentChallenge = SFA.DAS.Support.Shared.Challenge.SupportAgentChallenge;
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {
+
     [RoutePrefix("employers")]
     public class AccountController : BaseController
     {
@@ -20,20 +24,16 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
         private readonly IAccountHandler _accountHandler;
 
         /// Pull up to basecontroller
-        private readonly int _challengeExpiryMinutes;
-        /// Pull up to basecontroller
         private readonly IChallengeRepository<PayeSchemeChallengeViewModel> _challengeHandler;
         /// Pull up to basecontroller
         private readonly int _challengeMaxTries;
-        /// Pull up to basecontroller
-        private readonly IChallengeService _challengeService;
+
         private readonly ILog _log;
         private readonly IPayeLevyMapper _payeLevyMapper;
         private readonly IPayeLevySubmissionsHandler _payeLevySubmissionsHandler;
-        /// Pull up to basecontroller
         private readonly Uri _thisUri;
-        /// Pull up to basecontroller
-        private readonly string RequestIdentity = "anonymous"; // Pull up to BaseController and hook in cross site Identity transfer.
+
+        private int _challengeExpiryMinutes;
 
         public AccountController(
             IAccountHandler accountHandler,
@@ -44,14 +44,13 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             IMenuTemplateTransformer menuTemplateTransformer,
             IChallengeService challengeService,
             IChallengeRepository<PayeSchemeChallengeViewModel> challengeHandler,
-            int challengeMaxTries, string thisUri, int challengeExpiryMinutes) : base(menuService,
-            menuTemplateTransformer)
+            int challengeMaxTries, string thisUri, int challengeExpiryMinutes, IIdentityHandler identityHandler) : base(menuService,
+            menuTemplateTransformer, challengeService,identityHandler)
         {
             _accountHandler = accountHandler;
             _payeLevySubmissionsHandler = payeLevySubmissionsHandler;
             _log = log;
             _payeLevyMapper = payeLevyDeclarationMapper;
-            _challengeService = challengeService;
             _challengeHandler = challengeHandler;
             _challengeMaxTries = challengeMaxTries;
             _challengeExpiryMinutes = challengeExpiryMinutes;
@@ -101,23 +100,25 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             MenuTransformationIdentifiers = new Dictionary<string, string> {{"accountId", $"{accountId}"}};
 
-            var challengeId = await _challengeService.IsNeeded(
-                RequestIdentity,
+            var challengeId = await ChallengeService.IsNeeded(
+                ResourceIdentity,
                 ChallengeEntityType,
                 accountId
             );
 
             if (challengeId != Guid.Empty)
             {
-                
-                await SaveChallengeDetail(accountId, 
-                    await SaveChallengeSummary(accountId, challengeId));
+                _log.Trace($"Challenge is requried for {ResourceIdentity} on Account {accountId}");
+
+                //var supportAgentChallenge = await SaveChallengeSummary(accountId, challengeId, AccountController.ChallengeEntityType);
+
+                //await SaveChallengeDetail(accountId, supportAgentChallenge);
 
                 RedirectToAction("Challenge", "Challenge", new {challengeId});
             }
 
             _log.Trace(
-                $"Challenge is satisfied for {RequestIdentity} on Account {accountId}, obtaining requested information...");
+                $"Challenge is satisfied for {ResourceIdentity} on Account {accountId}, obtaining requested information...");
 
             var response = await _accountHandler.FindPayeSchemes(accountId);
 
@@ -141,9 +142,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             return View(vm);
         }
-        /// <summary>
-        /// Pull up to basecontroller
-        /// </summary>
+       
         protected async Task SaveChallengeDetail(string accountId, SupportAgentChallenge challenge)
         {
             var challengeViewModel = new PayeSchemeChallengeViewModel
@@ -152,7 +151,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
                 Balance = "0",
                 Characters = new List<int>(),
                 EntityType = ChallengeEntityType,
-                Identity = RequestIdentity,
+                Identity = ResourceIdentity,
                 ResponseUrl = new Uri(_thisUri, "/employers/challenges/response").OriginalString,
                 Identifier = accountId,
                 MaxTries = _challengeMaxTries,
@@ -165,26 +164,6 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             };
 
             await _challengeHandler.Store(challengeViewModel);
-        }
-
-        /// <summary>
-        /// Pull up to basecontroller
-        /// </summary>
-        protected async Task<SupportAgentChallenge> SaveChallengeSummary(string accountId, Guid challengeId)
-        {
-            _log.Trace($"Challenge is requried for {RequestIdentity} on Account {accountId}");
-
-            var challenge = new SupportAgentChallenge
-            {
-                Id = challengeId,
-                Identity = RequestIdentity,
-                EntityType = ChallengeEntityType,
-                EntityKey = accountId,
-                Expires = DateTimeOffset.UtcNow.AddMinutes(_challengeExpiryMinutes)
-            };
-
-            await _challengeService.Store(challenge);
-            return challenge;
         }
 
         private static HeaderViewModel BuildHeader(Core.Models.Account account)
@@ -237,16 +216,20 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             MenuTransformationIdentifiers = new Dictionary<string, string> {{"accountId", $"{accountId}"}};
 
-            var challengeId = await _challengeService.IsNeeded(
-                RequestIdentity,
+            var challengeId = await ChallengeService.IsNeeded(
+                ResourceIdentity,
                 ChallengeEntityType,
                 accountId
             );
 
             if (challengeId != Guid.Empty)
             {
-                await SaveChallengeDetail(accountId,
-                    await SaveChallengeSummary(accountId, challengeId));
+
+                _log.Trace($"Challenge is requried for {ResourceIdentity} on Account {accountId}");
+
+                //var supportAgentChallenge = await SaveChallengeSummary(accountId, challengeId, AccountController.ChallengeEntityType);
+
+                //await SaveChallengeDetail(accountId, supportAgentChallenge);
 
                 RedirectToAction("Challenge", "Challenge", new {challengeId});
             }
@@ -288,16 +271,20 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             MenuTransformationIdentifiers = new Dictionary<string, string> {{"accountId", $"{accountId}"}};
 
-            var challengeId = await _challengeService.IsNeeded(
-                RequestIdentity,
+            var challengeId = await ChallengeService.IsNeeded(
+                ResourceIdentity,
                 ChallengeEntityType,
                 accountId
             );
 
             if (challengeId != Guid.Empty)
             {
-                await SaveChallengeDetail(accountId,
-                    await SaveChallengeSummary(accountId, challengeId));
+
+                _log.Trace($"Challenge is requried for {ResourceIdentity} on Account {accountId}");
+
+                //var supportAgentChallenge = await SaveChallengeSummary(accountId, challengeId, AccountController.ChallengeEntityType);
+
+                //await SaveChallengeDetail(accountId, supportAgentChallenge);
 
                 RedirectToAction("Challenge", "Challenge", new {challengeId});
             }

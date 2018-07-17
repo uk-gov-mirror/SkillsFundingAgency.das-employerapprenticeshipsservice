@@ -1,16 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using SFA.DAS.EAS.Support.ApplicationServices.Models;
 using SFA.DAS.EAS.Support.ApplicationServices.Services;
 using SFA.DAS.EAS.Support.Web.Controllers;
 using SFA.DAS.EAS.Support.Web.Models;
 using SFA.DAS.EAS.Support.Web.Services;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Support.Shared.Navigation;
-using System.Web.Mvc;
+using SFA.DAS.Support.Shared.Authentication;
+using SFA.DAS.Support.Shared.Challenge;
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
 {
@@ -26,7 +23,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
         protected Mock<IMenuTemplateTransformer> _mockMenuTemplateTransformer;
         protected Mock<IChallengeService> _mockIChallengeService;
         protected Mock<IChallengeRepository<PayeSchemeChallengeViewModel>> _mockPayeChallengeViewModelRepository;
-
+        protected Mock<IIdentityHandler> _mockIdentityHandler;
 
         [SetUp]
         public void Setup()
@@ -35,93 +32,25 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
             _payeLevySubmissionsHandler = new Mock<IPayeLevySubmissionsHandler>();
             _logger = new Mock<ILog>();
             _payeLevyDeclarationMapper = new Mock<IPayeLevyMapper>();
+            _mockMenuService = new Mock<IMenuService>();
+            _mockMenuTemplateTransformer = new Mock<IMenuTemplateTransformer>();
+            _mockIChallengeService = new Mock<IChallengeService>();
+            _mockPayeChallengeViewModelRepository = new Mock<IChallengeRepository<PayeSchemeChallengeViewModel>>();
+            _mockIdentityHandler = new Mock<IIdentityHandler>();
 
             Unit = new AccountController(
                 AccountHandler.Object,
                 _payeLevySubmissionsHandler.Object,
                 _logger.Object,
-                _payeLevyDeclarationMapper.Object, 
-                _mockMenuService.Object, 
+                _payeLevyDeclarationMapper.Object,
+                _mockMenuService.Object,
                 _mockMenuTemplateTransformer.Object,
-                _mockIChallengeService. Object, 
-                _mockPayeChallengeViewModelRepository.Object, 
-                3, 
-                "https://localhost/", 
-                10);
-        }
-    }
-
-    [TestFixture]
-    public class WhenTestingIndexGet : WhenTestingAccountController
-    {
-        [Test]
-        public async Task ItShouldReturnAViewAndModelOnSuccess()
-        {
-            var reponse = new AccountDetailOrganisationsResponse
-            {
-                Account = new Core.Models.Account
-                {
-                    AccountId = 123,
-                    DasAccountName = "Test Account",
-                    DateRegistered = DateTime.Today,
-                    OwnerEmail = "owner@tempuri.org"
-                },
-                StatusCode = SearchResponseCodes.Success
-            };
-            var id = "123";
-            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
-            var actual = await Unit.Index("123");
-
-            Assert.IsNotNull(actual);
-            Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<ViewResult>(actual);
-            Assert.AreEqual("", ((ViewResult)actual).ViewName);
-            Assert.IsInstanceOf<AccountDetailViewModel>(((ViewResult)actual).Model);
-            Assert.AreEqual(reponse.Account, ((AccountDetailViewModel)((ViewResult)actual).Model).Account);
-            Assert.IsNull(((AccountDetailViewModel)((ViewResult)actual).Model).SearchUrl);
-        }
-
-        [Test]
-        public async Task ItShouodReturnHttpNotFoundOnNoSearchResultsFound()
-        {
-            var reponse = new AccountDetailOrganisationsResponse
-            {
-                Account = new Core.Models.Account
-                {
-                    AccountId = 123,
-                    DasAccountName = "Test Account",
-                    DateRegistered = DateTime.Today,
-                    OwnerEmail = "owner@tempuri.org"
-                },
-                StatusCode = SearchResponseCodes.NoSearchResultsFound
-            };
-            var id = "123";
-            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
-            var actual = await Unit.Index("123");
-            Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
-        }
-
-        [Test]
-        public async Task ItShouodReturnHttpNotFoundOnSearchFailed()
-        {
-            var reponse = new AccountDetailOrganisationsResponse
-            {
-                Account = new Core.Models.Account
-                {
-                    AccountId = 123,
-                    DasAccountName = "Test Account",
-                    DateRegistered = DateTime.Today,
-                    OwnerEmail = "owner@tempuri.org"
-                },
-                StatusCode = SearchResponseCodes.SearchFailed
-            };
-            var id = "123";
-            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
-            var actual = await Unit.Index("123");
-
-            Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
+                _mockIChallengeService.Object,
+                _mockPayeChallengeViewModelRepository.Object,
+                3,
+                "https://localhost/",
+                10,
+                _mockIdentityHandler.Object);//
         }
     }
 }

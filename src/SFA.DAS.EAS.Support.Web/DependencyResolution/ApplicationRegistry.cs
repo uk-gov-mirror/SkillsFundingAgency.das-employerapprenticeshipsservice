@@ -1,11 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.ApplicationServices.Services;
-using SFA.DAS.EAS.Support.Core.Services;
 using SFA.DAS.EAS.Support.Infrastructure.Services;
 using SFA.DAS.EAS.Support.Web.Services;
+using SFA.DAS.Support.Shared.Authentication;
+using SFA.DAS.Support.Shared.Challenge;
+using SFA.DAS.Support.Shared.Navigation;
 using StructureMap;
-using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.EAS.Support.Web.DependencyResolution
 {
@@ -22,6 +25,12 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
             For<ILevySubmissionsRepository>().Use<LevySubmissionsRepository>();
             For<IPayeLevySubmissionsHandler>().Use<PayeLevySubmissionsHandler>();
             For<IPayeLevyMapper>().Use<PayeLevyMapper>();
+
+            For<IServiceAddressMapper>().Use<ServiceAddressMapper>();
+            var challengeTimeoutMinutes = 10; // to configure
+            For<IChallengeService>().Singleton().Use(new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(), challengeTimeoutMinutes));
+            For<IIdentityHandler>().Use<RequestHeaderIdentityHandler>();
+            For<IIdentityHash>().Use<IdentityHash>();
         }
     }
 }

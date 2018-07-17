@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moq;
@@ -9,12 +9,12 @@ using SFA.DAS.EAS.Support.Web.Models;
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
 {
     [TestFixture]
-    public class WhenTestingFinanceGet : WhenTestingAccountController
+    public class WhenTestingIndexGet : WhenTestingAccountController
     {
         [Test]
         public async Task ItShouldReturnAViewAndModelOnSuccess()
         {
-            var accountFinanceReponse = new AccountFinanceResponse
+            var reponse = new AccountDetailOrganisationsResponse
             {
                 Account = new Core.Models.Account
                 {
@@ -26,22 +26,22 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
                 StatusCode = SearchResponseCodes.Success
             };
             var id = "123";
-            AccountHandler.Setup(x => x.FindFinance(id)).ReturnsAsync(accountFinanceReponse);
-            var actual = await Unit.Finance("123");
+            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
+            var actual = await Unit.Index("123");
 
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual);
             Assert.IsInstanceOf<ViewResult>(actual);
-            Assert.AreEqual("", ((ViewResult) actual).ViewName);
-            Assert.IsInstanceOf<FinanceViewModel>(((ViewResult) actual).Model);
-            Assert.AreEqual(accountFinanceReponse.Account, ((FinanceViewModel) ((ViewResult) actual).Model).Account);
-            Assert.AreEqual(accountFinanceReponse.Balance, ((FinanceViewModel) ((ViewResult) actual).Model).Balance);
+            Assert.AreEqual("", ((ViewResult)actual).ViewName);
+            Assert.IsInstanceOf<AccountDetailViewModel>(((ViewResult)actual).Model);
+            Assert.AreEqual(reponse.Account, ((AccountDetailViewModel)((ViewResult)actual).Model).Account);
+            Assert.IsNull(((AccountDetailViewModel)((ViewResult)actual).Model).SearchUrl);
         }
 
         [Test]
-        public async Task ItShouldReturnHttpNotFoundOnNoSearchResultsFound()
+        public async Task ItShouodReturnHttpNotFoundViewOnNoSearchResultsFound()
         {
-            var accountFinanceReponse = new AccountFinanceResponse
+            var reponse = new AccountDetailOrganisationsResponse
             {
                 Account = new Core.Models.Account
                 {
@@ -53,17 +53,17 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
                 StatusCode = SearchResponseCodes.NoSearchResultsFound
             };
             var id = "123";
-            AccountHandler.Setup(x => x.FindFinance(id)).ReturnsAsync(accountFinanceReponse);
-            var actual = await Unit.Finance("123");
+            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
+            var actual = await Unit.Index("123");
             Assert.IsNotNull(actual);
             Assert.IsInstanceOf<ViewResult>(actual);
             Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
         }
 
         [Test]
-        public async Task ItShouodReturnHttpNotFoundOnSearchFailed()
+        public async Task ItShouldReturnHttpNotFoundViewOnSearchFailed()
         {
-            var accountFinanceReponse = new AccountFinanceResponse
+            var reponse = new AccountDetailOrganisationsResponse
             {
                 Account = new Core.Models.Account
                 {
@@ -75,13 +75,12 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
                 StatusCode = SearchResponseCodes.SearchFailed
             };
             var id = "123";
-            AccountHandler.Setup(x => x.FindFinance(id)).ReturnsAsync(accountFinanceReponse);
-            var actual = await Unit.Finance("123");
+            AccountHandler.Setup(x => x.FindOrganisations(id)).ReturnsAsync(reponse);
+            var actual = await Unit.Index("123");
 
             Assert.IsNotNull(actual);
             Assert.IsInstanceOf<ViewResult>(actual);
             Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
-
         }
     }
 }

@@ -109,8 +109,8 @@
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.56651, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.56651\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Support.Shared, Version=2.1.73.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Support.Shared.2.1.73\lib\net462\SFA.DAS.Support.Shared.dll</HintPath>
+    <Reference Include="SFA.DAS.Support.Shared, Version=2.1.78.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Support.Shared.2.1.78\lib\net462\SFA.DAS.Support.Shared.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.TokenService.Api.Client, Version=1.0.0.26382, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.TokenService.Api.Client.1.0.0.26382\lib\net45\SFA.DAS.TokenService.Api.Client.dll</HintPath>
@@ -167,6 +167,7 @@
     <Compile Include="Configuration\FormatSchemaProvider.cs" />
     <Compile Include="Configuration\WebConfigurationTesting.cs" />
     <Compile Include="Controllers\Account\WhenTestingFinanceGet.cs" />
+    <Compile Include="Controllers\Account\WhenTestingIndexGet.cs" />
     <Compile Include="Controllers\Account\WhenTestingPayeSchemesGet.cs" />
     <Compile Include="Controllers\Challenge\WhenCallingIndexGet.cs" />
     <Compile Include="Controllers\Challenge\WhenCallingChallengeResponse.cs" />

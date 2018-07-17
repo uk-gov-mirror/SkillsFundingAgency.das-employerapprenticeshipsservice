@@ -22,13 +22,12 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
             var id = Guid.NewGuid();
 
-            MockChallengeHandler.Setup(x => x.Get(id.ToString()))
-                .ReturnsAsync(challengeResponse);
+            MockChallengeHandler.Setup(x => x.Get(id.ToString())).ReturnsAsync(challengeResponse);
 
             var actual = await Unit.Challenge(id);
 
-            Assert.IsInstanceOf<object>(actual);
-            
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
         }
 
         [Test]
@@ -47,7 +46,9 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
             var actual = await Unit.Challenge(id);
 
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
+
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
         }
 
         [Test]
@@ -64,14 +65,15 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
                 StatusCode = SearchResponseCodes.Success
             };
 
-            var id = Guid.NewGuid();
+            var id ="123";
 
-            MockChallengeHandler.Setup(x => x.Get(id.ToString()))
-                .ReturnsAsync(challengeResponse);
+            MockChallengeHandler.Setup(x => x.Get(It.IsAny<string>())).ReturnsAsync(challengeResponse);
 
-            var actual = await Unit.Challenge(id);
+            var actual = await Unit.Challenge(Guid.NewGuid());
 
             Assert.IsInstanceOf<ViewResult>(actual);
+
+            Assert.AreNotEqual("_notFound", ((ViewResult)actual).ViewName);
             var viewResult = (ViewResult) actual;
             Assert.IsInstanceOf<PayeSchemeChallengeViewModel>(viewResult.Model);
         }

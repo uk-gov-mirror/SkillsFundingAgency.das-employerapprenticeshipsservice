@@ -30,7 +30,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             {
                 return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{challengeId}" } } });
             }
-            return View(model);
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             
             model.Characters = response.Characters;
             model.HasError = true;
-            return View(model);
+            return View("Index", model);
         }
 
         private ChallengePermissionQuery Map(PayeSchemeChallengeViewModel model)

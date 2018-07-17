@@ -6,7 +6,6 @@ using NUnit.Framework;
 using SFA.DAS.EAS.Support.ApplicationServices.Models;
 using SFA.DAS.EAS.Support.Infrastructure.Models;
 using SFA.DAS.EAS.Support.Web.Models;
-using SFA.DAS.Support.Shared.Authentication;
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 {
@@ -63,7 +62,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
         }
 
         [Test]
-        public async Task ItShouldReturnChallengeValidationJsonResultWhenTheChallengeEntryIsValid()
+        public async Task ItShouldReturnChallengeValidationViewResultWhenTheChallengeEntryIsValid()
         {
             var challengeEntry = new PayeSchemeChallengeViewModel
             {
@@ -100,11 +99,10 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
             var actual = await Unit.Response(challengeEntry);
 
             Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<JsonResult>(actual);
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("Index", ((ViewResult)actual).ViewName);
 
-            var result = ((JsonResult)actual).Data as ChallengeValidationResult;
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsValidResponse);
+
         }
     }
 }
