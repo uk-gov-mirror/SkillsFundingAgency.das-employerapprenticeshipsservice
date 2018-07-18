@@ -49,7 +49,6 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
                 _mockPayeChallengeViewModelRepository.Object,
                 3,
                 "https://localhost/",
-                10,
                 _mockIdentityHandler.Object);//
         }
     }
