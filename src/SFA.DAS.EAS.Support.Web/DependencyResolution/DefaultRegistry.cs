@@ -52,7 +52,9 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
             For<IWebConfiguration>().Use(configuration);
             For<IAccountApiConfiguration>().Use(configuration.AccountApi);
             For<ISiteValidatorSettings>().Use(configuration.SiteValidator);
-        
+            For<IChallengeSettings>().Use(configuration.Challenge);
+            For<IChallengeService>().Singleton().Use(c => new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(), c.GetInstance<IChallengeSettings>()));
+
 
         }
 

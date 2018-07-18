@@ -47,8 +47,6 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
                 _mockMenuTemplateTransformer.Object,
                 _mockIChallengeService.Object,
                 _mockPayeChallengeViewModelRepository.Object,
-                3,
-                "https://localhost/",
                 _mockIdentityHandler.Object);//
         }
     }

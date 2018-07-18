@@ -27,8 +27,7 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
             For<IPayeLevyMapper>().Use<PayeLevyMapper>();
 
             For<IServiceAddressMapper>().Use<ServiceAddressMapper>();
-            var challengeTimeoutMinutes = 10; // to configure
-            For<IChallengeService>().Singleton().Use(new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(), challengeTimeoutMinutes));
+            For<IChallengeService>().Singleton().Use(c=> new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(),c.GetInstance<IChallengeSettings>() ));
             For<IIdentityHandler>().Use<RequestHeaderIdentityHandler>();
             For<IIdentityHash>().Use<IdentityHash>();
         }

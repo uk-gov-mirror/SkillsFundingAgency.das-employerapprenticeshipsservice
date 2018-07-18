@@ -5,6 +5,7 @@ using Newtonsoft.Json.Schema.Generation;
 using NUnit.Framework;
 using SFA.DAS.EAS.Support.Infrastructure.Settings;
 using SFA.DAS.EAS.Support.Web.Configuration;
+using SFA.DAS.Support.Shared.Challenge;
 using SFA.DAS.Support.Shared.SiteConnection;
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Configuration
@@ -24,6 +25,11 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Configuration
                     ClientSecret = "--- configuration value goes here ---",
                     IdentifierUri = "--- configuration value goes here ---",
                     Tenant = "--- configuration value goes here ---"
+                },
+                Challenge = new ChallengeSettings
+                {
+                    ChallengeExpiryMinutes = 10,
+                    ChallengeMaxRetries = 3
                 },
                 SiteValidator = new SiteValidatorSettings
                 {

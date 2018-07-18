@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SFA.DAS.EAS.Support.Infrastructure.Settings;
+using SFA.DAS.Support.Shared.Challenge;
 using SFA.DAS.Support.Shared.SiteConnection;
 
 namespace SFA.DAS.EAS.Support.Web.Configuration
@@ -13,7 +14,7 @@ namespace SFA.DAS.EAS.Support.Web.Configuration
         [JsonRequired] public LevySubmissionsSettings LevySubmission { get; set; }
 
         [JsonRequired] public HashingServiceConfig HashingService { get; set; }
-        
 
+        [JsonRequired] public ChallengeSettings Challenge { get; set; }
     }
 }
