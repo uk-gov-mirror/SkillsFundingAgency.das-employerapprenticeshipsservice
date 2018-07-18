@@ -24,11 +24,14 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
     using SFA.DAS.Configuration.AzureTableStorage;
     using SFA.DAS.EAS.Account.Api.Client;
     using SFA.DAS.EAS.Support.Web.Configuration;
+    using SFA.DAS.Support.Shared.Challenge;
     using SFA.DAS.Support.Shared.SiteConnection;
     using SFA.DAS.TokenService.Api.Client;
     using StructureMap;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
+    using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
