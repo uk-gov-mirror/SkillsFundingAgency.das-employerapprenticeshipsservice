@@ -20,7 +20,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
         [Test]
         public async Task ItShouldReturnAViewModelWhenTheChallengeEntryIsInvalid()
         {
-            var challengeEntry = new PayeSchemeChallengeViewModel
+            PayeSchemeChallengeViewModel = new PayeSchemeChallengeViewModel
             {
                 ChallengeId = Guid.NewGuid(),
                 Balance = "£1000",
@@ -45,15 +45,15 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
             var response = new ChallengePermissionResponse
             {
-                Id = challengeEntry.Identifier,
-                Url = challengeEntry.ReturnTo,
+                Id = PayeSchemeChallengeViewModel.Identifier,
+                Url = PayeSchemeChallengeViewModel.ReturnTo,
                 IsValid = false
             };
 
             MockChallengeHandler.Setup(x => x.Handle(It.IsAny<ChallengePermissionQuery>()))
                 .ReturnsAsync(response);
 
-            var actual = await Unit.Response(challengeEntry);
+            var actual = await Unit.Response(PayeSchemeChallengeViewModel);
 
             Assert.IsNotNull(actual);
             Assert.IsInstanceOf<ViewResult>(actual);
@@ -62,9 +62,9 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
         }
 
         [Test]
-        public async Task ItShouldReturnChallengeValidationViewResultWhenTheChallengeEntryIsValid()
+        public async Task ItShouldReturnARedirectToTheReturnToAddressWhenTheChallengeEntryIsValid()
         {
-            var challengeEntry = new PayeSchemeChallengeViewModel
+            PayeSchemeChallengeViewModel = new PayeSchemeChallengeViewModel
             {
                 ChallengeId = Guid.NewGuid(),
                 Balance = "£1000",
@@ -88,21 +88,19 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
             var response = new ChallengePermissionResponse
             {
-                Id = challengeEntry.Identifier,
-                Url = challengeEntry.ReturnTo,
+                Id = PayeSchemeChallengeViewModel.Identifier,
+                Url = PayeSchemeChallengeViewModel.ReturnTo,
                 IsValid = true
             };
 
             MockChallengeHandler.Setup(x => x.Handle(It.IsAny<ChallengePermissionQuery>()))
                 .ReturnsAsync(response);
 
-            var actual = await Unit.Response(challengeEntry);
+            var actual = await Unit.Response(PayeSchemeChallengeViewModel);
 
             Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<ViewResult>(actual);
-            Assert.AreEqual("Index", ((ViewResult)actual).ViewName);
-
-
+            Assert.IsInstanceOf<RedirectResult>(actual);
+            Assert.AreEqual(PayeSchemeChallengeViewModel.ReturnTo, ((RedirectResult)actual).Url);
         }
     }
 }

@@ -5,6 +5,7 @@ using Newtonsoft.Json.Schema.Generation;
 using NUnit.Framework;
 using SFA.DAS.EAS.Support.Infrastructure.Settings;
 using SFA.DAS.EAS.Support.Web.Configuration;
+using SFA.DAS.Support.Shared.Authentication;
 using SFA.DAS.Support.Shared.Challenge;
 using SFA.DAS.Support.Shared.SiteConnection;
 
@@ -37,12 +38,17 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Configuration
                     Scope = "--- configuration value goes here ---",
                     Tenant = "--- configuration value goes here ---"
                 },
+                Crypto = new CryptoSettings()
+                {
+                    Salt = "SaltySweedishSeaDog",
+                    Secret = "ShhhhSecretSquirrel"
+                },
                 LevySubmission = new LevySubmissionsSettings
                 {
-                   HmrcApiBaseUrlSetting  = new HmrcApiBaseUrlConfig
-                   {
-                       HmrcApiBaseUrl ="--- configuration value goes here ---"
-                   },
+                    HmrcApiBaseUrlSetting = new HmrcApiBaseUrlConfig
+                    {
+                        HmrcApiBaseUrl = "--- configuration value goes here ---"
+                    },
                     LevySubmissionsApiConfig = new LevySubmissionsApiConfiguration
                     {
                         ApiBaseUrl = "",
@@ -51,12 +57,23 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Configuration
                         IdentifierUri = "",
                         Tenant = "",
                         LevyTokenCertificatethumprint = ""
-                     }
+                    }
+                },
+                SiteConnector = new SiteConnectorSettings()
+                {
+                    ClientId = "--- configuration value goes here ---",
+                    ClientSecret = "--- configuration value goes here ---",
+                    IdentifierUri = "--- configuration value goes here ---",
+                    Tenant = "--- configuration value goes here ---"
                 },
                 HashingService = new HashingServiceConfig
                 {
                     AllowedCharacters = "",
                     Hashstring = ""
+                },
+                Site = new SiteSettings()
+                {
+                    BaseUrls = "--- configuration|value goes here ---"
                 }
             };
         }

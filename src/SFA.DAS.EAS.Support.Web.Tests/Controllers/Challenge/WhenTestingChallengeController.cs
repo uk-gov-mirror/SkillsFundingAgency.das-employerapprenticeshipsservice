@@ -27,7 +27,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
 
         protected Mock<IChallengeRepository<PayeSchemeChallengeViewModel>> MockChallengeRepository;
-        
+        protected PayeSchemeChallengeViewModel PayeSchemeChallengeViewModel;
 
 
         [SetUp]
@@ -50,8 +50,9 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
             MockContextBase.Setup(x => x.User).Returns(MockUser.Object);
             UnitControllerContext = new ControllerContext(MockContextBase.Object, RouteData, Unit);
 
+            PayeSchemeChallengeViewModel = new PayeSchemeChallengeViewModel(){};
             MockChallengeRepository.Setup(x => x.Retrieve(It.IsAny<Guid>()))
-                .ReturnsAsync(new PayeSchemeChallengeViewModel(){});
+                .ReturnsAsync(PayeSchemeChallengeViewModel);
 
             Unit.ControllerContext = UnitControllerContext;
         }

@@ -12,7 +12,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
     public class WhenCallingIndexGet : WhenTestingChallengeController
     {
         [Test]
-        public async Task ItShouldReturnNoFoundViewWhenThereIsNotAMatch()
+        public async Task ItShouldReturnTheIndexViewWhenThereIsNotAMatch()
         {
             var challengeResponse = new ChallengeResponse
             {
@@ -27,11 +27,11 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
             var actual = await Unit.Challenge(id);
 
             Assert.IsInstanceOf<ViewResult>(actual);
-            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
+            Assert.AreEqual("Index", ((ViewResult)actual).ViewName);
         }
 
         [Test]
-        public async Task ItShouldReturnHttpNoFoundWhenTheSearchFails()
+        public async Task ItShouldReturnTheIndexViewWhenTheSearchFails()
         {
             var challengeResponse = new ChallengeResponse
             {
@@ -48,7 +48,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
 
 
             Assert.IsInstanceOf<ViewResult>(actual);
-            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
+            Assert.AreEqual("Index", ((ViewResult)actual).ViewName);
         }
 
         [Test]
