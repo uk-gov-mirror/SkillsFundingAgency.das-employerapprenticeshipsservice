@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using SFA.DAS.Support.Shared.Challenge;
 
 namespace SFA.DAS.EAS.Support.Web.Models
 {

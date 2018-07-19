@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -8,6 +9,7 @@ using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.Web.Controllers;
 using SFA.DAS.EAS.Support.Web.Models;
 using SFA.DAS.EAS.Support.Web.Services;
+using SFA.DAS.Support.Shared.Challenge;
 
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
@@ -47,6 +49,9 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
             MockContextBase.Setup(x => x.Response).Returns(MockResponseBase.Object);
             MockContextBase.Setup(x => x.User).Returns(MockUser.Object);
             UnitControllerContext = new ControllerContext(MockContextBase.Object, RouteData, Unit);
+
+            MockChallengeRepository.Setup(x => x.Retrieve(It.IsAny<Guid>()))
+                .ReturnsAsync(new PayeSchemeChallengeViewModel(){});
 
             Unit.ControllerContext = UnitControllerContext;
         }

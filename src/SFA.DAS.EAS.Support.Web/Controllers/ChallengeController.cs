@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.Infrastructure.Models;
 using SFA.DAS.EAS.Support.Web.Models;
-using SFA.DAS.EAS.Support.Web.Services;
+using SFA.DAS.Support.Shared.Challenge;
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {

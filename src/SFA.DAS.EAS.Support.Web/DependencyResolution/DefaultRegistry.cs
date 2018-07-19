@@ -25,6 +25,8 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
     using SFA.DAS.EAS.Account.Api.Client;
     using SFA.DAS.EAS.Support.Infrastructure.DependencyResolution;
     using SFA.DAS.EAS.Support.Web.Configuration;
+    using SFA.DAS.EAS.Support.Web.Models;
+    using SFA.DAS.EAS.Support.Web.Services;
     using SFA.DAS.NLog.Logger;
     using SFA.DAS.Support.Shared.Authentication;
     using SFA.DAS.Support.Shared.Challenge;
@@ -114,7 +116,7 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
             For<IMenuService>().Singleton().Use<MenuService>();
             For<IChallengeSettings>().Use(configuration.Challenge);
             For<IChallengeService>().Singleton().Use(c => new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(), c.GetInstance<IChallengeSettings>()));
-
+            //For<IChallengeRepository<PayeSchemeChallengeViewModel>>().Use<PayeSchemeChallengeViewModel>();
 
         }
 

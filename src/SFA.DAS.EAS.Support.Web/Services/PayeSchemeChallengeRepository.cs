@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.EAS.Support.Web.Models;
+using SFA.DAS.Support.Shared.Challenge;
 
 namespace SFA.DAS.EAS.Support.Web.Services
 {

@@ -56,7 +56,8 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
             AccountHandler.Setup(x => x.FindPayeSchemes(id)).ReturnsAsync(reponse);
             var actual = await Unit.PayeSchemes("123");
             Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
         }
 
         [Test]
@@ -76,9 +77,9 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Account
             var id = "123";
             AccountHandler.Setup(x => x.FindPayeSchemes(id)).ReturnsAsync(reponse);
             var actual = await Unit.PayeSchemes("123");
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("_notFound", ((ViewResult)actual).ViewName);
 
-            Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<HttpNotFoundResult>(actual);
         }
     }
 }
