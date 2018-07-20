@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -16,9 +17,100 @@ using SupportAgentChallenge = SFA.DAS.Support.Shared.Challenge.SupportAgentChall
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {
+    public abstract class TestBaseController : Controller
+    {
+        public const string ResourceIdentityHeader = "X-ResourceIdentity";
+        public const string ResourceRequestHeader = "X-ResourceRequest";
 
+        protected static readonly MenuRoot EmptyMenu =
+            new MenuRoot { MenuItems = new List<MenuItem>(), Perspective = SupportMenuPerspectives.None };
+
+        private readonly IIdentityHandler _identityHandler;
+
+        private readonly MenuViewModel _menuViewModel = new MenuViewModel { MenuOrientation = MenuOrientations.Vertical };
+
+        protected readonly IChallengeService ChallengeService;
+        protected readonly IMenuService MenuService;
+        protected readonly IMenuTemplateTransformer MenuTemplateTransformer;
+
+
+        protected BaseController(IMenuService menuService,
+            IMenuTemplateTransformer menuTemplateTransformer,
+            IChallengeService challengeService,
+            IIdentityHandler identityHandler)
+        {
+            MenuService = menuService;
+            MenuTemplateTransformer = menuTemplateTransformer;
+            ChallengeService = challengeService;
+            _identityHandler = identityHandler;
+        }
+
+        protected MenuRoot RootMenu { get; set; } = EmptyMenu;
+
+        protected Dictionary<string, string> MenuTransformationIdentifiers { get; set; } =
+            new Dictionary<string, string>();
+
+        protected SupportMenuPerspectives MenuPerspective { get; set; } = SupportMenuPerspectives.None;
+        protected string MenuSelection { get; set; } = null;
+
+        public string RequestIdentity { get; set; }
+
+        /// <summary>
+        ///     Signals to the 'OnActionExecuted' to ignore the menu generation processing if this request a resource (sub-view)
+        /// </summary>
+        public bool IsAResourceRequest => HttpContext.Request.Headers.AllKeys.Contains(ResourceRequestHeader);
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            RequestIdentity = _identityHandler.GetIdentity(Request);
+
+            base.OnActionExecuted(filterContext);
+
+            if (MenuSelection == null || MenuPerspective == SupportMenuPerspectives.None || IsAResourceRequest) return;
+
+            ProcessMenu();
+        }
+
+
+        /// <summary>
+        ///     Sets up the view bag to drive the CSHMTL menu rendering within the Views/Shared/PanelLayout.cshtml and
+        ///     Views/Shared/_navigation.cshtml views
+        /// </summary>
+        private void ProcessMenu()
+        {
+            RootMenu = MenuService.GetMenu(MenuPerspective).Result.FirstOrDefault();
+
+            if (RootMenu == null) return;
+
+            var menuItems =
+                MenuTemplateTransformer.TransformMenuTemplates(RootMenu.MenuItems, MenuTransformationIdentifiers);
+
+            if (!menuItems.Any()) return;
+
+            _menuViewModel.SetMenu(menuItems, MenuSelection);
+
+            ViewBag.Menu = _menuViewModel;
+        }
+
+
+        protected async Task<SupportAgentChallenge> SaveChallengeSummary(string accountId, Guid challengeId,
+            string entityType)
+        {
+            var challenge = new SupportAgentChallenge
+            {
+                Id = challengeId,
+                Identity = RequestIdentity,
+                EntityType = entityType,
+                EntityKey = accountId,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(ChallengeService.ChallengeExpiryMinutes)
+            };
+
+            await ChallengeService.Store(challenge);
+            return challenge;
+        }
+    }
     [RoutePrefix("employers")]
-    public class AccountController : BaseController
+    public class AccountController : TestBaseController
     {
         private const string ChallengeEntityType = "account";
         private readonly IAccountHandler _accountHandler;
@@ -26,7 +118,6 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
         private readonly ILog _log;
         private readonly IPayeLevyMapper _payeLevyMapper;
         private readonly IPayeLevySubmissionsHandler _payeLevySubmissionsHandler;
-        //private readonly Uri _thisUri;
 
         public AccountController(
             IAccountHandler accountHandler,
@@ -66,11 +157,11 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             var vm = new AccountDetailViewModel
             {
                 Account = response.Account,
-                AccountUri = $"views/employers/users/{{0}}"
+                AccountUri = $"views/employerusers/users/{{0}}"
             };
 
 
-            MenuSelection = "Account.Organisation";
+            MenuSelection = "Account.Organisations";
             ViewBag.Header = BuildHeader(response.Account);
             MenuTransformationIdentifiers =
                 new Dictionary<string, string> {{"accountId", $"{response.Account.AccountId}"}};
@@ -78,7 +169,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return View(vm);
         }
 
-        [Route("accounts/{accountId}/payeschemes")]
+        [Route("accounts/{accountId}/finance/paye")]
         public async Task<ActionResult> PayeSchemes(string accountId)
         {
             if (string.IsNullOrWhiteSpace(accountId))
@@ -133,45 +224,6 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return View(vm);
         }
        
-        protected async Task SaveChallengeDetail(string accountId, SupportAgentChallenge challenge)
-        {
-
-
-
-            string baseUrl = $"{Request.Url.Scheme}://{Request.Url.Authority}/{Request.ApplicationPath.TrimEnd('/')}/";
-
-            var challengeViewModel = new PayeSchemeChallengeViewModel
-            {
-                ChallengeId = challenge.Id,
-                Balance = "0",
-                Characters = new List<int>(),
-                EntityType = ChallengeEntityType,
-                Identity = RequestIdentity,
-                ResponseUrl = new Uri(new Uri(baseUrl), "/employers/challenges/response").OriginalString,
-                Identifier = accountId,
-                MaxTries = ChallengeService.ChallengeMaxRetries,
-                Tries = 1,
-                Challenge = "",
-                Message = "",
-                MenuType = MenuPerspective,
-                ReturnTo = Request.RawUrl,
-                Identifiers = MenuTransformationIdentifiers
-            };
-
-            await _challengeHandler.Store(challengeViewModel);
-        }
-
-        private static HeaderViewModel BuildHeader(Core.Models.Account account)
-        {
-            return new HeaderViewModel
-            {
-                Content = new HtmlString(
-                    $@"<span class=""heading - secondary""> Account ID @({account.PublicHashedAccountId}), created @{
-                            account.DateRegistered
-                        :dd / MM / yyyy}</span>")
-            };
-        }
-
         [Route("accounts/{accountId}/teams")]
         public async Task<ActionResult> Team(string accountId)
         {
@@ -188,7 +240,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             var vm = new AccountDetailViewModel
             {
                 Account = response.Account,
-                AccountUri = $"views/employers/users/{{0}}"
+                AccountUri = $"views/employerusers/users/{{0}}"
             };
 
             MenuSelection = "Account.Teams";
@@ -199,7 +251,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return View(vm);
         }
 
-        [Route("accounts/{accountId}/transactions")]
+        [Route("accounts/{accountId}/finance/transactions")]
         public async Task<ActionResult> Finance(string accountId)
         {
             if (string.IsNullOrWhiteSpace(accountId))
@@ -250,7 +302,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             return View(vm);
         }
 
-        [Route("accounts/{accountId}/levysubmissions/{payeSchemeId}")]
+        [Route("accounts/{accountId}/finance/paye/{payeSchemeId}")]
         public async Task<ActionResult> PayeSchemeLevySubmissions(string accountId, string payeSchemeId)
         {
             if (string.IsNullOrWhiteSpace(accountId))
@@ -300,5 +352,44 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             return View(model);
         }
-    }
+    
+        protected async Task SaveChallengeDetail(string accountId, SupportAgentChallenge challenge)
+        {
+
+
+
+            string baseUrl = $"{Request.Url.Scheme}://{Request.Url.Authority}/{Request.ApplicationPath.TrimEnd('/')}/";
+
+            var challengeViewModel = new PayeSchemeChallengeViewModel
+            {
+                ChallengeId = challenge.Id,
+                Balance = "0",
+                Characters = new List<int>(),
+                EntityType = ChallengeEntityType,
+                Identity = RequestIdentity,
+                ResponseUrl = new Uri(new Uri(baseUrl), "/employers/challenges/response").OriginalString,
+                Identifier = accountId,
+                MaxTries = ChallengeService.ChallengeMaxRetries,
+                Tries = 1,
+                Challenge = "",
+                Message = "",
+                MenuType = MenuPerspective,
+                ReturnTo = Request.RawUrl,
+                Identifiers = MenuTransformationIdentifiers
+            };
+
+            await _challengeHandler.Store(challengeViewModel);
+        }
+
+        private static HeaderViewModel BuildHeader(Core.Models.Account account)
+        {
+            var prefix = $"<div>{account.DasAccountName}</div>";
+
+            var accountIdInfo  = $@"<div><span class=""heading-secondary""> Account ID {account.PublicHashedAccountId}, created {account.DateRegistered:dd/MM/yyyy}</span></div>";
+            return new HeaderViewModel
+            {
+                Content = new HtmlString($"{prefix}{accountIdInfo}" )
+            };
+        }
+}
 }

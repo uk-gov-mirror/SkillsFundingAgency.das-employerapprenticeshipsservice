@@ -36,6 +36,11 @@ namespace SFA.DAS.EAS.PaymentProvider.Worker.Providers
 
         protected override Task OnErrorAsync(IMessage<AccountTransfersProcessingCompletedMessage> message, Exception ex)
         {
+            if (message == null)
+            {
+                _logger.Debug($"Null {nameof(IMessage<AccountTransfersProcessingCompletedMessage>)} passed to {nameof(OnErrorAsync)}");
+            }
+
             _logger.Error(ex, $"Could not process account transfer processing completed message for Account Id {message.Content.AccountId} & period end {message.Content.PeriodEnd}");
             return Task.CompletedTask;
         }

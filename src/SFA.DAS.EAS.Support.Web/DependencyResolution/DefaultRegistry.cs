@@ -116,7 +116,7 @@ namespace SFA.DAS.EAS.Support.Web.DependencyResolution
             For<IMenuService>().Singleton().Use<MenuService>();
             For<IChallengeSettings>().Use(configuration.Challenge);
             For<IChallengeService>().Singleton().Use(c => new InMemoryChallengeService(new Dictionary<Guid, SupportAgentChallenge>(), c.GetInstance<IChallengeSettings>()));
-            //For<IChallengeRepository<PayeSchemeChallengeViewModel>>().Use<PayeSchemeChallengeViewModel>();
+            For<IChallengeRepository<PayeSchemeChallengeViewModel>>().Singleton().Use(x=> new PayeSchemeChallengeRepository(new Dictionary<Guid, PayeSchemeChallengeViewModel>(), x.GetInstance<IChallengeService>().ChallengeExpiryMinutes ));
 
         }
 
