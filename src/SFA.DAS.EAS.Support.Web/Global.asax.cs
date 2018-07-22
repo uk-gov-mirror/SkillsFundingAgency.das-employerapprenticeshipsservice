@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.Hosting;
@@ -38,8 +39,15 @@ namespace SFA.DAS.EAS.Support.Web
             GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenValidationHandler(siteConnectorSettings, logger));
             GlobalFilters.Filters.Add(new TokenValidationFilter(siteConnectorSettings, logger));
 
+         
             logger.Info("Web role started");
         }
+
+        private void Application_OnBeginRequest(object sender, EventArgs eventArgs)
+        {
+            Debug.WriteLine($"{Request?.RawUrl?? "No Request Found"}");
+        }
+
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
         {
             if (HttpContext.Current == null) return;
@@ -51,6 +59,7 @@ namespace SFA.DAS.EAS.Support.Web
                 }
             ).Apply(new HttpContextWrapper(HttpContext.Current), PolicyConcern.HttpResponse);
         }
+
         protected void Application_Error(object sender, EventArgs e)
         {
             var ex = Server.GetLastError().GetBaseException();

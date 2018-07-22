@@ -58,29 +58,12 @@
         ]
       },
       {
-        "Key": "Account.Commitments",
-        "Text": "Commitments",
-        "NavigateUrl": "views/commitments/accounts/{accountId}",
+        "Key": "Account.Teams",
+        "Text": "Team",
+        "NavigateUrl": "views/employers/accounts/{accountId}/teams",
         "Ordinal": 0,
         "Roles": [],
-        "MenuItems": [
-          {
-            "Key": "Account.Commitments.Apprentices",
-            "Text": "Apprentices",
-            "NavigateUrl": "views/commitments/accounts/{accountId}/apprentices",
-            "Ordinal": 0,
-            "Roles": [],
-            "MenuItems": []
-          },
-          {
-            "Key": "Account.Commitments.Payments",
-            "Text": "Payments",
-            "NavigateUrl": "views/commitments/accounts/{accountId}/payments",
-            "Ordinal": 1,
-            "Roles": [],
-            "MenuItems": []
-          }
-        ]
+        "MenuItems": []
       }
     ]
   }

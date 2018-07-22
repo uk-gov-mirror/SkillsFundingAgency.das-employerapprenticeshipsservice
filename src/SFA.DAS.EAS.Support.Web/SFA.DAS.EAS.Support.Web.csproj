@@ -235,7 +235,6 @@
     <Compile Include="Configuration\IWebConfiguration.cs" />
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ChallengesController.cs" />
     <Compile Include="Controllers\TestBaseController.cs" />
     <Compile Include="Services\PayeSchemeChallengeRepository.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -271,7 +270,7 @@
     <Content Include="Views\Account\Finance.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\PayeSchemes.cshtml" />
-    <Content Include="Views\Challenge\Index.cshtml" />
+    <Content Include="Views\Account\Challenge.cshtml" />
     <Content Include="StartUp\IIS.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
