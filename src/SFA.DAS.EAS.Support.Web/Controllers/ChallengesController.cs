@@ -5,17 +5,25 @@ using System.Web.Mvc;
 using SFA.DAS.EAS.Support.ApplicationServices;
 using SFA.DAS.EAS.Support.Infrastructure.Models;
 using SFA.DAS.EAS.Support.Web.Models;
+using SFA.DAS.Support.Shared.Authentication;
 using SFA.DAS.Support.Shared.Challenge;
+using SFA.DAS.Support.Shared.Navigation;
 
 namespace SFA.DAS.EAS.Support.Web.Controllers
 {
-    public class ChallengeController : Controller
+    public class ChallengesController : TestBaseController
     {
         private readonly IChallengeRepository<PayeSchemeChallengeViewModel> _challengeRepository;
-        private IChallengeHandler _handler;
-        public ChallengeController(
+        private readonly IChallengeHandler _handler;
+        public ChallengesController(
             IChallengeRepository<PayeSchemeChallengeViewModel> challengeRepository,
-            IChallengeHandler handler)
+            IChallengeHandler handler,
+            IMenuService menuService,
+            IMenuTemplateTransformer menuTemplateTransformer,
+            IChallengeService challengeService,
+            IChallengeRepository<PayeSchemeChallengeViewModel> challengeHandler,
+            IIdentityHandler identityHandler) :
+            base(menuService, menuTemplateTransformer, challengeService, identityHandler)
         {
             _challengeRepository = challengeRepository;
             _handler = handler;
@@ -30,6 +38,8 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             {
                 return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{challengeId}" } } });
             }
+
+            await RestoreChallengeSummary(model);
             return View("Index", model);
         }
 
@@ -39,21 +49,33 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
         {
 
             var challenge = await _challengeRepository.Retrieve(model.ChallengeId);
+
             if (challenge == null)
             {
                 return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{model.ChallengeId}" } } });
             }
-            
+
+           
             var response = await _handler.Handle(Map(model));
 
             if (response.IsValid)
             {
                 return Redirect(model.ReturnTo);
             }
-            
+
+            await RestoreChallengeSummary(challenge);
             model.Characters = response.Characters;
             model.HasError = true;
             return View("Index", model);
+        }
+
+        private async Task RestoreChallengeSummary(PayeSchemeChallengeViewModel challenge)
+        {
+
+            RequestIdentity = challenge.Identity;
+            MenuPerspective = challenge.MenuType;
+            MenuSelection = challenge.MenuSelection;
+            MenuTransformationIdentifiers = challenge.Identifiers;
         }
 
         private ChallengePermissionQuery Map(PayeSchemeChallengeViewModel model)

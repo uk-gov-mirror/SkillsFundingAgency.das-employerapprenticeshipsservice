@@ -10,6 +10,7 @@ using SFA.DAS.EAS.Support.Web.Controllers;
 using SFA.DAS.EAS.Support.Web.Models;
 using SFA.DAS.EAS.Support.Web.Services;
 using SFA.DAS.Support.Shared.Challenge;
+using SFA.DAS.Support.Shared.Controllers;
 
 
 namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
@@ -22,7 +23,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
         protected Mock<HttpResponseBase> MockResponseBase;
         protected Mock<IPrincipal> MockUser;
         protected RouteData RouteData;
-        protected ChallengeController Unit;
+        protected ChallengesController Unit;
         protected ControllerContext UnitControllerContext;
 
 
@@ -36,7 +37,7 @@ namespace SFA.DAS.EAS.Support.Web.Tests.Controllers.Challenge
             MockChallengeHandler = new Mock<IChallengeHandler>();
             MockChallengeRepository = new Mock<IChallengeRepository<PayeSchemeChallengeViewModel>>();
 
-            Unit = new ChallengeController(MockChallengeRepository.Object, MockChallengeHandler.Object);
+            Unit = new ChallengesController(MockChallengeRepository.Object, MockChallengeHandler.Object);
 
             RouteData = new RouteData();
             MockContextBase = new Mock<HttpContextBase>();
