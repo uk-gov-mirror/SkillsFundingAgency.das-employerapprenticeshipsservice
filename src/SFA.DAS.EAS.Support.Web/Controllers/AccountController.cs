@@ -75,14 +75,14 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             var vm = new AccountDetailViewModel
             {
                 Account = response.Account,
-                AccountUri = $"views/employerusers/users/{{0}}"
+                AccountUri = $"views/{SupportServiceIdentity.SupportEmployerUser.ToRoutePrefix()}/users/{{0}}"
             };
 
 
             MenuSelection = "Account.Organisations";
             ViewBag.Header = BuildHeader(response.Account);
             MenuTransformationIdentifiers =
-                new Dictionary<string, string> { { "accountId", $"{response.Account.AccountId}" } };
+                new Dictionary<string, string> { { "accountId", $"{accountId}" } };
 
             return View(vm);
         }
@@ -131,7 +131,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             var vm = new AccountDetailViewModel
             {
                 Account = response.Account,
-                AccountUri = $"views/employer/users/{{0}}"
+                AccountUri = $"views/{SupportServiceIdentity.SupportEmployerUser.ToRoutePrefix()}/users/{{0}}"
             };
             ViewBag.Header = BuildHeader(response.Account);
 
@@ -155,13 +155,13 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             var vm = new AccountDetailViewModel
             {
                 Account = response.Account,
-                AccountUri = $"views/employerusers/users/{{0}}"
+                AccountUri = $"views/{SupportServiceIdentity.SupportEmployerUser.ToRoutePrefix()}/users/{{0}}"
             };
 
             MenuSelection = "Account.Teams";
             ViewBag.Header = BuildHeader(response.Account);
             MenuTransformationIdentifiers =
-                new Dictionary<string, string> { { "accountId", $"{response.Account.AccountId}" } };
+                new Dictionary<string, string> { { "accountId", $"{accountId}" } };
 
             return View(vm);
         }
@@ -213,7 +213,7 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
 
             ViewBag.Header = BuildHeader(response.Account);
             MenuTransformationIdentifiers =
-                new Dictionary<string, string> { { "accountId", $"{response.Account.AccountId}" } };
+                new Dictionary<string, string> { { "accountId", $"{accountId}" } };
 
             return View(vm);
         }
@@ -278,6 +278,9 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
                 return View("_notFound", new { Identifiers = new Dictionary<string, string>() { { "Challenge Id", $"{challengeId}" } } });
             }
 
+            var response = await _accountHandler.FindOrganisations(model.Identifier);
+
+            ViewBag.Header = BuildHeader(response.Account);
             RestoreChallengeSummary(model);
             return View("Challenge", model);
         }
@@ -300,10 +303,14 @@ namespace SFA.DAS.EAS.Support.Web.Controllers
             {
                 return Redirect(model.ReturnTo);
             }
-
-            RestoreChallengeSummary(challenge);
             model.Characters = response.Characters;
             model.HasError = true;
+
+            var accountDetailOrganisationsResponse = await _accountHandler.FindOrganisations(model.Identifier);
+
+            ViewBag.Header = BuildHeader(accountDetailOrganisationsResponse.Account);
+            RestoreChallengeSummary(challenge);
+
             return View("Challenge", model);
         }
 
