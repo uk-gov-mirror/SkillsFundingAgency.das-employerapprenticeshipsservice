@@ -18,6 +18,12 @@ namespace SFA.DAS.EAS.Infrastructure.NServiceBus
                     typeof(ImportLevyDeclarationsCommand).Assembly,
                     typeof(ImportLevyDeclarationsCommand).Namespace,
                     "SFA.DAS.EmployerFinance.MessageHandlers");
+
+                r.RouteToEndpoint(
+                    typeof(ImportAccountLevyDeclarationsCommand).Assembly,
+                    typeof(ImportAccountLevyDeclarationsCommand).Namespace,
+                    "SFA.DAS.EmployerFinance.MessageHandlers");
+                
             });
 
             return config;

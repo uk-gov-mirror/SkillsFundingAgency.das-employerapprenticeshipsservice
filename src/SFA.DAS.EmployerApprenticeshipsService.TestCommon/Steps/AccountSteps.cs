@@ -13,7 +13,7 @@ using TechTalk.SpecFlow;
 namespace SFA.DAS.EAS.TestCommon.Steps
 {
     [Binding]
-    public class AccountSteps
+    public class AccountSteps : TechTalk.SpecFlow.Steps
     {
         private readonly IObjectContainer _objectContainer;
         private readonly ObjectContext _objectContext;
@@ -82,18 +82,6 @@ namespace SFA.DAS.EAS.TestCommon.Steps
             });
 
             await db.SaveChangesAsync();
-
-
-            //var account = user.CreateAccount(
-            //    accountName,
-            //    legalEntityCode,
-            //    legalEntityName,
-            //    legalEntityDateOfIncorporation,
-            //    legalEntityRegisteredAddress,
-            //    legalEntityStatus,
-            //    legalEntityAgreementTemplate,
-            //    payeReference);
-
 
             _objectContext.Accounts.Add(accountName, account);
 

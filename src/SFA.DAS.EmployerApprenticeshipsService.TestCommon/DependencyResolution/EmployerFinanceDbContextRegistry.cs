@@ -8,7 +8,7 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
     {
         public EmployerFinanceDbContextRegistry()
         { 
-            For<EmployerFinanceDbContext>().Use(c => new EmployerFinanceDbContext(c.GetInstance<EmployerApprenticeshipsServiceConfiguration>().DatabaseConnectionString));
+            For<EmployerFinanceDbContext>().Use(c => new EmployerFinanceDbContext(c.GetInstance<LevyDeclarationProviderConfiguration>().DatabaseConnectionString));
         }
     }
 }
