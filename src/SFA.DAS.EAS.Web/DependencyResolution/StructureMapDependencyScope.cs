@@ -1,10 +1,10 @@
+using Microsoft.Practices.ServiceLocation;
+using NLog;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Microsoft.Practices.ServiceLocation;
-using NLog;
-using StructureMap;
 
 namespace SFA.DAS.EAS.Web.DependencyResolution
 {
@@ -16,7 +16,8 @@ namespace SFA.DAS.EAS.Web.DependencyResolution
         private const string NestedContainerKey = "Nested.Container.Key";
         private bool _hasNestedContainer = false;
 
-        public IContainer CurrentNestedContainer {
+        public IContainer CurrentNestedContainer
+        {
             get
             {
                 return (IContainer)HttpContext.Items[NestedContainerKey];
@@ -68,8 +69,8 @@ namespace SFA.DAS.EAS.Web.DependencyResolution
         {
             if (_hasNestedContainer)
             {
-                CurrentNestedContainer.Dispose();
-				CurrentNestedContainer = null;
+                CurrentNestedContainer?.Dispose();
+                CurrentNestedContainer = null;
             }
         }
 
