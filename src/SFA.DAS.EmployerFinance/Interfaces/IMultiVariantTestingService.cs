@@ -1,7 +1,7 @@
-﻿using SFA.DAS.EmployerAccounts.Models.UserView;
+﻿using SFA.DAS.EmployerFinance.Models.UserView;
 using System.Collections.Generic;
 
-namespace SFA.DAS.EmployerAccounts.Interfaces
+namespace SFA.DAS.EmployerFinance.Interfaces
 {
     public interface IMultiVariantTestingService
     {

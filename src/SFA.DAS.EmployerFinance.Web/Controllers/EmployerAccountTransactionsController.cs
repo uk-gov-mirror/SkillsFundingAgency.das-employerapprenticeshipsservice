@@ -1,5 +1,8 @@
-﻿using SFA.DAS.EmployerFinance.Queries.GetTransferTransactionDetails;
+﻿using SFA.DAS.Authentication;
+using SFA.DAS.EmployerFinance.Interfaces;
+using SFA.DAS.EmployerFinance.Queries.GetTransferTransactionDetails;
 using SFA.DAS.EmployerFinance.Web.Extensions;
+using SFA.DAS.EmployerFinance.Web.ViewModels;
 using System;
 using System.Web.Mvc;
 
@@ -7,8 +10,12 @@ namespace SFA.DAS.EmployerFinance.Web.Controllers
 {
     [Authorize]
     [RoutePrefix("accounts/{HashedAccountId}")]
-    public class EmployerAccountTransactionsController : Controller
+    public class EmployerAccountTransactionsController : BaseController
     {
+        public EmployerAccountTransactionsController(IAuthenticationService owinWrapper, IMultiVariantTestingService multiVariantTestingService, ICookieStorageService<FlashMessageViewModel> flashMessage)
+        : base(owinWrapper, multiVariantTestingService, flashMessage)
+        { }
+
         [Route("finance")]
         [Route("balance")]
         public ActionResult Index(string hashedAccountId)

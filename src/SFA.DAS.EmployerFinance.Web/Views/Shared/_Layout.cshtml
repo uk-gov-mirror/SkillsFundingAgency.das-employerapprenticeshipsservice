@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SFA.DAS.EmployerFinance.Web.Models
+<!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html lang="en">
@@ -34,16 +35,39 @@
     <!--[if gt IE 8]><!-->
     <link href="@Styles.Url("~/bundles/screen")" media="all" rel="stylesheet" />
     <!--<![endif]-->
+    
+    @Html.Partial("GoogleAnalyticsInfo")
+    
+    <!-- This is from individual pages -->
+    @RenderSection("gaDataLayer", required: false)
+    
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            @Html.Raw(GoogleAnalyticsModel.Instance.GoogleHeaderUrl);f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KWQBWGJ');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - DAS Employer Finance</p>
-        </footer>
-    </div>
-    @Scripts.Render("~/bundles/sfajs")
-    @RenderSection("scripts", required: false)
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="@Html.Raw(GoogleAnalyticsModel.Instance.GoogleBodyUrl)"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - DAS Employer Finance</p>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/sfajs")
+@RenderSection("scripts", required: false)
 </body>
 </html>

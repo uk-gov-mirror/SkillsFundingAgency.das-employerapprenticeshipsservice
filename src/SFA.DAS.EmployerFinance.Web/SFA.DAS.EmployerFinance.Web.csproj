@@ -95,6 +95,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Authentication\IdentityServerConfigurationFactory.cs" />
     <Compile Include="Authentication\OwinAuthenticationService.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployerAccountTransactionsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="Filters\GoogleAnalyticsFilter.cs" />
     <Compile Include="Filters\HandleErrorFilter.cs" />
     <Compile Include="Filters\UnitOfWorkManagerFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -112,9 +114,12 @@
     <Compile Include="Helpers\ControllerConstants.cs" />
     <Compile Include="Logging\LoggingConfig.cs" />
     <Compile Include="Logging\LoggingContext.cs" />
+    <Compile Include="Models\GoogleAnalyticsModel.cs" />
     <Compile Include="Orchestrators\AuthenticationOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FlashMessageViewModel.cs" />
+    <Compile Include="ViewModels\OrchestratorResponse.cs" />
     <Compile Include="ViewModels\SystemDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserLinksViewModel.cs" />
   </ItemGroup>
@@ -217,6 +222,7 @@
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\GoogleAnalyticsInfo.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
