@@ -177,7 +177,7 @@ namespace SFA.DAS.EmployerFinance.Commands.RefreshEmployerLevyData
                 // Caution: the calculation here is incorrect (it should be the other way round). This results in negative values in LevyDeclaration EndOfYearAdjustmentAmount.
                 // However, do not fix this as somewhere later (probably in a view or sproc) the EndOfYearAdjustmentAmount is being inverted when writing to the transaction line table.
                 yearEndAdjustment.EndOfYearAdjustmentAmount =
-                    period12Declaration.LevyDueYtd.Value - yearEndAdjustment.LevyDueYtd ?? 0;
+                    period12Declaration.LevyDueYtd.Value - yearEndAdjustment.LevyDueYtd ?? (decimal)-yearEndAdjustment.LevyDueYtd;
             }
             else
             {
