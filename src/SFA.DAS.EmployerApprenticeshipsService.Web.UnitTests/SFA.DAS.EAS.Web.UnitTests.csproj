@@ -147,11 +147,11 @@
     <Reference Include="Polly, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.5.7.0\lib\net45\Polly.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Activities, Version=1.2.39.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Activities.Client.1.2.39\lib\net45\SFA.DAS.Activities.dll</HintPath>
+    <Reference Include="SFA.DAS.Activities, Version=1.2.56.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Activities.Client.1.2.56\lib\net45\SFA.DAS.Activities.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Activities.Client, Version=1.2.39.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Activities.Client.1.2.39\lib\net45\SFA.DAS.Activities.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Activities.Client, Version=1.2.56.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Activities.Client.1.2.56\lib\net45\SFA.DAS.Activities.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.1.151.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.1.151\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
@@ -279,7 +279,6 @@
     <Compile Include="Controllers\BaseControllerTests\WhenStoringFlashMessages.cs" />
     <Compile Include="Controllers\ControllerTestBase.cs" />
     <Compile Include="Controllers\EmployerAccountControllerTests\WhenIManageMyNotificationSettings.cs" />
-    <Compile Include="Controllers\EmployerAccountControllerTests\WhenIRenameAnAccount.cs" />
     <Compile Include="Controllers\EmployerAccountControllerTests\WhenICreateAnAccount.cs" />
     <Compile Include="Controllers\EmployerAccountControllerTests\WhenIHaveSelectedAnEmployer.cs" />
     <Compile Include="Controllers\EmployerAccountControllerTests\WhenISearchForAnEmployer.cs" />
@@ -287,9 +286,6 @@
     <Compile Include="Controllers\EmployerAccountControllerTests\WhenISubmitMyDetails.cs" />
     <Compile Include="Controllers\EmployerAccountPayeControllerTests\WhenIAddAPayeScheme.cs" />
     <Compile Include="Controllers\EmployerAccountPayeControllerTests\WhenIRemoveAPayeScheme.cs" />
-    <Compile Include="Controllers\EmployerAccountTransactionsControllerTests\WhenIDownloadTransactionsByDate.cs" />
-    <Compile Include="Controllers\EmployerAccountTransactionsControllerTests\WhenIViewFinanceDashboard.cs" />
-    <Compile Include="Controllers\EmployerAccountTransactionsControllerTests\WhenIViewTranferTransactions.cs" />
     <Compile Include="Controllers\EmployerAgreementControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests\WhenIHandleNewRegistration.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenIConfirmAddOfOrganisation.cs" />
@@ -310,7 +306,6 @@
     <Compile Include="Mappings\WhenAutoMapping.cs" />
     <Compile Include="Models\DateTimeViewModelTests.cs" />
     <Compile Include="Orchestrators\EmployerAccountOrchestratorTests\WhenCreatingTheAccount.cs" />
-    <Compile Include="Orchestrators\EmployerAccountOrchestratorTests\WhenRenamingAnAccount.cs" />
     <Compile Include="Orchestrators\EmployerAccountOrchestratorTests\WhenManagingUserSettings.cs" />
     <Compile Include="Orchestrators\EmployerAccountOrchestratorTests\WhenSearchingForACompany.cs" />
     <Compile Include="Orchestrators\EmployerAccountPayeOrchestratorTests\WhenAddingAPayeScheme.cs" />
@@ -318,8 +313,6 @@
     <Compile Include="Orchestrators\EmployerAccountPayeOrchestratorTests\WhenGettingTheNextStepsDetails.cs" />
     <Compile Include="Orchestrators\EmployerAccountPayeOrchestratorTests\WhenIGetPayeEnglishFractionHistory.cs" />
     <Compile Include="Orchestrators\EmployerAccountPayeOrchestratorTests\WhenRemovingAPayeScheme.cs" />
-    <Compile Include="Orchestrators\EmployerAccountTransactionOrchestratorTests\WhenIGetAccountTransactions.cs" />
-    <Compile Include="Orchestrators\EmployerAccountTransactionOrchestratorTests\WhenIGetTransactionDashboardDetails.cs" />
     <Compile Include="Orchestrators\EmployerAgreementOrchestratorTests\WhenIGetTheConfirmRemoveAgreementModel.cs" />
     <Compile Include="Orchestrators\EmployerAgreementOrchestratorTests\WhenIGetThePdfAgreement.cs" />
     <Compile Include="Orchestrators\EmployerAgreementOrchestratorTests\WhenIGetAListOfAgreementsToRemove.cs" />
@@ -327,6 +320,7 @@
     <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenIAddAnOrganisationAddress.cs" />
     <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenICreateALegalEntity.cs" />
     <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenICreateALegalEntityOfOtherType.cs" />
+    <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenICreateALegalEntityWhenNotOwner.cs" />
     <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenISearchForACharity.cs" />
     <Compile Include="Orchestrators\OrganisationOrchestratorTests\WhenISearchForALegalEntity.cs" />
     <Compile Include="Orchestrators\HmrcOrchestratorTests\WhenCallingHmrcService.cs" />

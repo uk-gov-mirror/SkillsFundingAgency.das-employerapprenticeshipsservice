@@ -10,7 +10,9 @@ using SFA.DAS.Sql.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
+using SFA.DAS.EmployerFinance.Services;
 
 namespace SFA.DAS.EmployerFinance.Data
 {
@@ -26,32 +28,41 @@ namespace SFA.DAS.EmployerFinance.Data
             _db = db;
         }
 
-        public Task CreateTransferTransactions(IEnumerable<TransferTransactionLine> transactions)
+        public async Task CreateTransferTransactions(IEnumerable<TransferTransactionLine> transactions)
         {
             var transactionTable = CreateTransferTransactionDataTable(transactions);
             var parameters = new DynamicParameters();
 
             parameters.Add("@transferTransactions", transactionTable.AsTableValuedParameter("[employer_financial].[TransferTransactionsTable]"));
 
-            return _db.Value.Database.Connection.ExecuteAsync(
+            await _db.Value.Database.Connection.ExecuteAsync(
                 sql: "[employer_financial].[CreateAccountTransferTransactions]",
                 param: parameters,
                 transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
                 commandType: CommandType.StoredProcedure);
         }
 
-        public Task<int> GetPreviousTransactionsCount(long accountId, DateTime fromDate)
+        public async Task<int> GetPreviousTransactionsCount(long accountId, DateTime fromDate)
         {
             var parameters = new DynamicParameters();
 
             parameters.Add("@accountId", accountId, DbType.Int64);
             parameters.Add("@fromDate", new DateTime(fromDate.Year, fromDate.Month, fromDate.Day), DbType.DateTime);
 
-            return _db.Value.Database.Connection.ExecuteScalarAsync<int>(
-                sql: "[employer_financial].[GetPreviousTransactionsCount]",
-                param: parameters,
-                transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
-                commandType: CommandType.StoredProcedure);
+            try
+            {
+                return await  _db.Value.Database.Connection.ExecuteScalarAsync<int>(
+                    sql: "[employer_financial].[GetPreviousTransactionsCount]",
+                    param: parameters,
+                    transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
+                    commandType: CommandType.StoredProcedure);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<List<TransactionLine>> GetAccountTransactionsByDateRange(long accountId, DateTime fromDate, DateTime toDate)
@@ -195,7 +206,7 @@ namespace SFA.DAS.EmployerFinance.Data
         }
 		
 
-        public Task<string> GetProviderName(long ukprn, long accountId, string periodEnd)
+        public async Task<string> GetProviderName(long ukprn, long accountId, string periodEnd)
         {
             var parameters = new DynamicParameters();
 
@@ -203,12 +214,39 @@ namespace SFA.DAS.EmployerFinance.Data
             parameters.Add("@accountId", accountId, DbType.Int64);
             parameters.Add("@periodEnd", periodEnd, DbType.String);
 
-            return _db.Value.Database.Connection.ExecuteScalarAsync<string>(
+            return await _db.Value.Database.Connection.ExecuteScalarAsync<string>(
                 sql: "[employer_financial].[GetProviderName]",
                 param: parameters,
                 transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
                 commandType: CommandType.StoredProcedure);
             
+        }
+        public async Task<List<TransactionDownloadLine>> GetAllTransactionDetailsForAccountByDate(long accountId, DateTime fromDate, DateTime toDate)
+        {
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@AccountId", accountId, DbType.Int64);
+            parameters.Add("@fromDate", fromDate, DbType.DateTime);
+            parameters.Add("@toDate", toDate, DbType.DateTime);
+
+            var result = await _db.Value.Database.Connection.QueryAsync<TransactionDownloadLine>(
+                sql: "[employer_financial].[GetAllTransactionDetailsForAccountByDate]",
+                param: parameters,
+                transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
+                commandType: CommandType.StoredProcedure);
+
+            var hmrcDateService = new HmrcDateService();
+            var transactionDownloadLines = result as TransactionDownloadLine[] ?? result.ToArray();
+
+            foreach (var res in transactionDownloadLines)
+            {
+                if (!string.IsNullOrEmpty(res.PayrollYear) && res.PayrollMonth != 0)
+                {
+                    res.PeriodEnd = hmrcDateService.GetDateFromPayrollYearMonth(res.PayrollYear, res.PayrollMonth).ToString("MMM yyyy");
+                }
+            }
+
+            return transactionDownloadLines.OrderByDescending(txn => txn.DateCreated).ToList();
         }
     }
 }

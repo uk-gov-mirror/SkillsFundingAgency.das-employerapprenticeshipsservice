@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using SFA.DAS.Authentication;
 using SFA.DAS.Authorization;
 using SFA.DAS.Common.Domain.Types;
@@ -13,6 +8,11 @@ using SFA.DAS.EAS.Web.Orchestrators;
 using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.EAS.Web.ViewModels.Organisation;
 using SFA.DAS.NLog.Logger;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace SFA.DAS.EAS.Web.Controllers
 {
@@ -25,14 +25,14 @@ namespace SFA.DAS.EAS.Web.Controllers
         private readonly ILog _logger;
 
         public OrganisationController(
-            IAuthenticationService owinWrapper, 
+            IAuthenticationService owinWrapper,
             OrganisationOrchestrator orchestrator,
             IAuthorizationService authorization,
             IMultiVariantTestingService multiVariantTestingService,
             IMapper mapper,
             ILog logger,
-            ICookieStorageService<FlashMessageViewModel> flashMessage) 
-            :base(owinWrapper, multiVariantTestingService, flashMessage)
+            ICookieStorageService<FlashMessageViewModel> flashMessage)
+            : base(owinWrapper, multiVariantTestingService, flashMessage)
         {
             _orchestrator = orchestrator;
             _mapper = mapper;
@@ -52,7 +52,7 @@ namespace SFA.DAS.EAS.Web.Controllers
 
             return View(viewModel);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("confirm")]
@@ -75,7 +75,7 @@ namespace SFA.DAS.EAS.Web.Controllers
             };
 
             var response = await _orchestrator.CreateLegalEntity(request);
-            
+
             var flashMessage = new FlashMessageViewModel
             {
                 HiddenFlashMessageInformation = "page-organisations-added",
@@ -85,18 +85,32 @@ namespace SFA.DAS.EAS.Web.Controllers
             AddFlashMessageToCookie(flashMessage);
             if (newSearch)
             {
-                return RedirectToAction(ControllerConstants.OrganisationAddedNextStepsSearchActionName, new { hashedAccountId, organisationName = name, hashedAgreementId = response.Data.EmployerAgreement.HashedAgreementId });
+                return RedirectToAction(ControllerConstants.OrganisationAddedNextStepsSearchActionName,
+                    new
+                    {
+                        hashedAccountId,
+                        organisationName = name,
+                        hashedAgreementId = response.Data.EmployerAgreement.HashedAgreementId
+                    });
             }
-            return RedirectToAction(ControllerConstants.OrganisationAddedNextStepsActionName, new { hashedAccountId, organisationName = name });
+
+            return RedirectToAction(ControllerConstants.OrganisationAddedNextStepsActionName,
+                new
+                {
+                    hashedAccountId,
+                    organisationName = name,
+                    hashedAgreementId = response.Data.EmployerAgreement.HashedAgreementId
+                });
+
         }
 
         [HttpGet]
         [Route("nextStep")]
-        public async Task<ActionResult> OrganisationAddedNextSteps(string organisationName, string hashedAccountId)
+        public async Task<ActionResult> OrganisationAddedNextSteps(string organisationName, string hashedAccountId, string hashedAgreementId)
         {
             var userId = OwinWrapper.GetClaimValue(ControllerConstants.UserRefClaimKeyName);
 
-            var viewModel = await _orchestrator.GetOrganisationAddedNextStepViewModel(organisationName, userId, hashedAccountId);
+            var viewModel = await _orchestrator.GetOrganisationAddedNextStepViewModel(organisationName, userId, hashedAccountId, hashedAgreementId);
 
             viewModel.FlashMessage = GetFlashMessageViewModelFromCookie();
 
@@ -139,7 +153,7 @@ namespace SFA.DAS.EAS.Web.Controllers
                     var errorMessage = "Please select one of the next steps below";
                     return View(ControllerConstants.OrganisationAddedNextStepsViewName, new OrchestratorResponse<OrganisationAddedNextStepsViewModel>
                     {
-                        Data = new OrganisationAddedNextStepsViewModel { ErrorMessage = errorMessage, OrganisationName = organisationName, ShowWizard = userShownWizard, HashedAgreementId = hashedAgreementId},
+                        Data = new OrganisationAddedNextStepsViewModel { ErrorMessage = errorMessage, OrganisationName = organisationName, ShowWizard = userShownWizard, HashedAgreementId = hashedAgreementId },
                         FlashMessage = new FlashMessageViewModel
                         {
                             Headline = "Invalid next step chosen",
@@ -157,7 +171,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         {
             var viewModel = await _orchestrator.GetRefreshedOrganisationDetails(accountLegalEntityPublicHashedId);
 
-            if((viewModel.Data.UpdatesAvailable & OrganisationUpdatesAvailable.Any) != 0)
+            if ((viewModel.Data.UpdatesAvailable & OrganisationUpdatesAvailable.Any) != 0)
             {
                 return View(viewModel);
             }
@@ -170,7 +184,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         public async Task<ActionResult> ProcessReviewSelection(
             string updateChoice,
             string hashedAccountId,
-            string accountLegalEntityPublicHashedId, 
+            string accountLegalEntityPublicHashedId,
             string organisationName,
             string organisationAddress,
             string dataSourceFriendlyName)
@@ -179,14 +193,14 @@ namespace SFA.DAS.EAS.Web.Controllers
             {
                 case "update":
                     var response = await _orchestrator.UpdateOrganisation(
-                        accountLegalEntityPublicHashedId, 
+                        accountLegalEntityPublicHashedId,
                         organisationName,
                         organisationAddress);
 
                     return View(ControllerConstants.OrganisationUpdatedNextStepsActionName, response);
 
                 case "incorrectDetails":
-                    return View("ReviewIncorrectDetails", new IncorrectOrganisationDetailsViewModel {DataSourceFriendlyName = dataSourceFriendlyName});
+                    return View("ReviewIncorrectDetails", new IncorrectOrganisationDetailsViewModel { DataSourceFriendlyName = dataSourceFriendlyName });
 
             }
 
@@ -204,14 +218,14 @@ namespace SFA.DAS.EAS.Web.Controllers
 
                 case "homepage":
                     return RedirectToAction("Index", "Home");
-                
+
                 default:
                     var errorMessage = "Please select one of the next steps below";
 
                     return View(ControllerConstants.OrganisationUpdatedNextStepsActionName,
                         new OrchestratorResponse<OrganisationUpdatedNextStepsViewModel>
                         {
-                            Data = new OrganisationUpdatedNextStepsViewModel {ErrorMessage = errorMessage, HashedAccountId = hashedAccountId},
+                            Data = new OrganisationUpdatedNextStepsViewModel { ErrorMessage = errorMessage, HashedAccountId = hashedAccountId },
                             FlashMessage = new FlashMessageViewModel
                             {
                                 Headline = "Invalid next step chosen",
