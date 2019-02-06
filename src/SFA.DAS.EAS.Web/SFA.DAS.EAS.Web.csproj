@@ -504,15 +504,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Binders\TrimStringModelBinder.cs" />
-    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
-    <Compile Include="Extensions\TransferRequestDtoExtensions.cs" />
-    <Compile Include="Extensions\TransferConnectionInvitationDtoExtensions.cs" />
-    <Compile Include="Mappings\AgreementMappings.cs" />
     <Compile Include="Mappings\ActivityMappings.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authentication\IdentityServerConfigurationFactory.cs" />
@@ -526,13 +522,9 @@
     <Compile Include="Controllers\TransferConnectionInvitationsController.cs" />
     <Compile Include="Controllers\TransfersController.cs" />
     <Compile Include="Extensions\DynamicExtentions.cs" />
-    <Compile Include="Extensions\OrchestratorExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Filters\GoogleAnalyticsFilter.cs" />
-    <Compile Include="Helpers\AccountLegalEntitiesHelper.cs" />
-    <Compile Include="Helpers\AccountTaskHelper.cs" />
     <Compile Include="Helpers\ControllerConstants.cs" />
-    <Compile Include="Mappings\TransferMappings.cs" />
     <Compile Include="Orchestrators\IOrchestratorCookie.cs" />
     <Compile Include="Orchestrators\TaskOrchestrator.cs" />
     <Compile Include="ViewModels\Activities\ActivitiesViewModel.cs" />
@@ -567,7 +559,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappings\OrganisationMappings.cs" />
     <Compile Include="ViewModels\AccountDashboardViewModel.cs" />
     <Compile Include="ViewModels\LegalEntitySignedAgreementViewModel.cs" />
     <Compile Include="ViewModels\InvalidStateViewModel.cs" />
@@ -577,7 +568,6 @@
     <Compile Include="ViewModels\AcknowledgementViewModel.cs" />
     <Compile Include="ViewModels\Organisation\AddLegalEntityViewModel.cs" />
     <Compile Include="ViewModels\Organisation\AddOrganisationAddressViewModel.cs" />
-    <Compile Include="Models\ApprenticeshipPaymentGroup.cs" />
     <Compile Include="ViewModels\BeginNewPayeSchemeViewModel.cs" />
     <Compile Include="ViewModels\Organisation\AddressViewModel.cs" />
     <Compile Include="ViewModels\Organisation\FindOrganisationAddressViewModel.cs" />
@@ -612,13 +602,10 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\UserInvitationsViewModel.cs" />
     <Compile Include="OrchestratorResponse.cs" />
-    <Compile Include="Orchestrators\AuthenticationOrchestrator.cs" />
-    <Compile Include="Orchestrators\EmployerVerificationOrchestratorBase.cs" />
     <Compile Include="Orchestrators\HomeOrchestrator.cs" />
     <Compile Include="Orchestrators\IOrchestrator.cs" />
     <Compile Include="ViewModels\UserAccountsViewModel.cs" />
     <Compile Include="ViewModels\TransactionLineViewModel.cs" />
-    <Compile Include="Orchestrators\UserVerificationOrchestratorBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validation\AddLegalEntityViewModelValidator.cs" />
@@ -1062,7 +1049,9 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

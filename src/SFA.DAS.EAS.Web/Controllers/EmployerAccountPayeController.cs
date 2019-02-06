@@ -12,9 +12,8 @@ namespace SFA.DAS.EAS.Web.Controllers
     {
         public EmployerAccountPayeController(
             IAuthenticationService owinWrapper, 
-            IMultiVariantTestingService multiVariantTestingService, 
             ICookieStorageService<FlashMessageViewModel> flashMessage) 
-            : base(owinWrapper, multiVariantTestingService, flashMessage)
+            : base(owinWrapper, flashMessage)
         {
         }
 

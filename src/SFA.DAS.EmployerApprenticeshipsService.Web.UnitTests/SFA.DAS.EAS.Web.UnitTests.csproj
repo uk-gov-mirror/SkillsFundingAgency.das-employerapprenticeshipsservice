@@ -278,11 +278,8 @@
     <Compile Include="Controllers\BaseControllerTests\WhenReturningView.cs" />
     <Compile Include="Controllers\BaseControllerTests\WhenStoringFlashMessages.cs" />
     <Compile Include="Controllers\ControllerTestBase.cs" />
-    <Compile Include="Helpers\AccountTaskHelperTests\WhenIGetAPriority.cs" />
     <Compile Include="Mappings\WhenAutoMapping.cs" />
     <Compile Include="Models\DateTimeViewModelTests.cs" />
-    <Compile Include="Orchestrators\HomeOrchestratorTests\WhenGettingAllUsers.cs" />
-    <Compile Include="Orchestrators\HomeOrchestratorTests\WhenGettingUserAccounts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\WhenValidatingAddLegalEntityViewModel.cs" />
   </ItemGroup>
@@ -330,6 +327,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Helpers\" />
     <Folder Include="Orchestrators\TaskOrchestratorTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

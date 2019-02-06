@@ -18,7 +18,7 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
     public class DefaultRegistry : Registry
     {
 
-        public DefaultRegistry(Mock<IAuthenticationService> owinWrapperMock, Mock<ICookieStorageService<EmployerAccountData>> cookieServiceMock, Mock<IEventsApi> eventApi, Mock<IEmployerCommitmentApi> commitmentsApi, Mock<IMessagePublisher> messagePublisher)
+        public DefaultRegistry(Mock<IAuthenticationService> owinWrapperMock, Mock<IEventsApi> eventApi, Mock<IEmployerCommitmentApi> commitmentsApi, Mock<IMessagePublisher> messagePublisher)
         {
             Scan(s =>
             {
@@ -29,7 +29,6 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
 
             For<IAuditApiClient>().Use<StubAuditApiClient>();
             For<IAuthenticationService>().Use(owinWrapperMock.Object);
-            For<ICookieStorageService<EmployerAccountData>>().Use(cookieServiceMock.Object);
             For<IEmployerCommitmentApi>().Use(commitmentsApi.Object);
             For<IEventsApi>().Use(() => eventApi.Object);
             For<IHashingService>().Use(new HashingService.HashingService("12345QWERTYUIOPNDGHAK", "TEST: Dummy hash code London is a city in UK"));

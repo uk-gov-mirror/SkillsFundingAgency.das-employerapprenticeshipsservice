@@ -10,7 +10,6 @@ namespace SFA.DAS.EAS.Application.DependencyResolution
     {
         public ServicesRegistry()
         {
-            For<IAddressLookupService>().Use<AddressLookupService>();
             For<IRestClientFactory>().Use<RestClientFactory>();
             For<IRestServiceFactory>().Use<RestServiceFactory>();
         }

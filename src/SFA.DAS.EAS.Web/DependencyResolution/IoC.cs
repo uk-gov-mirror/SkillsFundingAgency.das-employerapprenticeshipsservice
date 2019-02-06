@@ -15,15 +15,10 @@ namespace SFA.DAS.EAS.Web.DependencyResolution
             return new Container(c =>
             {
                 c.AddRegistry<ActivitiesClientRegistry>();
-                c.AddRegistry<ApprenticeshipLevyRegistry>();
                 c.AddRegistry<AuditRegistry>();
-                c.AddRegistry<AuthorizationRegistry>();
                 c.AddRegistry<CachesRegistry>();
-                c.AddRegistry<CommitmentsRegistry>();
                 c.AddRegistry<ConfigurationRegistry>();
-                c.AddRegistry<DataRegistry>();
                 c.AddRegistry<DateTimeRegistry>();
-                c.AddRegistry<EntityFrameworkUnitOfWorkRegistry<EmployerAccountsDbContext>>();
                 c.AddRegistry<EventsRegistry>();
                 c.AddRegistry<ExecutionPoliciesRegistry>();
                 c.AddRegistry<HashingRegistry>();
@@ -34,11 +29,8 @@ namespace SFA.DAS.EAS.Web.DependencyResolution
                 c.AddRegistry<NotificationsRegistry>();
                 c.AddRegistry<NServiceBusClientUnitOfWorkRegistry>();
                 c.AddRegistry<NServiceBusUnitOfWorkRegistry>();
-                c.AddRegistry<ReferenceDataRegistry>();
-                c.AddRegistry<RepositoriesRegistry>();
                 c.AddRegistry<ServicesRegistry>();
                 c.AddRegistry<TasksRegistry>();
-                c.AddRegistry<TokenServiceRegistry>();
                 c.AddRegistry<ValidationRegistry>();
                 c.AddRegistry<DefaultRegistry>();
             });
