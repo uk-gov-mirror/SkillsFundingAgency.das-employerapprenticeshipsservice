@@ -10,9 +10,8 @@ namespace SFA.DAS.EAS.Web.Controllers
     public class OrganisationSharedController : BaseController
     {
         public OrganisationSharedController(IAuthenticationService owinWrapper,
-            IMultiVariantTestingService multiVariantTestingService,
             ICookieStorageService<FlashMessageViewModel> flashMessage)
-            : base(owinWrapper, multiVariantTestingService, flashMessage)
+            : base(owinWrapper, flashMessage)
 
         {
         }

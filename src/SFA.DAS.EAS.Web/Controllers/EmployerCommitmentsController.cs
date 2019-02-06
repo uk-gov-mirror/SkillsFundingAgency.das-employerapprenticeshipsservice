@@ -13,9 +13,9 @@ namespace SFA.DAS.EAS.Web.Controllers
     public class EmployerCommitmentsController : BaseController
     {
         public EmployerCommitmentsController(IAuthenticationService owinWrapper,
-            IAuthorizationService authorization, IMultiVariantTestingService multiVariantTestingService,
+            IAuthorizationService authorization, 
             ICookieStorageService<FlashMessageViewModel> flashMessage)
-            : base(owinWrapper, multiVariantTestingService, flashMessage)
+            : base(owinWrapper, flashMessage)
         {
         }
 

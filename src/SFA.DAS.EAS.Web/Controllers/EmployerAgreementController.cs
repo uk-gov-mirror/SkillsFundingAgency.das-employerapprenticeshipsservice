@@ -15,9 +15,8 @@ namespace SFA.DAS.EAS.Web.Controllers
        
         public EmployerAgreementController(IAuthenticationService owinWrapper,
             IAuthorizationService authorization,
-            IMultiVariantTestingService multiVariantTestingService,
             ICookieStorageService<FlashMessageViewModel> flashMessage)
-            : base(owinWrapper, multiVariantTestingService, flashMessage)
+            : base(owinWrapper, flashMessage)
         {
             if (owinWrapper == null)
                 throw new ArgumentNullException(nameof(owinWrapper));

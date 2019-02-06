@@ -22,7 +22,6 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
         public static Container CreateContainer(
             Mock<IMessagePublisher> messagePublisher,
             Mock<IAuthenticationService> owinWrapper,
-            Mock<ICookieStorageService<EmployerAccountData>> cookieService,
             Mock<IEventsApi> eventsApi,
             Mock<IEmployerCommitmentApi> commitmentApi)
         {
@@ -34,15 +33,13 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
                 c.AddRegistry<ConfigurationRegistry>();
                 c.AddRegistry<MapperRegistry>();
                 c.AddRegistry<MediatorRegistry>();
-                c.AddRegistry<RepositoriesRegistry>();
-                c.AddRegistry(new DefaultRegistry(owinWrapper, cookieService, eventsApi, commitmentApi, messagePublisher));
+                c.AddRegistry(new DefaultRegistry(owinWrapper, eventsApi, commitmentApi, messagePublisher));
             });
         }
 
         public static Container CreateContainer(
             Mock<IMessagePublisher> messagePublisher,
             Mock<IAuthenticationService> owinWrapper,
-            Mock<ICookieStorageService<EmployerAccountData>> cookieService,
             Mock<IEventsApi> eventsApi,
             Mock<IEmployerCommitmentApi> commitmentApi,
             LevyDeclarationProviderConfiguration levyDeclarationProviderConfiguration)
@@ -53,7 +50,7 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
                 c.AddRegistry<CachesRegistry>();
                 c.AddRegistry<ConfigurationRegistry>();
                 c.AddRegistry<DateTimeRegistry>();
-                c.AddRegistry(new DefaultRegistry(owinWrapper, cookieService, eventsApi, commitmentApi, messagePublisher));
+                c.AddRegistry(new DefaultRegistry(owinWrapper, eventsApi, commitmentApi, messagePublisher));
             });
 
             container.Inject(levyDeclarationProviderConfiguration);
@@ -64,7 +61,6 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
         public static Container CreateLevyWorkerContainer(
             Mock<IMessagePublisher> messagePublisher,
             Mock<IMessageSubscriberFactory> messageSubscriberFactory,
-            IHmrcService hmrcService,
             IEventsApi eventsApi = null)
         {
             return new Container(c =>
@@ -73,9 +69,6 @@ namespace SFA.DAS.EAS.TestCommon.DependencyResolution
                 c.AddRegistry<ExecutionPoliciesRegistry>();
                 c.AddRegistry<MapperRegistry>();
                 c.AddRegistry<MediatorRegistry>();
-                c.AddRegistry<TokenServiceRegistry>();
-                c.AddRegistry<RepositoriesRegistry>();
-                c.AddRegistry(new LevyWorkerDefaultRegistry(hmrcService, messagePublisher, messageSubscriberFactory, eventsApi));
             });
         }
     }

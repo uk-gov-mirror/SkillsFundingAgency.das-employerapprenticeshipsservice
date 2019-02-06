@@ -10,9 +10,8 @@ namespace SFA.DAS.EAS.Web.Controllers
     [RoutePrefix("service")]
     public class HomeController : BaseController
     {
-        public HomeController(IAuthenticationService owinWrapper,
-            IMultiVariantTestingService multiVariantTestingService, ICookieStorageService<FlashMessageViewModel> flashMessage)
-            : base(owinWrapper, multiVariantTestingService, flashMessage)
+        public HomeController(IAuthenticationService owinWrapper, ICookieStorageService<FlashMessageViewModel> flashMessage)
+            : base(owinWrapper, flashMessage)
         {
         }
 

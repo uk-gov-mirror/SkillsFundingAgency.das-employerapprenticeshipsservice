@@ -1,12 +1,5 @@
 ﻿using SFA.DAS.Authorization;
 using SFA.DAS.Authorization.Mvc;
-using SFA.DAS.EAS.Application.Queries.GetApprovedTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.GetLatestPendingReceivedTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.GetReceivedTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.GetRejectedTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.GetSentTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.GetTransferConnectionInvitation;
-using SFA.DAS.EAS.Application.Queries.SendTransferConnectionInvitation;
 using SFA.DAS.EAS.Web.Extensions;
 using SFA.DAS.Validation.Mvc;
 using System.Web.Mvc;
@@ -35,7 +28,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [HttpNotFoundForNullModel]
         [ImportModelStateFromTempData]
         [Route("send")]
-        public ActionResult Send(SendTransferConnectionInvitationQuery query)
+        public ActionResult Send()
         {
             return Redirect(Url.EmployerAccountsAction($"transfers/connections/requests/send?{Request.QueryString}"));
         }
