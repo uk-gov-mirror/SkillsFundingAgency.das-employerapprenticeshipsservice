@@ -338,21 +338,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountLegalEntitiesController.cs" />
+    <Compile Include="Controllers\AccountLevyController.cs" />
+    <Compile Include="Controllers\AccountPayeSchemesController.cs" />
+    <Compile Include="Controllers\AccountTransactionsController.cs" />
+    <Compile Include="Controllers\AccountTransferConnectionsController.cs" />
+    <Compile Include="Controllers\EmployerAccountsController.cs" />
+    <Compile Include="Controllers\EmployerAgreementController.cs" />
+    <Compile Include="Controllers\EmployerUserController.cs" />
+    <Compile Include="Controllers\HealthCheckController.cs" />
+    <Compile Include="Controllers\LegalEntitiesController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TransferConnectionsController.cs" />
     <Compile Include="ExceptionLoggers\ErrorLogger.cs" />
     <Compile Include="Helpers\ControllerConstants.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\ApiAuthorizeAttribute.cs" />
-    <Compile Include="Controllers\AccountTransferConnectionsController.cs" />
-    <Compile Include="Controllers\AccountTransactionsController.cs" />
-    <Compile Include="Controllers\AccountLevyController.cs" />
-    <Compile Include="Controllers\LegalEntitiesController.cs" />
-    <Compile Include="Controllers\AccountPayeSchemesController.cs" />
-    <Compile Include="Controllers\EmployerAgreementController.cs" />
-    <Compile Include="Controllers\EmployerAccountsController.cs" />
-    <Compile Include="Controllers\EmployerUserController.cs" />
-    <Compile Include="Controllers\HealthCheckController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

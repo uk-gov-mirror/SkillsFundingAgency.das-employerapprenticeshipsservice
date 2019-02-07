@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SFA.DAS.EAS.Account.Api.Types;
+
 using SFA.DAS.EAS.Support.Core.Models;
 
 namespace SFA.DAS.EAS.Support.ApplicationServices.Services

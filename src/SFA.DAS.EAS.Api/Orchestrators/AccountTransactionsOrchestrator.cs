@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http.Routing;
 using MediatR;
 using SFA.DAS.EAS.Account.Api.Types;

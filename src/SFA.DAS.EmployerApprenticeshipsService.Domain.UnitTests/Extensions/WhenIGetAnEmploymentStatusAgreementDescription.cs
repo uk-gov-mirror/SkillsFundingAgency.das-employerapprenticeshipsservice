@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SFA.DAS.EAS.Domain.Extensions;
+
 using SFA.DAS.EAS.Domain.Models.EmployerAgreement;
 
 namespace SFA.DAS.EmployerApprenticeshipsService.Domain.UnitTests.Extensions
