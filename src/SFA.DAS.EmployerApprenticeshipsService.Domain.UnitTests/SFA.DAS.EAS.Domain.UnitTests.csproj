@@ -176,17 +176,9 @@
       <Project>{2035D46A-422F-438C-A460-39E60A9F6EAD}</Project>
       <Name>SFA.DAS.EmployerAccounts.Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.EmployerApprenticeshipsService.Domain\SFA.DAS.EAS.Domain.csproj">
-      <Project>{ec415cda-9294-4967-bd27-aa900985427d}</Project>
-      <Name>SFA.DAS.EAS.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.EmployerApprenticeshipsService.TestCommon\SFA.DAS.EAS.TestCommon.csproj">
       <Project>{05d7c094-e2c9-4ccd-b0d7-85d263254b26}</Project>
       <Name>SFA.DAS.EAS.TestCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.EmployerFinance.Messages\SFA.DAS.EmployerFinance.Messages.csproj">
-      <Project>{c15dec5c-666d-4cb2-968e-a273eb60d15e}</Project>
-      <Name>SFA.DAS.EmployerFinance.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
   </ItemGroup>

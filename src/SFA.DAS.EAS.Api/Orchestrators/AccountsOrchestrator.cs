@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using SFA.DAS.EAS.Account.Api.Types;
+using SFA.DAS.EmployerAccounts.Queries.GetEmployerAccount;
 using SFA.DAS.EAS.Application.Queries.AccountTransactions.GetAccountBalances;
 using SFA.DAS.EAS.Application.Queries.GetEmployerAccountByHashedId;
 using SFA.DAS.EAS.Application.Queries.GetLevyDeclaration;
@@ -15,7 +16,6 @@ using SFA.DAS.HashingService;
 using SFA.DAS.NLog.Logger;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
