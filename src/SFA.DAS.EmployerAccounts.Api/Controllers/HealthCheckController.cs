@@ -1,14 +1,13 @@
-﻿using System.Web.Http;
-
-namespace SFA.DAS.EmployerAccounts.Api.Controllers
+﻿namespace SFA.DAS.EmployerAccounts.Api.Controllers
 {
-    [RoutePrefix("api/healthcheck")]
+    using System.Web.Http;
+
     public class HealthCheckController : ApiController
     {
-        [Route]
-        public IHttpActionResult Get()
+        [Route("api/HealthCheck")]
+        public IHttpActionResult GetStatus()
         {
-            return Ok();
+            return this.Ok();
         }
     }
 }
