@@ -175,6 +175,9 @@
     <Reference Include="SFA.DAS.CookieService, Version=1.0.0.27423, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.CookieService.1.0.0.27423\lib\net45\SFA.DAS.CookieService.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.EmployerFinance.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.EmployerFinance.Messages.1.5.1\lib\net462\SFA.DAS.EmployerFinance.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.HashingService, Version=1.0.0.57835, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.HashingService.1.0.0.57835\lib\net45\SFA.DAS.HashingService.dll</HintPath>
     </Reference>
@@ -315,10 +318,6 @@
       <Project>{EC415CDA-9294-4967-BD27-AA900985427D}</Project>
       <Name>SFA.DAS.EAS.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.EmployerFinance.Messages\SFA.DAS.EmployerFinance.Messages.csproj">
-      <Project>{C15DEC5C-666D-4CB2-968E-A273EB60D15E}</Project>
-      <Name>SFA.DAS.EmployerFinance.Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS\SFA.DAS.csproj">
       <Project>{8DD6E754-567C-46E3-A071-B1049380EA6C}</Project>
       <Name>SFA.DAS</Name>
@@ -326,7 +325,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
