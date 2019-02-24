@@ -17,44 +17,44 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Models
         [Test]
         public void New_WhenCreatingAHealthCheck_ThenShouldCreateAHealthCheck()
         {
-            Run(f => f.New(), (f, r) => r.Should().NotBeNull().And.Match<HealthCheck>(h => h.UserRef == f.UserRef));
+            this.Test(f => f.New(), (f, r) => r.Should().NotBeNull().And.Match<HealthCheck>(h => h.UserRef == f.UserRef));
         }
 
         [Test]
         public Task Run_WhenRunningAHealthCheck_ThenShouldSetSentRequestProperty()
         {
-            return RunAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.SentRequest >= f.PreRun && h.SentRequest <= f.PostRun));
+            return this.TestAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.SentRequest >= f.PreRun && h.SentRequest <= f.PostRun));
         }
 
         [Test]
         public Task Run_WhenRunningAHealthCheck_ThenShouldSetReceivedResponseProperty()
         {
-            return RunAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedResponse >= f.PreRun && h.ReceivedResponse <= f.PostRun));
+            return this.TestAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedResponse >= f.PreRun && h.ReceivedResponse <= f.PostRun));
         }
 
         [Test]
         public Task Run_WhenRunningAHealthCheckAndAnApiExceptionIsThrown_ThenShouldSetReceivedResponseProperty()
         {
-            return RunAsync(f => f.SetHealthCheck().SetApiRequestException(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedResponse == null));
+            return this.TestAsync(f => f.SetHealthCheck().SetApiRequestException(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedResponse == null));
         }
 
         [Test]
         public Task Run_WhenRunningAHealthCheck_ThenShouldSetPublishedEventProperty()
         {
-            return RunAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.PublishedEvent >= f.PreRun && h.PublishedEvent <= f.PostRun));
+            return this.TestAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.PublishedEvent >= f.PreRun && h.PublishedEvent <= f.PostRun));
         }
 
         [Test]
         public Task Run_WhenRunningAHealthCheck_ThenShouldPublishAHealthCheckEvent()
         {
-            return RunAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.UnitOfWorkContext.GetEvents().ShouldAllBeEquivalentTo(
+            return this.TestAsync(f => f.SetHealthCheck(), f => f.Run(), f => f.UnitOfWorkContext.GetEvents().ShouldAllBeEquivalentTo(
                 new List<HealthCheckEvent> { new HealthCheckEvent { Id = f.HealthCheck.Id, Created = f.HealthCheck.PublishedEvent } }));
         }
 
         [Test]
         public void ReceiveEvent_WhenReceivingAHealthCheckEvent_ThenShouldSetReceivedEventProperty()
         {
-            Run(f => f.SetHealthCheck(), f => f.ReceiveEvent(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedEvent >= f.PreRun && h.ReceivedEvent <= f.PostRun));
+            this.Test(f => f.SetHealthCheck(), f => f.ReceiveEvent(), f => f.HealthCheck.Should().Match<HealthCheck>(h => h.ReceivedEvent >= f.PreRun && h.ReceivedEvent <= f.PostRun));
         }
     }
 

@@ -22,7 +22,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetLatestPendingReceivedTra
         [Test]
         public void Handle_WhenIGetLatestPendingReceivedTransferConnectionInvitation_ThenShouldReturnResponse()
         {
-            RunAsync(f => f.Handle(), f => f.Response.Should().NotBeNull()
+            TestAsync(f => f.Handle(), f => f.Response.Should().NotBeNull()
                 .And.Match<GetLatestPendingReceivedTransferConnectionInvitationResponse>(r =>
                     r.TransferConnectionInvitation != null &&
                     r.TransferConnectionInvitation.Id == f.PendingReceivedTransferConnectionInvitation2.Id &&
@@ -33,7 +33,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetLatestPendingReceivedTra
         }
     }
 
-    public class LatestPendingTransferConnectionInvitationFixture : FluentTestFixture
+    public class LatestPendingTransferConnectionInvitationFixture
     {
         public GetLatestPendingReceivedTransferConnectionInvitationResponse Response { get; set; }
         public GetLatestPendingReceivedTransferConnectionInvitationQueryHandler Handler { get; set; }

@@ -18,13 +18,13 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Models
         [Test]
         public void SendTransferConnectionInvitation_WhenISendATransferConnection_ThenShouldCreateTransferConnectionInvitation()
         {
-            Run(f => f.SendTransferConnectionInvitation(), f => f.TransferConnectionInvitation.Should().NotBeNull());
+            this.Test(f => f.SendTransferConnectionInvitation(), f => f.TransferConnectionInvitation.Should().NotBeNull());
         }
 
         [Test]
         public void SendTransferConnectionInvitation_WhenISendATransferConnection_ThenShouldCreateTransferConnectionInvitationChange()
         {
-            Run(f => f.SendTransferConnectionInvitation(), f => f.TransferConnectionInvitation.Changes.SingleOrDefault().Should().NotBeNull()
+            this.Test(f => f.SendTransferConnectionInvitation(), f => f.TransferConnectionInvitation.Changes.SingleOrDefault().Should().NotBeNull()
                 .And.Match<TransferConnectionInvitationChange>(c =>
                     c.ReceiverAccount == f.ReceiverAccount &&
                     c.SenderAccount == f.SenderAccount &&
@@ -34,7 +34,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Models
         [Test]
         public void SendTransferConnectionInvitation_WhenISendATransferConnection_ThenShouldPublishSentTransferConnectionInvitationEvent()
         {
-            Run(f => f.SendTransferConnectionInvitation(), f => f.GetEvent<SentTransferConnectionRequestEvent>().Should().NotBeNull()
+            this.Test(f => f.SendTransferConnectionInvitation(), f => f.GetEvent<SentTransferConnectionRequestEvent>().Should().NotBeNull()
                 .And.Match<SentTransferConnectionRequestEvent>(e =>
                     e.ReceiverAccountHashedId == f.ReceiverAccount.HashedId &&
                     e.ReceiverAccountId == f.ReceiverAccount.Id &&
@@ -49,7 +49,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Models
         }
     }
 
-    public class TransferConnectionInvitationTestsFixture : FluentTestFixture
+    public class TransferConnectionInvitationTestsFixture
     {
         public IUnitOfWorkContext UnitOfWorkContext { get; set; } = new UnitOfWorkContext();
         public TransferConnectionInvitation TransferConnectionInvitation { get; set; }

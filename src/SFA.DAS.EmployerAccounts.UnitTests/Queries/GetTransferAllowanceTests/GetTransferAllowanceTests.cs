@@ -17,7 +17,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAValidCall_ShouldCallDatabase()
         {
-            await RunAsync(
+            await TestAsync(
                  f => f.WithTransferAllowance(f.TransferAllowance)
                        .WithNoTransferPayments(),
                  f => f.Handle(f.SenderAccountId),
@@ -30,7 +30,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAValidCall_ShouldReturnCorrectAllowance()
         {
-            await RunAsync(
+            await TestAsync(
                      f => f.WithTransferAllowance(f.TransferAllowance)
                            .WithNoTransferPayments(),
                      f => f.Handle(f.SenderAccountId),
@@ -40,7 +40,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAValidCall_ShouldReturnAllowanceMinusPayments()
         {
-            await RunAsync(
+            await TestAsync(
                 f => f.WithTransferAllowance(f.TransferAllowance),
                 f => f.Handle(f.SenderAccountId),
                 f => Assert.That(f.Response.TransferAllowance.RemainingTransferAllowance,
@@ -50,7 +50,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAValidCall_ShouldReturnZeroIfAllowanceIsBelowZero()
         {
-            await RunAsync(
+            await TestAsync(
                 f => f.WithTransferAllowance(-10),
                 f => f.Handle(f.SenderAccountId),
                 f => Assert.That(f.Response.TransferAllowance.RemainingTransferAllowance,
@@ -60,7 +60,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAnInvalidCall_ShouldThrowException()
         {
-            await RunAsync(
+            await TestAsync(
                 f => f.WithTransferAllowance(f.TransferAllowance),
                 f => f.Handle(null),
                 f => Assert.IsNotNull(f.HandlerException));
@@ -69,7 +69,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         [Test]
         public async Task Handle_WhenMakingAnInvalidCall_ShouldNotCallDatabase()
         {
-            await RunAsync(
+            await TestAsync(
                 f => f.WithTransferAllowance(f.TransferAllowance),
                 f => f.Handle(null),
                 f => f.FinanceDatabaseMock.Verify(d => d.SqlQueryAsync<decimal?>(
@@ -79,7 +79,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferAllowanceTests
         }
     }
 
-    public class GetTransferAllowanceTestFixtures : FluentTestFixture
+    public class GetTransferAllowanceTestFixtures
     {
         public long SenderAccountId => 111111;
         public long ReceiverAccountId => 222222;
