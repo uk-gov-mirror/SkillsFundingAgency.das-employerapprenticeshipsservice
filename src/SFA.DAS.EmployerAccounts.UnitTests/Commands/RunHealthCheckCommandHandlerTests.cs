@@ -18,13 +18,13 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands
         [Test]
         public Task Handle_WhenHandlingARunHealthCheckCommand_ThenShouldAddAHealthCheck()
         {
-            return RunAsync(f => f.Handle(), f => f.Db.Verify(d => d.HealthChecks.Add(It.IsAny<HealthCheck>())));
+            return this.TestAsync(f => f.Handle(), f => f.Db.Verify(d => d.HealthChecks.Add(It.IsAny<HealthCheck>())));
         }
 
         [Test]
         public Task Handle_WhenHandlingARunHealthCheckCommand_ThenShouldRequestAnEmployerAccountsApiHealthCheckResponse()
         {
-            return RunAsync(f => f.Handle(), f => f.EmployerAccountsApiClient.Verify(c => c.HealthCheck(), Times.Once));
+            return this.TestAsync(f => f.Handle(), f => f.EmployerAccountsApiClient.Verify(c => c.HealthCheck(), Times.Once));
         }
     }
 

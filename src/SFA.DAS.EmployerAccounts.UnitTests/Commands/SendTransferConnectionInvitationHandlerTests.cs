@@ -21,11 +21,11 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands
         [Test]
         public Task Handle_WhenISendATransferConnectionInvitation_ThenShouldAddTransferConnectionInvitationToRepository()
         {
-            return RunAsync(f => f.Handle(), f => f.TransferConnectionInvitationRepository.Verify(r => r.Add(It.IsAny<TransferConnectionInvitation>()), Times.Once));
+            return this.TestAsync(f => f.Handle(), f => f.TransferConnectionInvitationRepository.Verify(r => r.Add(It.IsAny<TransferConnectionInvitation>()), Times.Once));
         }
     }
 
-    public class SendTransferConnectionInvitationHandlerTestsFixture : FluentTestFixture
+    public class SendTransferConnectionInvitationHandlerTestsFixture
     {
         public SendTransferConnectionInvitationCommandHandler Handler { get; set; }
         public SendTransferConnectionInvitationCommand Command { get; set; }
@@ -92,7 +92,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands
 
         public async Task Handle()
         {
-            Result = await Handler.Handle(Command);
+            this.Result = await this.Handler.Handle(this.Command);
         }
 
         public SendTransferConnectionInvitationHandlerTestsFixture SetReceiverAccount()
