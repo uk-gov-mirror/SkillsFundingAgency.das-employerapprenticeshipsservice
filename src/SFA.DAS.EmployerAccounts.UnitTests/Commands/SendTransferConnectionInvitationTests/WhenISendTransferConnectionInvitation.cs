@@ -23,9 +23,9 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands.SendTransferConnectionInvi
         private SendTransferConnectionInvitationQuery _query;
         private SendTransferConnectionInvitationResponse _response;
         private Mock<EmployerAccountsDbContext> _db;
-        private DbSetStub<Account> _accountsDbSet;
+        private FakeDbSet<Account> _accountsDbSet;
         private List<Account> _accounts;
-        private DbSetStub<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
+        private FakeDbSet<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
         private List<TransferConnectionInvitation> _transferConnectionInvitations;
         private Account _receiverAccount;
         private Account _senderAccount;
@@ -50,9 +50,9 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands.SendTransferConnectionInvi
             };
 
             _accounts = new List<Account> { _receiverAccount, _senderAccount };
-            _accountsDbSet = new DbSetStub<Account>(_accounts);
+            _accountsDbSet = new FakeDbSet<Account>(_accounts);
             _transferConnectionInvitations = new List<TransferConnectionInvitation>();
-            _transferConnectionInvitationsDbSet = new DbSetStub<TransferConnectionInvitation>(_transferConnectionInvitations);
+            _transferConnectionInvitationsDbSet = new FakeDbSet<TransferConnectionInvitation>(_transferConnectionInvitations);
             _configurationProvider = new MapperConfiguration(c => c.AddProfile<AccountMappings>());
             _publicHashingService = new Mock<IPublicHashingService>();
 
