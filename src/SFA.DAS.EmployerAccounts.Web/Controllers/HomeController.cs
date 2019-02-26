@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SFA.DAS.EmployerAccounts.Web.Models;
 
 namespace SFA.DAS.EmployerAccounts.Web.Controllers
 {
@@ -143,6 +144,20 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         public ActionResult WhatYoullNeed(int? choice)
         {
             return RedirectToAction(ControllerConstants.RegisterUserActionName);
+        }
+
+        [HttpGet]
+        [Route("addPAYESchemeChoice")]
+        public ViewResult AddPAYESchemeChoice()
+        {
+            return new ViewResult();
+        }
+
+        [HttpPost]
+        [Route("addPAYESchemeChoice")]
+        public RedirectResult AddPAYESchemeChoice(AddPAYESchemeChoice nowOrLater)
+        {
+            return new RedirectResult(ControllerConstants.RegisterUserActionName);
         }
 
         [HttpGet]

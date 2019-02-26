@@ -145,6 +145,7 @@
     <Compile Include="Mappings\HealthCheckMappings.cs" />
     <Compile Include="Mappings\OrganisationMappings.cs" />
     <Compile Include="Mappings\TransferMappings.cs" />
+    <Compile Include="Models\AddPAYESchemeChoice.cs" />
     <Compile Include="OrchestratorResponse.cs" />
     <Compile Include="Orchestrators\AuthenticationOrchestrator.cs" />
     <Compile Include="Orchestrators\EmployerAccountOrchestrator.cs" />
@@ -682,6 +683,7 @@
     <Content Include="Views\Shared\GatewayInform.cshtml" />
     <Content Include="Views\Shared\_WhatIsEnglishPercentage.cshtml" />
     <Content Include="Views\Shared\_PayeNotFound.cshtml" />
+    <Content Include="Views\Home\AddPAYESchemeChoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EmployerAccounts.Api.Client\SFA.DAS.EmployerAccounts.Api.Client.csproj">

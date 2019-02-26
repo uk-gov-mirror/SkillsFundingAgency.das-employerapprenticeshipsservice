@@ -1,0 +1,37 @@
+﻿@{ViewBag.PageID = "add-PAYE-scheme-choice"; }
+@{ViewBag.Title = "AddPAYESchemeChoice"; }
+
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+        <h1 class="heading-xlarge">
+            Allowing your PAYE scheme to be used
+        </h1>
+        <p>To pay for your apprenticeships using government funds  and to verify your identity you will need to add your organisation's PAYE scheme.</p>
+        <p>To do this you will need:</p>
+        <ul class="list list-bullet">
+            <li>the Government Gateway login for your PAYE scheme - ask your accountant if you don't have access to this information</li>
+        </ul>
+        <form method="POST" action="@Url.Action("addPAYESchemeChoice", "Home")" >
+            @Html.AntiForgeryToken()
+            <div class="form-group" id="add-PAYE-scheme-choice-form">
+                <fieldset>
+                    <label for="add-now" class="block-label">
+                        <input type="radio" name="choice" id="add-now" value="@SFA.DAS.EmployerAccounts.Web.Models.AddPAYESchemeChoice.AddNow" />
+                        Yes, I want to add a PAYE scheme now
+                    </label>
+                    <label for="add-later" class="block-label">
+                        <input type="radio" name="choice" id="add-later" value="@SFA.DAS.EmployerAccounts.Web.Models.AddPAYESchemeChoice.AddLater" />
+                        No, I'll add my PAYE scheme later
+                    </label>
+                </fieldset>
+                <span class="govuk-hint" style="padding-left:15px; width:66%">
+                    You will need to add PAYE scheme to access apprenticeship funding
+                </span>
+            </div>
+            <div class="form-group">
+                <button class="button" type="submit" id="submit-button">Save and continue</button>
+            </div>
+        </form>
+    </div>
+</div>
