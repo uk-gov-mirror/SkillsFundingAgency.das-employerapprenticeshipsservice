@@ -20,7 +20,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferConnectionInvita
         private GetTransferConnectionInvitationQueryHandler _handler;
         private GetTransferConnectionInvitationQuery _query;
         private Mock<EmployerAccountsDbContext> _db;
-        private DbSetStub<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
+        private FakeDbSet<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
         private List<TransferConnectionInvitation> _transferConnectionInvitations;
         private TransferConnectionInvitation _transferConnectionInvitation;
         private Account _senderAccount;
@@ -53,7 +53,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferConnectionInvita
                 .Build();
 
             _transferConnectionInvitations = new List<TransferConnectionInvitation> { _transferConnectionInvitation, new TransferConnectionInvitationBuilder().Build() };
-            _transferConnectionInvitationsDbSet = new DbSetStub<TransferConnectionInvitation>(_transferConnectionInvitations);
+            _transferConnectionInvitationsDbSet = new FakeDbSet<TransferConnectionInvitation>(_transferConnectionInvitations);
 
             _configurationProvider = new MapperConfiguration(c =>
             {

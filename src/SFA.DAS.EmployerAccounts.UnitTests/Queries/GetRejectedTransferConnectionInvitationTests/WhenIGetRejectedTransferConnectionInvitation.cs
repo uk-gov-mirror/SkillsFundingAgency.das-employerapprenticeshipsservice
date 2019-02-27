@@ -20,7 +20,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetRejectedTransferConnecti
         private GetRejectedTransferConnectionInvitationQueryHandler _handler;
         private GetRejectedTransferConnectionInvitationQuery _query;
         private Mock<EmployerAccountsDbContext> _db;
-        private DbSetStub<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
+        private FakeDbSet<TransferConnectionInvitation> _transferConnectionInvitationsDbSet;
         private List<TransferConnectionInvitation> _transferConnectionInvitations;
         private TransferConnectionInvitation _sentTransferConnectionInvitation;
         private TransferConnectionInvitation _rejectedTransferConnectionInvitation;
@@ -62,7 +62,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetRejectedTransferConnecti
                 .Build();
 
             _transferConnectionInvitations = new List<TransferConnectionInvitation> { _sentTransferConnectionInvitation, _rejectedTransferConnectionInvitation };
-            _transferConnectionInvitationsDbSet = new DbSetStub<TransferConnectionInvitation>(_transferConnectionInvitations);
+            _transferConnectionInvitationsDbSet = new FakeDbSet<TransferConnectionInvitation>(_transferConnectionInvitations);
 
             _configurationProvider = new MapperConfiguration(c =>
             {

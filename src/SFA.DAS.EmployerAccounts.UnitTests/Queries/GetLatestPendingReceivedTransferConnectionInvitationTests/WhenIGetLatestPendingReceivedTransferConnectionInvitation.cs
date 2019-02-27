@@ -102,7 +102,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetLatestPendingReceivedTra
                     .Build()
             };
 
-            Db.Setup(d => d.TransferConnectionInvitations).Returns(new DbSetStub<TransferConnectionInvitation>(TransferConnectionInvitations));
+            Db.Setup(d => d.TransferConnectionInvitations).Returns(new FakeDbSet<TransferConnectionInvitation>(TransferConnectionInvitations));
 
             Handler = new GetLatestPendingReceivedTransferConnectionInvitationQueryHandler(new Lazy<EmployerAccountsDbContext>(() => Db.Object), configurationProvider);
             Query = new GetLatestPendingReceivedTransferConnectionInvitationQuery { AccountId = ReceiverAccount.Id };
