@@ -29,7 +29,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferRequestsTests
         private List<TransferRequestSummary> _transferRequests;
         private TransferRequestSummary _sentTransferRequest;
         private TransferRequestSummary _receivedTransferRequest;
-        private DbSetStub<Account> _accountsDbSet;
+        private FakeDbSet<Account> _accountsDbSet;
         private List<Account> _accounts;
         private Account _account1;
         private Account _account2;
@@ -83,7 +83,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.GetTransferRequestsTests
                 _account2
             };
 
-            _accountsDbSet = new DbSetStub<Account>(_accounts);
+            _accountsDbSet = new FakeDbSet<Account>(_accounts);
 
             _configurationProvider = new MapperConfiguration(c =>
             {
