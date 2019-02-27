@@ -52,7 +52,7 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Queries
                 new HealthCheckBuilder().WithId(2).Build()
             };
 
-            Db.Setup(d => d.HealthChecks).Returns(new DbSetStub<HealthCheck>(HealthChecks));
+            Db.Setup(d => d.HealthChecks).Returns(new FakeDbSet<HealthCheck>(HealthChecks));
 
             Handler = new GetHealthCheckQueryHandler(new Lazy<EmployerAccountsDbContext>(() => Db.Object), ConfigurationProvider);
         }
