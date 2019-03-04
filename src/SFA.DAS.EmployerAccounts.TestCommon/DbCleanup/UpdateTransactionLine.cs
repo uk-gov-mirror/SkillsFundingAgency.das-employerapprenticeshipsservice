@@ -2,12 +2,13 @@
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using SFA.DAS.EmployerFinance.Configuration;
 using SFA.DAS.Sql.Client;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.EmployerAccounts.TestCommon.DbCleanup
 {
+    using SFA.DAS.EmployerFinance.Configuration;
+
     public class UpdateTransactionLine : BaseRepository, IUpdateTransactionLine
     {
         public UpdateTransactionLine(LevyDeclarationProviderConfiguration configuration, ILog logger) : base(configuration.DatabaseConnectionString, logger)

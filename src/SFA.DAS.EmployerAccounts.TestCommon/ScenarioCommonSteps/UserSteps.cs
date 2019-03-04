@@ -1,84 +1,106 @@
-﻿using MediatR;
-using Moq;
-using SFA.DAS.Commitments.Api.Client.Interfaces;
-using SFA.DAS.EAS.Application.Commands.UpsertRegisteredUser;
-using SFA.DAS.EAS.Domain.Data.Repositories;
-using SFA.DAS.EAS.Domain.Interfaces;
-using SFA.DAS.EAS.Domain.Models.Account;
-using SFA.DAS.EAS.Domain.Models.UserProfile;
-using SFA.DAS.EAS.Infrastructure.Authentication;
-using SFA.DAS.EAS.TestCommon.DependencyResolution;
-using SFA.DAS.EAS.Web.Authentication;
-using SFA.DAS.EAS.Web.Orchestrators;
-using SFA.DAS.EAS.Web.ViewModels;
-using SFA.DAS.Events.Api.Client;
-using SFA.DAS.Messaging.Interfaces;
-using StructureMap;
-using System;
-using System.Linq;
-using TechTalk.SpecFlow;
-
-namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
+﻿namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
 {
+    using System;
+    using System.Linq;
+
+    using MediatR;
+
+    using Moq;
+
+    using SFA.DAS.Authentication;
+    using SFA.DAS.Authorization;
+    using SFA.DAS.Commitments.Api.Client.Interfaces;
+    using SFA.DAS.EmployerAccounts.Commands.UpsertRegisteredUser;
+    using SFA.DAS.EmployerAccounts.Interfaces;
+    using SFA.DAS.EmployerAccounts.Models.Account;
+    using SFA.DAS.EmployerAccounts.Models.UserProfile;
+    using SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution;
+    using SFA.DAS.EmployerAccounts.Web.Orchestrators;
+    using SFA.DAS.EmployerAccounts.Web.ViewModels;
+    using SFA.DAS.EmployerFinance.Data;
+    using SFA.DAS.Events.Api.Client;
+    using SFA.DAS.Messaging.Interfaces;
+
+    using StructureMap;
+
+    using TechTalk.SpecFlow;
+
+    using IUserRepository = SFA.DAS.EmployerAccounts.Interfaces.IUserRepository;
+
     public class UserSteps
     {
-        private IContainer _container;
-        private Mock<IMessagePublisher> _messagePublisher;
-        private Mock<IAuthenticationService> _owinWrapper;
-        private Mock<ICookieStorageService<EmployerAccountData>> _cookieService;
-        private Mock<IEventsApi> _eventsApi;
         private Mock<IEmployerCommitmentApi> _commitmentsApi;
+
+        private IContainer _container;
+
+        private Mock<ICookieStorageService<EmployerAccountData>> _cookieService;
+
+        private Mock<IEventsApi> _eventsApi;
+
+        private Mock<IMessagePublisher> _messagePublisher;
+
+        private Mock<IAuthenticationService> _owinWrapper;
 
         public UserSteps()
         {
-            _messagePublisher = new Mock<IMessagePublisher>();
-            _owinWrapper = new Mock<IAuthenticationService>();
-            _cookieService = new Mock<ICookieStorageService<EmployerAccountData>>();
-            _eventsApi = new Mock<IEventsApi>();
-            _commitmentsApi = new Mock<IEmployerCommitmentApi>();
+            this._messagePublisher = new Mock<IMessagePublisher>();
+            this._owinWrapper = new Mock<IAuthenticationService>();
+            this._cookieService = new Mock<ICookieStorageService<EmployerAccountData>>();
+            this._eventsApi = new Mock<IEventsApi>();
+            this._commitmentsApi = new Mock<IEmployerCommitmentApi>();
 
-            _container = IoC.CreateContainer(_messagePublisher, _owinWrapper, _cookieService, _eventsApi, _commitmentsApi);
-        }
-
-        public void UpsertUser(UserViewModel userView)
-        {
-            var mediator = _container.GetInstance<IMediator>();
-
-            mediator.SendAsync(new UpsertRegisteredUserCommand
-            {
-                UserRef = userView.UserRef,
-                FirstName = userView.FirstName,
-                LastName = userView.LastName,
-                EmailAddress = userView.Email
-            }).Wait();
-        }
-
-
-        public UserViewModel GetExistingUserAccount()
-        {
-            _owinWrapper.Setup(x => x.GetClaimValue("sub")).Returns(ScenarioContext.Current["AccountOwnerUserRef"].ToString());
-            var orchestrator = _container.GetInstance<HomeOrchestrator>();
-            var user = orchestrator.GetUsers().Result.AvailableUsers.FirstOrDefault(c => c.UserRef.Equals(ScenarioContext.Current["AccountOwnerUserRef"].ToString(), StringComparison.CurrentCultureIgnoreCase));
-            return user;
-        }
-
-        public UserViewModel GetExistingUserAccount(string userRef)
-        {
-            _owinWrapper.Setup(x => x.GetClaimValue("sub")).Returns(userRef);
-            var orchestrator = _container.GetInstance<HomeOrchestrator>();
-            var user = orchestrator.GetUsers().Result.AvailableUsers.FirstOrDefault(c => c.UserRef.Equals(userRef, StringComparison.CurrentCultureIgnoreCase));
-            return user;
+            this._container = IoC.CreateContainer(
+                this._messagePublisher,
+                this._owinWrapper,
+                this._cookieService,
+                this._eventsApi,
+                this._commitmentsApi);
         }
 
         public long CreateUserWithRole(User user, Role role, long accountId)
         {
-            var userRepository = _container.GetInstance<IUserRepository>();
-            var membershipRepository = _container.GetInstance<IMembershipRepository>();
+            var userRepository = this._container.GetInstance<IUserRepository>();
+            var membershipRepository = this._container.GetInstance<IMembershipRepository>();
             var userRecord = userRepository.GetUserByRef(user.UserRef).Result;
 
             membershipRepository.Create(userRecord.Id, accountId, (short)role).Wait();
 
             return userRecord.Id;
+        }
+
+        public UserViewModel GetExistingUserAccount()
+        {
+            this._owinWrapper.Setup(x => x.GetClaimValue("sub"))
+                .Returns(ScenarioContext.Current["AccountOwnerUserRef"].ToString());
+            var orchestrator = this._container.GetInstance<HomeOrchestrator>();
+            var user = orchestrator.GetUsers().Result.AvailableUsers.FirstOrDefault(
+                c => c.UserRef.Equals(
+                    ScenarioContext.Current["AccountOwnerUserRef"].ToString(),
+                    StringComparison.CurrentCultureIgnoreCase));
+            return user;
+        }
+
+        public UserViewModel GetExistingUserAccount(string userRef)
+        {
+            this._owinWrapper.Setup(x => x.GetClaimValue("sub")).Returns(userRef);
+            var orchestrator = this._container.GetInstance<HomeOrchestrator>();
+            var user = orchestrator.GetUsers().Result.AvailableUsers.FirstOrDefault(
+                c => c.UserRef.Equals(userRef, StringComparison.CurrentCultureIgnoreCase));
+            return user;
+        }
+
+        public void UpsertUser(UserViewModel userView)
+        {
+            var mediator = this._container.GetInstance<IMediator>();
+
+            mediator.SendAsync(
+                new UpsertRegisteredUserCommand
+                    {
+                        UserRef = userView.UserRef,
+                        FirstName = userView.FirstName,
+                        LastName = userView.LastName,
+                        EmailAddress = userView.Email
+                    }).Wait();
         }
     }
 }

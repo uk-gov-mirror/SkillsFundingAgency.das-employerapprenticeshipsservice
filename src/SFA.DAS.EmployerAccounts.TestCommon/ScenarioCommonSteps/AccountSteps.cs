@@ -1,16 +1,6 @@
 ﻿using MediatR;
 using Moq;
 using SFA.DAS.Commitments.Api.Client.Interfaces;
-using SFA.DAS.EAS.Application.Queries.GetAccountPayeSchemes;
-using SFA.DAS.EAS.Application.Queries.GetUserAccounts;
-using SFA.DAS.EAS.Application.Validation;
-using SFA.DAS.EAS.Domain.Interfaces;
-using SFA.DAS.EAS.Domain.Models.Account;
-using SFA.DAS.EAS.Infrastructure.Authentication;
-using SFA.DAS.EAS.TestCommon.DependencyResolution;
-using SFA.DAS.EAS.Web.Authentication;
-using SFA.DAS.EAS.Web.Orchestrators;
-using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
@@ -21,6 +11,16 @@ using TechTalk.SpecFlow;
 
 namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
 {
+    using SFA.DAS.Authentication;
+    using SFA.DAS.EmployerAccounts.Interfaces;
+    using SFA.DAS.EmployerAccounts.Models.Account;
+    using SFA.DAS.EmployerAccounts.Queries.GetAccountPayeSchemes;
+    using SFA.DAS.EmployerAccounts.Queries.GetUserAccounts;
+    using SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution;
+    using SFA.DAS.EmployerAccounts.Web.Orchestrators;
+    using SFA.DAS.EmployerAccounts.Web.ViewModels;
+    using SFA.DAS.Validation;
+
     public class AccountSteps
     {
         private IContainer _container;

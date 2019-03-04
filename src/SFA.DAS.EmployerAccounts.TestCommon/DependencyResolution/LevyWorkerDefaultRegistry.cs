@@ -1,17 +1,19 @@
 ﻿using Moq;
-using SFA.DAS.EmployerFinance.Services;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using SFA.DAS.HashingService;
 using SFA.DAS.Messaging.Interfaces;
-using IHmrcService = SFA.DAS.EmployerAccounts.Interfaces.IHmrcService;
 
 namespace SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution
 {
+    using SFA.DAS.EmployerFinance.Services;
+
+    using IHmrcService = SFA.DAS.EmployerAccounts.Interfaces.IHmrcService;
+
     public class LevyWorkerDefaultRegistry : Registry
     {
-        public LevyWorkerDefaultRegistry(IHmrcService hmrcService, Mock<IMessagePublisher> messagePublisher, Mock<IMessageSubscriberFactory> messageSubscriberFactory, IEventsApi eventApi = null)
+        public LevyWorkerDefaultRegistry(Interfaces.IHmrcService hmrcService, Mock<IMessagePublisher> messagePublisher, Mock<IMessageSubscriberFactory> messageSubscriberFactory, IEventsApi eventApi = null)
         {
             Scan(s =>
             {
