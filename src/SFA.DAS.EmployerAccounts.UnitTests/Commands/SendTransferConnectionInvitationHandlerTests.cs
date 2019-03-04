@@ -142,6 +142,10 @@ namespace SFA.DAS.EmployerAccounts.UnitTests.Commands
                 .Setup(r => r.Get(SenderUser.Id))
                 .ReturnsAsync(SenderUser);
 
+            UserRepository
+                .Setup(r => r.GetUserByRef(SenderUser.@Ref))
+                .ReturnsAsync(SenderUser);
+
             return this;
         }
     }
