@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
+﻿using SFA.DAS.EmployerAccounts.Data;
+
+namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
 {
     using System;
     using System.Linq;
@@ -17,7 +19,6 @@
     using SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution;
     using SFA.DAS.EmployerAccounts.Web.Orchestrators;
     using SFA.DAS.EmployerAccounts.Web.ViewModels;
-    using SFA.DAS.EmployerFinance.Data;
     using SFA.DAS.Events.Api.Client;
     using SFA.DAS.Messaging.Interfaces;
 

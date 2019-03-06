@@ -39,6 +39,7 @@
     <PackageReference Include="NUnit" version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" version="3.10.0" />
     <PackageReference Include="Polly" version="5.7.0" />
+    <PackageReference Include="SFA.DAS.Apprenticeships.Api.Types" Version="0.11.39" />
     <PackageReference Include="SFA.DAS.Audit.Client" version="1.0.0.20553" />
     <PackageReference Include="SFA.DAS.Commitments.Api.Client" version="2.1.716" />
     <PackageReference Include="SFA.DAS.Commitments.Api.Types" version="2.1.716" />
@@ -47,6 +48,7 @@
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" version="1.0.0.53229" />
     <PackageReference Include="SFA.DAS.Configuration.FileStorage" version="1.0.0.49931" />
     <PackageReference Include="SFA.DAS.Elastic" version="1.0.0.52762" />
+    <PackageReference Include="SFA.DAS.EmployerFinance.Api.Client" Version="1.5.1" />
     <PackageReference Include="SFA.DAS.Events.Api.Client" version="1.20.0.26497" />
     <PackageReference Include="SFA.DAS.Events.Api.Types" version="2.0.0.36524" />
     <PackageReference Include="SFA.DAS.HashingService" version="1.0.0.57835" />
@@ -58,6 +60,7 @@
     <PackageReference Include="SFA.DAS.Notifications.Api.Client" version="2.0.0.35919" />
     <PackageReference Include="SFA.DAS.Notifications.Api.Types" version="2.0.0.35919" />
     <PackageReference Include="SFA.DAS.Sql.Client" version="1.0.0.32930" />
+    <PackageReference Include="SFA.DAS.Testing" Version="3.0.22" />
     <PackageReference Include="SFA.DAS.TokenService.Api.Client" version="1.1.16" />
     <PackageReference Include="SpecFlow" version="2.4.0" />
     <PackageReference Include="StructureMap" version="4.6.1" />
@@ -81,13 +84,11 @@
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EmployerAccounts.Web\SFA.DAS.EmployerAccounts.Web.csproj" />
     <ProjectReference Include="..\SFA.DAS.EmployerAccounts\SFA.DAS.EmployerAccounts.csproj" />
+    <ProjectReference Include="..\SFA.DAS.EmployerApprenticeshipsService.Domain\SFA.DAS.EAS.Domain.csproj" />
     <ProjectReference Include="..\SFA.DAS\SFA.DAS.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SFA.DAS.EmployerFinance">
-      <HintPath>..\SFA.DAS.EmployerAccounts.Api\Bin\SFA.DAS.EmployerFinance.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
   </ItemGroup>
 

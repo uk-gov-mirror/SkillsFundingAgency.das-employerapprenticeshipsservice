@@ -5,7 +5,7 @@
 
     using Dapper;
 
-    using SFA.DAS.EmployerFinance.Configuration;
+    using SFA.DAS.EAS.Domain.Configuration;
     using SFA.DAS.NLog.Logger;
     using SFA.DAS.Sql.Client;
 

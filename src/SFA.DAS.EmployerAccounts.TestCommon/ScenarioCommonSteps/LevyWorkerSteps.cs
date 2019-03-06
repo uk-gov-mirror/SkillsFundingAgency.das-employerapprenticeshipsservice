@@ -1,105 +1,105 @@
-﻿namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Web.Configuration;
+﻿//namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
+//{
+//    using System;
+//    using System.Collections.Generic;
+//    using System.Linq;
+//    using System.Threading;
+//    using System.Web.Configuration;
 
-    using Moq;
+//    using Moq;
 
-    using SFA.DAS.EmployerAccounts.Interfaces;
-    using SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution;
-    using SFA.DAS.EmployerFinance.Queries.GetHMRCLevyDeclaration;
-    using SFA.DAS.HashingService;
-    using SFA.DAS.Messaging.Interfaces;
+//    using SFA.DAS.EmployerAccounts.Interfaces;
+//    using SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution;
+//    using SFA.DAS.EmployerFinance.Queries.GetHMRCLevyDeclaration;
+//    using SFA.DAS.HashingService;
+//    using SFA.DAS.Messaging.Interfaces;
 
-    using StructureMap;
+//    using StructureMap;
 
-    using TechTalk.SpecFlow;
+//    using TechTalk.SpecFlow;
 
-    public class LevyWorkerSteps : IDisposable
-    {
-        private readonly IContainer _container;
+//    public class LevyWorkerSteps : IDisposable
+//    {
+//        private readonly IContainer _container;
 
-        // private readonly Mock<IMessageSubscriber<EmployerRefreshLevyQueueMessage>> _messageSubscriber;
-        private readonly Mock<IHmrcService> _hmrcService;
+//        // private readonly Mock<IMessageSubscriber<EmployerRefreshLevyQueueMessage>> _messageSubscriber;
+//        private readonly Mock<IHmrcService> _hmrcService;
 
-        public LevyWorkerSteps()
-        {
-            // Used to set is processing of declarations should occur
-            WebConfigurationManager.AppSettings["DeclarationsEnabled"] = "both";
+//        public LevyWorkerSteps()
+//        {
+//            // Used to set is processing of declarations should occur
+//            WebConfigurationManager.AppSettings["DeclarationsEnabled"] = "both";
 
-            // _messageSubscriber = new Mock<IMessageSubscriber<EmployerRefreshLevyQueueMessage>>();
-            this._hmrcService = new Mock<IHmrcService>();
+//            // _messageSubscriber = new Mock<IMessageSubscriber<EmployerRefreshLevyQueueMessage>>();
+//            this._hmrcService = new Mock<IHmrcService>();
 
-            var messageSubscriberFactory = new Mock<IMessageSubscriberFactory>();
+//            var messageSubscriberFactory = new Mock<IMessageSubscriberFactory>();
 
-            // messageSubscriberFactory.Setup(x => x.GetSubscriber<EmployerRefreshLevyQueueMessage>())
-            // .Returns(_messageSubscriber.Object);
-            this._container = IoC.CreateLevyWorkerContainer(
-                new Mock<IMessagePublisher>(),
-                messageSubscriberFactory,
-                this._hmrcService.Object);
-        }
+//            // messageSubscriberFactory.Setup(x => x.GetSubscriber<EmployerRefreshLevyQueueMessage>())
+//            // .Returns(_messageSubscriber.Object);
+//            this._container = IoC.CreateLevyWorkerContainer(
+//                new Mock<IMessagePublisher>(),
+//                messageSubscriberFactory,
+//                this._hmrcService.Object);
+//        }
 
-        public void Dispose()
-        {
-            this._container?.Dispose();
-        }
+//        public void Dispose()
+//        {
+//            this._container?.Dispose();
+//        }
 
-        public void RunWorker(IEnumerable<GetHMRCLevyDeclarationResponse> hmrcLevyResponses)
-        {
-            var hashingService = this._container.GetInstance<IHashingService>();
+//        public void RunWorker(IEnumerable<GetHMRCLevyDeclarationResponse> hmrcLevyResponses)
+//        {
+//            var hashingService = this._container.GetInstance<IHashingService>();
 
-            // TODO: Need to change this once the acceptance tests have been restructured
-            // var levyDeclaration = _container.GetInstance<ILevyDeclaration>();
-            var levyDeclarationResponses =
-                hmrcLevyResponses as GetHMRCLevyDeclarationResponse[] ?? hmrcLevyResponses.ToArray();
+//            // TODO: Need to change this once the acceptance tests have been restructured
+//            // var levyDeclaration = _container.GetInstance<ILevyDeclaration>();
+//            var levyDeclarationResponses =
+//                hmrcLevyResponses as GetHMRCLevyDeclarationResponse[] ?? hmrcLevyResponses.ToArray();
 
-            var cancellationTokenSource = new CancellationTokenSource();
+//            var cancellationTokenSource = new CancellationTokenSource();
 
-            var accountId = GetCurrentAccountId(hashingService);
+//            var accountId = GetCurrentAccountId(hashingService);
 
-            var payeSchemes = levyDeclarationResponses.Select(x => x.Empref).Distinct();
+//            var payeSchemes = levyDeclarationResponses.Select(x => x.Empref).Distinct();
 
-            this.SetupRefreshLevyMockMessageQueue(payeSchemes, accountId, cancellationTokenSource);
+//            this.SetupRefreshLevyMockMessageQueue(payeSchemes, accountId, cancellationTokenSource);
 
-            foreach (var declarationResponse in levyDeclarationResponses)
-            {
-                this._hmrcService.Setup(x => x.GetLevyDeclarations(declarationResponse.Empref, It.IsAny<DateTime?>()))
-                    .ReturnsAsync(declarationResponse.LevyDeclarations);
-            }
+//            foreach (var declarationResponse in levyDeclarationResponses)
+//            {
+//                this._hmrcService.Setup(x => x.GetLevyDeclarations(declarationResponse.Empref, It.IsAny<DateTime?>()))
+//                    .ReturnsAsync(declarationResponse.LevyDeclarations);
+//            }
 
-            // levyDeclaration.RunAsync(cancellationTokenSource.Token).Wait(5000);
-        }
+//            // levyDeclaration.RunAsync(cancellationTokenSource.Token).Wait(5000);
+//        }
 
-        private static long GetCurrentAccountId(IHashingService hashingService)
-        {
-            var hashedAccountId = ScenarioContext.Current["HashedAccountId"] as string;
-            var accountId = hashingService.DecodeValue(hashedAccountId);
-            return accountId;
-        }
+//        private static long GetCurrentAccountId(IHashingService hashingService)
+//        {
+//            var hashedAccountId = ScenarioContext.Current["HashedAccountId"] as string;
+//            var accountId = hashingService.DecodeValue(hashedAccountId);
+//            return accountId;
+//        }
 
-        private void SetupRefreshLevyMockMessageQueue(
-            IEnumerable<string> payeSchemes,
-            long accountId,
-            CancellationTokenSource cancellationTokenSource)
-        {
-            // var setupSequence = _messageSubscriber.SetupSequence(x => x.ReceiveAsAsync());
+//        private void SetupRefreshLevyMockMessageQueue(
+//            IEnumerable<string> payeSchemes,
+//            long accountId,
+//            CancellationTokenSource cancellationTokenSource)
+//        {
+//            // var setupSequence = _messageSubscriber.SetupSequence(x => x.ReceiveAsAsync());
 
-            // foreach (var scheme in payeSchemes)
-            // {
-            // var queueMessage = new EmployerRefreshLevyQueueMessage
-            // {
-            // AccountId = accountId,
-            // PayeRef = scheme
-            // };
+//            // foreach (var scheme in payeSchemes)
+//            // {
+//            // var queueMessage = new EmployerRefreshLevyQueueMessage
+//            // {
+//            // AccountId = accountId,
+//            // PayeRef = scheme
+//            // };
 
-            // var mockMessage = MessageObjectMother.Create(queueMessage, cancellationTokenSource.Cancel, null);
+//            // var mockMessage = MessageObjectMother.Create(queueMessage, cancellationTokenSource.Cancel, null);
 
-            // setupSequence = setupSequence.ReturnsAsync(mockMessage);
-            // }
-        }
-    }
-}
+//            // setupSequence = setupSequence.ReturnsAsync(mockMessage);
+//            // }
+//        }
+//    }
+//}

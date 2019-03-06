@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution
+﻿using SFA.DAS.EAS.Domain.Configuration;
+
+namespace SFA.DAS.EmployerAccounts.TestCommon.DependencyResolution
 {
     using Moq;
 
@@ -7,7 +9,6 @@
     using SFA.DAS.EmployerAccounts.DependencyResolution;
     using SFA.DAS.EmployerAccounts.Interfaces;
     using SFA.DAS.EmployerAccounts.Models.Account;
-    using SFA.DAS.EmployerFinance.Configuration;
     using SFA.DAS.Events.Api.Client;
     using SFA.DAS.Messaging.Interfaces;
 
