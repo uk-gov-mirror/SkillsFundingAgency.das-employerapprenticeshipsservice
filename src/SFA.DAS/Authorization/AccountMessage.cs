@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class AccountMessage : IAccountMessage
     {
         [IgnoreMap]

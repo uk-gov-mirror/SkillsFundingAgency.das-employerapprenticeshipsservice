@@ -1,7 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 
 namespace SFA.DAS.Authorization.WebApi
 {
+    [Obsolete]
     public class AuthorizationContextCache : IAuthorizationContextCache
     {
         private static readonly string Key = typeof(AuthorizationContext).FullName;

@@ -2,6 +2,7 @@
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public enum Role
     {
         None = 0,
@@ -10,6 +11,7 @@ namespace SFA.DAS.Authorization
         Viewer = 3
     }
 
+    [Obsolete]
     public static class RoleStrings {
         public static string GetRoleDescription(Role role) { return GetRoleDescription(role.ToString()); }
         public static string GetRoleDescription(short roleId) { return GetRoleDescription((Role)roleId); }

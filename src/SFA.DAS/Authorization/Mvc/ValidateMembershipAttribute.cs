@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class ValidateMembershipAttribute : ActionFilterAttribute
     {

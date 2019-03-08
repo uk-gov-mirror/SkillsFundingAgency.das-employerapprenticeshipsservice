@@ -1,5 +1,8 @@
-﻿namespace SFA.DAS.Authorization.Mvc
+﻿using System;
+
+namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public interface IAccountViewModel
     {
         long AccountId { get; set; }

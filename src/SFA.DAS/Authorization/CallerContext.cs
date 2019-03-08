@@ -2,6 +2,7 @@
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class CallerContext : ICallerContext
     {
         public string AccountHashedId { get; set; }

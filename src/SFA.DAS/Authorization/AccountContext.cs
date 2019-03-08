@@ -1,5 +1,8 @@
-﻿namespace SFA.DAS.Authorization
+﻿using System;
+
+namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class AccountContext : IAccountContext
     {
         public long Id { get; set; }

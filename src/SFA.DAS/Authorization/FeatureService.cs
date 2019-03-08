@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class FeatureService : IFeatureService
     {
         private readonly Dictionary<FeatureType, Feature> _features;

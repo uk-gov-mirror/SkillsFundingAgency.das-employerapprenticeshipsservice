@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public class ViewModelFilter : ActionFilterAttribute
     {
         private readonly Func<IAuthorizationService> _authorizationService;

@@ -2,6 +2,7 @@
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false)]
     public class FeatureAttribute : Attribute
     {

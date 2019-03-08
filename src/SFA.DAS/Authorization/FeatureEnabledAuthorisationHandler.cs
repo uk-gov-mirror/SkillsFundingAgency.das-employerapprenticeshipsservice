@@ -4,6 +4,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class FeatureEnabledAuthorisationHandler : IAuthorizationHandler
     {
         private readonly ILog _logger;

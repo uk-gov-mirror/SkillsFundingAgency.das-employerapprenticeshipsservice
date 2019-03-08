@@ -6,6 +6,7 @@ using SFA.DAS.HashingService;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public class CallerContextProvider : ICallerContextProvider
     {
         private static readonly string Key = typeof(CallerContext).FullName;

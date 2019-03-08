@@ -4,6 +4,7 @@ using AutoMapper;
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public class UserMessage : IUserMessage
     {
         [IgnoreMap]

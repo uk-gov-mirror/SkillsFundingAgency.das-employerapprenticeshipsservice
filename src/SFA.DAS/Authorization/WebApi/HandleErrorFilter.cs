@@ -5,6 +5,7 @@ using System.Web.Http.Filters;
 
 namespace SFA.DAS.Authorization.WebApi
 {
+    [Obsolete]
     public class HandleErrorFilter : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext actionExecutedContext)

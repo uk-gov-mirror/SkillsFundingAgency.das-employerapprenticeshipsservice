@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public static class HtmlHelperExtensions
     {
         public static AuthorizationResult GetAuthorizationResult(this HtmlHelper htmlHelper, FeatureType featureType)

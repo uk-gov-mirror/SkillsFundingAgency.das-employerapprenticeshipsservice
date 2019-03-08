@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public abstract class AccountViewModel : IAccountViewModel
     {
         [IgnoreMap]

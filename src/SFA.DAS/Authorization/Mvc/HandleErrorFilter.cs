@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public class HandleErrorFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext filterContext)

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.ValueProviders;
@@ -6,6 +7,7 @@ using WebApi.StructureMap;
 
 namespace SFA.DAS.Authorization.WebApi
 {
+    [Obsolete]
     public class MessageModelBinder : IModelBinder
     {
         public bool BindModel(HttpActionContext actionContext, ModelBindingContext bindingContext)

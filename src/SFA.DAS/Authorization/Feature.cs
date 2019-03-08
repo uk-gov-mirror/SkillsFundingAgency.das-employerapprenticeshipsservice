@@ -1,6 +1,9 @@
-﻿namespace SFA.DAS.Authorization
+﻿using System;
+
+namespace SFA.DAS.Authorization
 {
-	public class Feature
+    [Obsolete]
+    public class Feature
     {
         public bool Enabled { get; set; }
         public int? EnabledByAgreementVersion { get; set; }

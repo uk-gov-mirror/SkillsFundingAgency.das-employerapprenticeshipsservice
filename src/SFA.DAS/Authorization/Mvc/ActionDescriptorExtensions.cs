@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public static class ActionDescriptorExtensions
     {
         private static readonly ConcurrentDictionary<string, object> Cache = new ConcurrentDictionary<string, object>();

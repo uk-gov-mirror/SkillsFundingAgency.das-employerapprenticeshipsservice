@@ -2,6 +2,7 @@
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public interface IUserContext
     {
         long Id { get; }

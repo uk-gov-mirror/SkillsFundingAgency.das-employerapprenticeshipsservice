@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public class MessageModelBinder : DefaultModelBinder
     {
         private readonly Func<ICallerContextProvider> _callerContextProvider;

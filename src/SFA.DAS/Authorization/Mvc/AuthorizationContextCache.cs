@@ -1,7 +1,9 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace SFA.DAS.Authorization.Mvc
 {
+    [Obsolete]
     public class AuthorizationContextCache : IAuthorizationContextCache
     {
         private static readonly string Key = typeof(AuthorizationContext).FullName;

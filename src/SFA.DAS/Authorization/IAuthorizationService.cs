@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public interface IAuthorizationService
     {
         IAuthorizationContext GetAuthorizationContext();

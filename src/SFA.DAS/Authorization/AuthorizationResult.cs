@@ -1,5 +1,8 @@
-﻿namespace SFA.DAS.Authorization
+﻿using System;
+
+namespace SFA.DAS.Authorization
 {
+    [Obsolete]
     public enum AuthorizationResult
     {
         Ok,
