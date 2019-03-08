@@ -14,7 +14,6 @@ namespace SFA.DAS.EmployerFinance.Web.DependencyResolution
         {
             return new Container(c =>
             {
-                c.AddRegistry<AuthorizationRegistry>();
                 c.AddRegistry<CachesRegistry>();
                 c.AddRegistry<ConfigurationRegistry>();
                 c.AddRegistry<DateTimeRegistry>();
@@ -29,8 +28,8 @@ namespace SFA.DAS.EmployerFinance.Web.DependencyResolution
                 c.AddRegistry<NServiceBusUnitOfWorkRegistry>();
                 c.AddRegistry<RepositoriesRegistry>();
                 c.AddRegistry<TokenServiceRegistry>();
-                c.AddRegistry<DefaultRegistry>();
                 c.AddRegistry<StartupRegistry>();
+                c.AddRegistry<DefaultRegistry>();
             });
         }
     }

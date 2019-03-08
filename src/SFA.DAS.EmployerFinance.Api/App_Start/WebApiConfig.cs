@@ -1,8 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
-using System.Web.Http.ModelBinding;
-using SFA.DAS.Authorization.WebApi;
 using SFA.DAS.EmployerFinance.Api.DependencyResolution;
 using SFA.DAS.EmployerFinance.Api.ExceptionLoggers;
 using SFA.DAS.EmployerFinance.Data;
@@ -22,15 +20,12 @@ namespace SFA.DAS.EmployerFinance.Api
         {
             config.Filters.AddUnitOfWorkFilter();
             config.Filters.Add(new ValidateModelStateFilter());
-            config.Filters.Add(new HandleErrorFilter());
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             config.MapHttpAttributeRoutes();
             config.Services.Add(typeof(IExceptionLogger), new ErrorLogger());
-            config.Services.Insert(typeof(ModelBinderProvider), 0, new MessageModelBinderProvider());
 
             config.UseStructureMap(c =>
             {
-                c.AddRegistry<AuthorizationRegistry>();
                 c.AddRegistry<CachesRegistry>();
                 c.AddRegistry<CommitmentsRegistry>();
                 c.AddRegistry<ConfigurationRegistry>();
@@ -49,8 +44,8 @@ namespace SFA.DAS.EmployerFinance.Api
                 c.AddRegistry<NServiceBusUnitOfWorkRegistry>();
                 c.AddRegistry<RepositoriesRegistry>();
                 c.AddRegistry<TokenServiceRegistry>();
-                c.AddRegistry<DefaultRegistry>();
                 c.AddRegistry<StartupRegistry>();
+                c.AddRegistry<DefaultRegistry>();
             });
         }
     }
