@@ -24,7 +24,7 @@ namespace SFA.DAS.EmployerFinance.Jobs
                 var messageSession = ServiceLocator.GetInstance<IMessageSession>();
                 
                 nLogger.Info("Creating new import levy declarations command for job");
-                return messageSession.Send(new ImportLevyDeclarationsCommand());
+                return messageSession.Send(new ImportLevyDeclarationsCommand()); //todo before lunch - here
             }
             catch (Exception e)
             {
