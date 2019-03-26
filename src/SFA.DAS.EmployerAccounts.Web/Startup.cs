@@ -73,6 +73,22 @@ namespace SFA.DAS.EmployerAccounts.Web
 
             UserLinksViewModel.ChangePasswordLink = $"{constants.ChangePasswordLink()}{urlHelper.Encode(config.EmployerAccountsBaseUrl + "/service/password/change")}";
             UserLinksViewModel.ChangeEmailLink = $"{constants.ChangeEmailLink()}{urlHelper.Encode(config.EmployerAccountsBaseUrl + "/service/email/change")}";
+
+            app.Use(async (context, next) =>
+            {
+                bool addHeader = true;
+                if (context.Request.Path.Value.EndsWith("SignOutCleanup", StringComparison.OrdinalIgnoreCase))
+                {
+                    addHeader = false;
+                }
+
+                await next();
+
+                if (addHeader && !context.Response.Headers.ContainsKey("x-content-type-options"))
+                {
+                    context.Response.Headers.Add("x-content-type-options", new[] { "nosniff" });
+                }
+            });
         }
 
         private static Func<X509Certificate2> GetSigningCertificate(bool useCertificate)

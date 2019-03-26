@@ -72,6 +72,23 @@ namespace SFA.DAS.EAS.Web
             JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
             UserLinksViewModel.ChangePasswordLink = $"{constants.ChangePasswordLink()}{urlHelper.Encode("https://" + config.DashboardUrl + "/service/password/change")}";
             UserLinksViewModel.ChangeEmailLink = $"{constants.ChangeEmailLink()}{urlHelper.Encode("https://" + config.DashboardUrl + "/service/email/change")}";
+
+            app.Use(async (context, next) =>
+            {
+                bool addHeader = true;
+                if (context.Request.Path.Value.EndsWith("SignOutCleanup", StringComparison.OrdinalIgnoreCase))
+                {
+                    addHeader = false;
+                }
+
+                await next();
+
+                if(addHeader && !context.Response.Headers.ContainsKey("x-content-type-options"))
+                {
+                    context.Response.Headers.Add("x-content-type-options", new[] { "nosniff" });
+                }
+            });
+            
         }
 
         private static Func<X509Certificate2> GetSigningCertificate(bool useCertificate)
