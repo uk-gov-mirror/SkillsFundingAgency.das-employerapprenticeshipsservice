@@ -164,6 +164,7 @@
     <Build Include="StoredProcedures\CreateExpiredFunds.sql" />
     <Build Include="UserDefinedTypes\ExpiredFundsTable.sql" />
     <Build Include="StoredProcedures\GetExpiredFunds.sql" />
+    <Build Include="Tables\UnfilteredTransactionLine.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
