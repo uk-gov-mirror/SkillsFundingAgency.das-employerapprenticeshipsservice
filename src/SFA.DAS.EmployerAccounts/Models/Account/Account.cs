@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SFA.DAS.Authorization;
+using SFA.DAS.EmployerAccounts.Models.AccountTeam;
 
 namespace SFA.DAS.EmployerAccounts.Models.Account
 {

@@ -52,6 +52,21 @@ namespace SFA.DAS.EmployerAccounts.Data
             return result.SingleOrDefault();
         }
 
+        public async Task<AccountLevel> GetAccountLevel(long accountId)
+        {
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@accountId", accountId, DbType.Int64);
+
+            var result = await _db.Value.Database.Connection.QueryAsync<AccountLevel>(
+                sql: "[employer_account].[GetAccountLevel]",
+                param: parameters,
+                transaction: _db.Value.Database.CurrentTransaction.UnderlyingTransaction,
+                commandType: CommandType.StoredProcedure);
+
+            return result.Single();
+        }
+
 
         public async Task<AccountStats> GetAccountStats(long accountId)
         {
