@@ -221,7 +221,7 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
             switch (option)
             {
                 case "later":
-                    if (returnUrlCookie?.Value.IsNullOrWhiteSpace() == true) return RedirectToAction(ControllerConstants.EmployerAccountAccountegisteredActionName, ControllerConstants.EmployerAccountControllerName);
+                    if (returnUrlCookie == null || returnUrlCookie.Value.IsNullOrWhiteSpace()) return RedirectToAction(ControllerConstants.EmployerAccountAccountegisteredActionName, ControllerConstants.EmployerAccountControllerName);
                     return Redirect(returnUrlCookie.Value);
                 default: return RedirectToAction(ControllerConstants.IndexActionName);
             }
