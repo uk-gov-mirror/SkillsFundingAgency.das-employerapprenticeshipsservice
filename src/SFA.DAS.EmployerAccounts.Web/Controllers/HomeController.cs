@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
+using SFA.DAS.EmployerAccounts.Web.Models;
 
 namespace SFA.DAS.EmployerAccounts.Web.Controllers
 {
@@ -20,15 +22,18 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         private readonly HomeOrchestrator _homeOrchestrator;
         private readonly EmployerAccountsConfiguration _configuration;
         private readonly IAuthorizationService _authorizationService;
+        private readonly ICookieStorageService<ReturnUrlModel> _returnUrlCookieStorageService;
+        private const string ReturnUrlCookieName = "SFA.DAS.EmployerAccounts.Web.Controllers.ReturnUrlCookie";
 
         public HomeController(IAuthenticationService owinWrapper, HomeOrchestrator homeOrchestrator,
             EmployerAccountsConfiguration configuration, IAuthorizationService authorization,
-            IMultiVariantTestingService multiVariantTestingService, ICookieStorageService<FlashMessageViewModel> flashMessage)
+            IMultiVariantTestingService multiVariantTestingService, ICookieStorageService<FlashMessageViewModel> flashMessage, ICookieStorageService<ReturnUrlModel> returnUrlCookieStorageService)
             : base(owinWrapper, multiVariantTestingService, flashMessage)
         {
             _homeOrchestrator = homeOrchestrator;
             _configuration = configuration;
             _authorizationService = authorization;
+            _returnUrlCookieStorageService = returnUrlCookieStorageService;
         }
 
         [Route("~/")]
@@ -131,8 +136,9 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
 
         [HttpGet]
         [Route("confirmWhoYouAre")]
-        public ActionResult ConfirmWhoYouAre()
+        public ActionResult ConfirmWhoYouAre(string returnUrl = "") //entrypoint
         {
+            _returnUrlCookieStorageService.Create(new ReturnUrlModel{ Value = returnUrl }, ReturnUrlCookieName);
             var model = new
             {
                 HideHeaderSignInLink = true
@@ -209,9 +215,14 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         {
             await OwinWrapper.UpdateClaims();
 
+            var returnUrlCookie =  _returnUrlCookieStorageService.Get(ReturnUrlCookieName);
+            _returnUrlCookieStorageService.Delete(ReturnUrlCookieName);
+
             switch (option)
             {
-                case "later": return RedirectToAction(ControllerConstants.EmployerAccountAccountegisteredActionName, ControllerConstants.EmployerAccountControllerName);
+                case "later":
+                    if (returnUrlCookie?.Value.IsNullOrWhiteSpace() == true) return RedirectToAction(ControllerConstants.EmployerAccountAccountegisteredActionName, ControllerConstants.EmployerAccountControllerName);
+                    return Redirect(returnUrlCookie.Value);
                 default: return RedirectToAction(ControllerConstants.IndexActionName);
             }
         }

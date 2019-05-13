@@ -11,6 +11,7 @@ using SFA.DAS.EmployerAccounts.Web.ViewModels;
 using SFA.DAS.EmployerUsers.WebClientComponents;
 using SFA.DAS.Authentication;
 using SFA.DAS.Authorization;
+using SFA.DAS.EmployerAccounts.Web.Models;
 
 namespace SFA.DAS.EmployerAccounts.Web.UnitTests.Controllers.HomeControllerTests
 {
@@ -38,7 +39,7 @@ namespace SFA.DAS.EmployerAccounts.Web.UnitTests.Controllers.HomeControllerTests
             _configuration = new EmployerAccountsConfiguration();
 
             _homeController = new HomeController(_owinWrapper.Object, _homeOrchestrator.Object, _configuration, 
-                _featureToggle.Object, _userViewTestingService.Object,_flashMessage.Object)
+                _featureToggle.Object, _userViewTestingService.Object,_flashMessage.Object, Mock.Of<ICookieStorageService<ReturnUrlModel>>())
             {
                 ControllerContext = _controllerContext.Object
             };
