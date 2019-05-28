@@ -15,7 +15,6 @@
         public const string ConfirmOrganisationDetailsViewName = "../OrganisationShared/ConfirmOrganisationDetails";
         public const string ConfirmPayeSchemeActionName = "ConfirmPayeScheme";
         public const string ConfirmRemoveOrganisationActionName = "ConfirmRemoveOrganisation";
-        public const string GetGovernmentFunding = "GetGovernmentFunding";
         public const string EmailClaimKeyName = "email";
         public const string EmployerAccountViewName = "EmployerAccount";
         public const string EmployerAccountControllerName = "EmployerAccount";
@@ -31,6 +30,7 @@
         public const string GatewayViewName = "Gateway";
         public const string GateWayResponseActionName = "GateWayResponse";
         public const string GetGatewayActionName = "GetGateway";
+        public const string GetGovernmentFundingActionName = "GetGovernmentFunding";
         public const string HomeControllerName = "Home";
         public const string IndexActionName = "Index";
         public const string InvitationControllerName = "Invitation";
@@ -55,13 +55,11 @@
         public const string SearchForOrganisationResultsActionName = "SearchForOrganisationResults";
         public const string SearchForOrganisationResultsViewName = "SearchForOrganisationResults";
         public const string ServiceStartPageViewName = "ServiceStartPage";
-        public const string SetupAccountViewName = "SetupAccount";
         public const string SignAgreementViewName = "SignAgreement";
         public const string SignInActionName = "SignIn";
         public const string SummaryActionName = "Summary";
         public const string ViewTeamActionName = "ViewTeam";
-        public const string ViewTeamViewName = "ViewTeam";
-        public const string WhatYoullNeedActionName = "WhatYoullNeed";
+        public const string ViewTeamViewName = "ViewTeam";    
         public const string AmendOrganisationActionName = "AmendOrganisation";
         public const string TransfersControllerName = "Transfers";
         public const string UserRefClaimKeyName = "sub";

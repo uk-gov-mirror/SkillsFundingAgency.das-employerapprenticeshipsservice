@@ -150,6 +150,8 @@
     <Compile Include="Helpers\AccountLegalEntitiesHelper.cs" />
     <Compile Include="Helpers\AccountTaskHelper.cs" />
     <Compile Include="Helpers\ControllerConstants.cs" />
+    <Compile Include="Helpers\HomepagePanelViewHelper.cs" />
+    <Compile Include="Helpers\IHomepagePanelViewHelper.cs" />
     <Compile Include="Logging\LoggingConfig.cs" />
     <Compile Include="Logging\LoggingContext.cs" />
     <Compile Include="Mappings\AgreementMappings.cs" />
@@ -531,10 +533,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\ServiceLandingPage.cshtml" />
     <Content Include="Views\Home\ServiceStartPage.cshtml" />
-    <Content Include="Views\Home\SetupAccount.cshtml" />
     <Content Include="Views\Home\UsedServiceBefore.cshtml" />
     <Content Include="Views\Shared\GoogleAnalyticsInfo.cshtml" />
-    <Content Include="Views\Shared\_SetupAccount.cshtml" />
     <Content Include="Views\Shared\_SuccessMessage.cshtml" />
     <Content Include="Views\Shared\_SVGSprite.cshtml" />
     <Content Include="src\govuk_elements\sass\elements-page-ie6.scss" />
@@ -624,7 +624,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\LegalAgreement.cshtml" />
     <Content Include="Views\Home\Privacy.cshtml" />
-    <Content Include="Views\Home\WhatYoullNeed.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
@@ -712,6 +711,8 @@
     <Content Include="Views\EmployerAccount\PayeError.cshtml" />
     <Content Include="Views\EmployerTeam\V2\CreateVacancy.cshtml" />
     <Content Include="Views\EmployerTeam\V2\FundingComplete.cshtml" />
+    <Content Include="Views\EmployerTeam\V2\PrePayeRecruitment.cshtml" />
+    <Content Include="Views\EmployerTeam\V2\AddPaye.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EmployerAccounts.Api.Client\SFA.DAS.EmployerAccounts.Api.Client.csproj">
