@@ -70,6 +70,7 @@ namespace SFA.DAS.EmployerFinance.Web.Controllers
                     FundingExpected = response.FundsIn,
                     AvailableFunds = response.FundsIn - response.FundsOut,
                     ProjectedSpend = response.FundsOut
+                    TotalSpendForLastYear =  response.TotalSpendForLastYear
                 }
             };
 

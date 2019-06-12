@@ -10,5 +10,6 @@ namespace SFA.DAS.EmployerFinance.Queries.GetAccountFinanceOverview
         public DateTime? ExpiringFundsExpiryDate { get; set; }
         public decimal FundsIn { get; set; }
         public decimal FundsOut { get; set; }
+        public decimal TotalSpendForLastYear { get; set; }
     }
 }
