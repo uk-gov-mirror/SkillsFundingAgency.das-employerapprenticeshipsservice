@@ -13,7 +13,7 @@ namespace SFA.DAS.EAS.Portal.Worker.NServiceBus
             return config;
         }
 
-        public static EndpointConfiguration UseDasMessageConventions(this EndpointConfiguration config)
+        public static EndpointConfiguration UsePortalMessageConventions(this EndpointConfiguration config)
         {
             var conventions = config.Conventions();
             conventions.DefiningEventsAs(t => t.Namespace != null &&
@@ -21,7 +21,7 @@ namespace SFA.DAS.EAS.Portal.Worker.NServiceBus
             || t.Namespace.StartsWith("SFA.DAS.Commitments.Events")
             || t.Namespace.StartsWith("SFA.DAS.Reservations.Messages")
             || t.Namespace.StartsWith("SFA.DAS.EmployerAccounts.Messages.Events")
-            ));
+            || t.Namespace.StartsWith("SFA.DAS.ProviderRelationships.Messages.Events")));
             return config;
         }
     }
