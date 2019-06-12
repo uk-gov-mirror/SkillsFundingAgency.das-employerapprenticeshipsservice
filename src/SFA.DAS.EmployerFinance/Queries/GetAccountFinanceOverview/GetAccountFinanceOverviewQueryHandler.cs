@@ -42,6 +42,7 @@ namespace SFA.DAS.EmployerFinance.Queries.GetAccountFinanceOverview
             }
            
             var currentBalance = await GetAccountBalance(query.AccountId.Value);
+            var earliestFundsToExpireTask = GetExpiringFunds(query.AccountId.Value);
             var projectedCalculations = await _dasForecastingService.GetProjectedCalculations(query.AccountId.Value);
             var totalSpendForLastYear = await GetTotalSpendForLastYear(query.AccountId.Value);
 

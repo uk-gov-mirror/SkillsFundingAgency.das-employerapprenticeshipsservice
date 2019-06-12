@@ -69,7 +69,7 @@ namespace SFA.DAS.EmployerFinance.Web.Controllers
                     ExpiryDate = response.ExpiringFundsExpiryDate,
                     FundingExpected = response.FundsIn,
                     AvailableFunds = response.FundsIn - response.FundsOut,
-                    ProjectedSpend = response.FundsOut
+                    ProjectedSpend = response.FundsOut,
                     TotalSpendForLastYear =  response.TotalSpendForLastYear
                 }
             };
