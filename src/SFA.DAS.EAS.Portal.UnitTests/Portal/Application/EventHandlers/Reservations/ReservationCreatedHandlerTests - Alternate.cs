@@ -36,13 +36,7 @@ namespace SFA.DAS.EAS.Portal.UnitTests.Portal.Application.EventHandlers.Reservat
             await _sut.Handle(_testEvent);
 
             //Assert
-            _accountDocServiceMockHelper
-                .SavedAccountDocument
-                .Account
-                .Organisations
-                .SingleOrDefault(org => org.AccountLegalEntityId == _testEvent.AccountLegalEntityId).Reservations
-                .Should()
-                .ContainSingle(x => x.Id == _testEvent.Id);
+            AssertAccountAsExpected(1);
         }
 
         [Test]
@@ -55,13 +49,7 @@ namespace SFA.DAS.EAS.Portal.UnitTests.Portal.Application.EventHandlers.Reservat
             await _sut.Handle(_testEvent);
 
             //Assert
-            _accountDocServiceMockHelper
-                .SavedAccountDocument
-                .Account
-                .Organisations
-                .SingleOrDefault(org => org.AccountLegalEntityId == _testEvent.AccountLegalEntityId).Reservations
-                .Should()
-                .ContainSingle(x => x.Id == _testEvent.Id);
+            AssertAccountAsExpected(1);
         }
 
         [Test]
@@ -74,13 +62,7 @@ namespace SFA.DAS.EAS.Portal.UnitTests.Portal.Application.EventHandlers.Reservat
             await _sut.Handle(_testEvent);
 
             //Assert
-            _accountDocServiceMockHelper
-                .SavedAccountDocument
-                .Account
-                .Organisations
-                .SingleOrDefault(org => org.AccountLegalEntityId == _testEvent.AccountLegalEntityId).Reservations
-                .Should()
-                .ContainSingle(x => x.Id == _testEvent.Id);
+            AssertAccountAsExpected(3);
         }
 
         [Test]
@@ -94,6 +76,24 @@ namespace SFA.DAS.EAS.Portal.UnitTests.Portal.Application.EventHandlers.Reservat
 
             //Assert
             Assert.IsTrue(exception.Message.StartsWith("Received ReservationCreatedEvent with"));
+        }
+
+        private void AssertAccountAsExpected(int expectedOrgCount)
+        {
+            _accountDocServiceMockHelper
+               .SavedAccountDocument
+               .Account
+               .Organisations
+               .Should()
+               .HaveCount(expectedOrgCount);
+
+            _accountDocServiceMockHelper
+               .SavedAccountDocument
+               .Account
+               .Organisations
+               .SingleOrDefault(org => org.AccountLegalEntityId == _testEvent.AccountLegalEntityId).Reservations
+               .Should()
+               .ContainSingle(x => x.Id == _testEvent.Id);
         }
     }
 }

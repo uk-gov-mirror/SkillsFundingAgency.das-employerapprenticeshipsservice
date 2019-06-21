@@ -78,5 +78,23 @@ namespace SFA.DAS.EAS.Portal.UnitTests.Portal.Helpers
 
             AccountDocumentServiceMock.Setup(s => s.GetOrCreate(accountId, It.IsAny<CancellationToken>())).ReturnsAsync(accountDocument);
         }
+
+        internal void SetUpAccountWithCohort(long accountId, long accountLegalEntityId, long commitmentId)
+        {
+            var accountDocument = Fixture
+                .Build<AccountDocument>()
+                .With(ad => ad.Account, Fixture.Build<Account>().With(acc => acc.Id, accountId).Create())
+                .Create();
+
+            var organisation = accountDocument.Account.Organisations.RandomElement();
+            organisation.AccountLegalEntityId = accountLegalEntityId;
+
+            var cohort = organisation.Cohorts.RandomElement();
+            cohort.Id = commitmentId.ToString();
+
+            cohort.Apprenticeships = new List<Apprenticeship>();
+
+            AccountDocumentServiceMock.Setup(s => s.GetOrCreate(accountId, It.IsAny<CancellationToken>())).ReturnsAsync(accountDocument);
+        }
     }
 }
