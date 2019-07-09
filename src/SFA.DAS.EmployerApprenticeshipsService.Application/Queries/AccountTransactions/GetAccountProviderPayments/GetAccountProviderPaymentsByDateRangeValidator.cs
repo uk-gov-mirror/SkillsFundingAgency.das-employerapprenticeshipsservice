@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetAccountProviderPayments
 {
-    public class GetAccountProviderPaymentsByDateRangeValidator : IValidator<GetAccountProviderPaymentsByDateRangeQuery>
+    public class GetAccountProviderPaymentsByDateRangeValidator
     {
         public ValidationResult Validate(GetAccountProviderPaymentsByDateRangeQuery item)
         {

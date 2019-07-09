@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetLastLevyDeclaration
 {
-    public class GetLastLevyDeclarationValidator : IValidator<GetLastLevyDeclarationQuery>
+    public class GetLastLevyDeclarationValidator
     {
         public ValidationResult Validate(GetLastLevyDeclarationQuery item)
         {

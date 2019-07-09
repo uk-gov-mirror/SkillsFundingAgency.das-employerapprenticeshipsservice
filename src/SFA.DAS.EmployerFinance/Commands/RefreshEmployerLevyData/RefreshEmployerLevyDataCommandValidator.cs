@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.RefreshEmployerLevyData
 {
-    public class RefreshEmployerLevyDataCommandValidator : IValidator<RefreshEmployerLevyDataCommand>
+    public class RefreshEmployerLevyDataCommandValidator
     {
         public ValidationResult Validate(RefreshEmployerLevyDataCommand item)
         {

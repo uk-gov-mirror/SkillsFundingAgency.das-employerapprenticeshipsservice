@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.EmployerFinance.Queries.GetEmployerAccount
 {
-    public class GetEmployerAccountByHashedIdValidator : IValidator<GetEmployerAccountHashedQuery>
+    public class GetEmployerAccountByHashedIdValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

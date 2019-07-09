@@ -13,7 +13,6 @@ using SFA.DAS.EmployerAccounts.Models.UserProfile;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Notifications.Api.Client;
 using SFA.DAS.Notifications.Api.Types;
-using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerAccounts.UnitTests.Commands.UnsubscribeNotificationTest
 {

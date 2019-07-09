@@ -6,7 +6,7 @@ using SFA.DAS.EmployerFinance.Queries.FindAccountCoursePayments;
 
 namespace SFA.DAS.EmployerFinance.Queries.FindAccountCoursePayments
 {
-    public class FindAccountCoursePaymentsQueryValidator : IValidator<FindAccountCoursePaymentsQuery>
+    public class FindAccountCoursePaymentsQueryValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

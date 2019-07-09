@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.CreateEnglishFractionCalculationDate
 {
-    public class CreateEnglishFractionCalculationDateCommandValidator : IValidator<CreateEnglishFractionCalculationDateCommand>
+    public class CreateEnglishFractionCalculationDateCommandValidator
     {
         public ValidationResult Validate(CreateEnglishFractionCalculationDateCommand item)
         {

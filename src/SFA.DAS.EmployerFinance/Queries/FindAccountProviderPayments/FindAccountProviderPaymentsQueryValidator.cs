@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Queries.FindAccountProviderPayments
 {
-    public class FindAccountProviderPaymentsQueryValidator : IValidator<FindAccountProviderPaymentsQuery>
+    public class FindAccountProviderPaymentsQueryValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

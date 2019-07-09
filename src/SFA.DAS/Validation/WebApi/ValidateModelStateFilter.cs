@@ -19,7 +19,6 @@ namespace SFA.DAS.Validation.WebApi
         {
             if (actionExecutedContext.Exception is ValidationException validationException)
             {
-                actionExecutedContext.ActionContext.ModelState.AddModelError(validationException);
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionExecutedContext.ActionContext.ModelState);
             }
         }

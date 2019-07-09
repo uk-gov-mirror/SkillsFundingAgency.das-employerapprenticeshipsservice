@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetPublicSectorOrganisation
 {
-    public class GetPublicSectorOrgainsationValidator : IValidator<GetPublicSectorOrganisationQuery>
+    public class GetPublicSectorOrgainsationValidator
     {
         public ValidationResult Validate(GetPublicSectorOrganisationQuery item)
         {

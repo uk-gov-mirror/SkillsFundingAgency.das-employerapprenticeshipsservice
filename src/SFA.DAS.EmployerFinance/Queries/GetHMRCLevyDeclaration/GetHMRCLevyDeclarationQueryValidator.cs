@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Queries.GetHMRCLevyDeclaration
 {
-    public class GetHMRCLevyDeclarationQueryValidator : IValidator<GetHMRCLevyDeclarationQuery>
+    public class GetHMRCLevyDeclarationQueryValidator
     {
         public ValidationResult Validate(GetHMRCLevyDeclarationQuery item)
         {

@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Commands.UpsertRegisteredUser
 {
-    public class UpsertRegisteredUserCommandValidator : IValidator<UpsertRegisteredUserCommand>
+    public class UpsertRegisteredUserCommandValidator
     {
         public ValidationResult Validate(UpsertRegisteredUserCommand item)
         {

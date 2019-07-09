@@ -7,8 +7,7 @@ using SFA.DAS.EAS.Domain.Models.UserProfile;
 
 namespace SFA.DAS.EAS.Application.Queries.GetLatestEmployerAgreementTemplate
 {
-    public class GetLatestEmployerAgreementTemplateRequestValidator :
-        IValidator<GetLatestEmployerAgreementTemplateRequest>
+    public class GetLatestEmployerAgreementTemplateRequestValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

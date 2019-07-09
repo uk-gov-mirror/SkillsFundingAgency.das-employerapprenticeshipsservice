@@ -5,7 +5,7 @@ using SFA.DAS.Tasks.API.Types.Enums;
 
 namespace SFA.DAS.EAS.Application.Commands.DismissMonthlyTaskReminder
 {
-    public class DismissMonthlyTaskReminderCommandValidator : IValidator<DismissMonthlyTaskReminderCommand>
+    public class DismissMonthlyTaskReminderCommandValidator
     {
         public ValidationResult Validate(DismissMonthlyTaskReminderCommand command)
         {

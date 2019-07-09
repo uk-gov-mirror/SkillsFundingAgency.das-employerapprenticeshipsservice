@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetLevyDeclaration
 {
-    public class GetLevyDeclarationValidator : IValidator<GetLevyDeclarationRequest>
+    public class GetLevyDeclarationValidator
     {
         public ValidationResult Validate(GetLevyDeclarationRequest item)
         {

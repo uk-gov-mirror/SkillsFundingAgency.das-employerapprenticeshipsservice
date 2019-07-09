@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Queries.GetPayeSchemeByRef
 {
-    public class GetPayeSchemeByRefValidator : IValidator<GetPayeSchemeByRefQuery>
+    public class GetPayeSchemeByRefValidator
     {
         public ValidationResult Validate(GetPayeSchemeByRefQuery item)
         {

@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetPreviousTransactionsCount
 {
-    public class GetPreviousTransactionsCountRequestValidator : IValidator<GetPreviousTransactionsCountRequest>
+    public class GetPreviousTransactionsCountRequestValidator
     {
         public ValidationResult Validate(GetPreviousTransactionsCountRequest request)
         {

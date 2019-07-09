@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetAccountLegalEntities
 {
-    public class GetAccountLegalEntitiesValidator : IValidator<GetAccountLegalEntitiesRequest>
+    public class GetAccountLegalEntitiesValidator
     {
         public ValidationResult Validate(GetAccountLegalEntitiesRequest item)
         {

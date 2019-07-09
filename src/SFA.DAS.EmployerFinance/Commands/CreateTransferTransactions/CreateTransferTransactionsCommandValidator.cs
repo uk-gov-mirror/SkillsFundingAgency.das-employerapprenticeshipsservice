@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.CreateTransferTransactions
 {
-    public class CreateTransferTransactionsCommandValidator : IValidator<CreateTransferTransactionsCommand>
+    public class CreateTransferTransactionsCommandValidator
     {
         public ValidationResult Validate(CreateTransferTransactionsCommand item)
         {

@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetEmployerAgreementById
 {
-    public class GetEmployerAgreementByIdRequestValidator : IValidator<GetEmployerAgreementByIdRequest>
+    public class GetEmployerAgreementByIdRequestValidator
     {
         public ValidationResult Validate(GetEmployerAgreementByIdRequest item)
         {

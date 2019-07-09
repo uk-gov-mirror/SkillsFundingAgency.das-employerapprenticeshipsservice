@@ -5,18 +5,6 @@ namespace SFA.DAS.Validation.Mvc
 {
     public static class ModelStateDictionaryExtensions
     {
-        public static void AddModelError(this ModelStateDictionary modelState, ValidationException ex)
-        {
-            if (ex.MessageType != null && !string.IsNullOrWhiteSpace(ex.PropertyName))
-            {
-                modelState.AddModelError($"{ex.MessageType.Name}.{ex.PropertyName}", ex.Message);
-            }
-            else
-            {
-                modelState.AddModelError("", ex.Message);
-            }
-        }
-
         public static SerializableModelStateDictionary ToSerializable(this ModelStateDictionary modelState)
         {
             var data = modelState

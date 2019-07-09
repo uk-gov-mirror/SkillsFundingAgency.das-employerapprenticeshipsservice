@@ -20,7 +20,6 @@ namespace SFA.DAS.Validation.Mvc
         {
             if (filterContext.Exception is ValidationException validationException)
             {
-                filterContext.Controller.ViewData.ModelState.AddModelError(validationException);
                 filterContext.Controller.TempData["ModelState"] = filterContext.Controller.ViewData.ModelState.ToSerializable();
                 filterContext.RouteData.Values.Merge(filterContext.HttpContext.Request.QueryString);
                 filterContext.Result = new RedirectToRouteResult(filterContext.RouteData.Values);

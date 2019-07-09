@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetAccountTransactions
 {
-    public class GetAccountTransactionsValidator : IValidator<GetAccountTransactionsRequest>
+    public class GetAccountTransactionsValidator
     {
         public ValidationResult Validate(GetAccountTransactionsRequest item)
         {

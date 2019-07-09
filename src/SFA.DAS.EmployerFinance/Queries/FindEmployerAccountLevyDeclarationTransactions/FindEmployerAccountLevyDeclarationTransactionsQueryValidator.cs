@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Queries.FindEmployerAccountLevyDeclarationTransactions
 {
-    public class FindEmployerAccountLevyDeclarationTransactionsQueryValidator : IValidator<FindEmployerAccountLevyDeclarationTransactionsQuery>
+    public class FindEmployerAccountLevyDeclarationTransactionsQueryValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

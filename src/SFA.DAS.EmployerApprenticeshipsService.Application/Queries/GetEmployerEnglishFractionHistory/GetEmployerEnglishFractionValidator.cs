@@ -5,7 +5,7 @@ using SFA.DAS.EAS.Domain.Data.Repositories;
 
 namespace SFA.DAS.EAS.Application.Queries.GetEmployerEnglishFractionHistory
 {
-    public class GetEmployerEnglishFractionValidator : IValidator<GetEmployerEnglishFractionQuery>
+    public class GetEmployerEnglishFractionValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetAccountTasks
 {
-    public class GetAccountTasksQueryValidator : IValidator<GetAccountTasksQuery>
+    public class GetAccountTasksQueryValidator
     {
         public ValidationResult Validate(GetAccountTasksQuery item)
         {

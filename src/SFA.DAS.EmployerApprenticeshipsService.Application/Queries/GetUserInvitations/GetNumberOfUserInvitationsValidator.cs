@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetUserInvitations
 {
-    public class GetNumberOfUserInvitationsValidator : IValidator<GetNumberOfUserInvitationsQuery>
+    public class GetNumberOfUserInvitationsValidator
     {
         public ValidationResult Validate(GetNumberOfUserInvitationsQuery item)
         {

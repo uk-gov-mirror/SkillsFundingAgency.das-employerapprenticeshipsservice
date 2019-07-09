@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.CreateNewPeriodEnd
 {
-    public class CreateNewPeriodEndCommandValidator : IValidator<CreateNewPeriodEndCommand>
+    public class CreateNewPeriodEndCommandValidator
     {
         public ValidationResult Validate(CreateNewPeriodEndCommand item)
         {

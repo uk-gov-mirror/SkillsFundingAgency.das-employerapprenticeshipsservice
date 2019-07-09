@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetAccountBalances
 {
-    public class GetAccountBalancesValidator : IValidator<GetAccountBalancesRequest>
+    public class GetAccountBalancesValidator
     {
         public ValidationResult Validate(GetAccountBalancesRequest item)
         {

@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetHmrcEmployerInformation
 {
-    public class GetHmrcEmployerInformationValidator : IValidator<GetHmrcEmployerInformationQuery>
+    public class GetHmrcEmployerInformationValidator
     {
         public ValidationResult Validate(GetHmrcEmployerInformationQuery item)
         {

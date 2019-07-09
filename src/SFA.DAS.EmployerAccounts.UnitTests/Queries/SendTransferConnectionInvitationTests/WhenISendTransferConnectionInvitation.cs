@@ -12,7 +12,6 @@ using SFA.DAS.EmployerAccounts.Models.TransferConnections;
 using SFA.DAS.EmployerAccounts.Queries.SendTransferConnectionInvitation;
 using SFA.DAS.EmployerAccounts.UnitTests.Builders;
 using SFA.DAS.Testing.EntityFramework;
-using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerAccounts.UnitTests.Queries.SendTransferConnectionInvitationTests
 {

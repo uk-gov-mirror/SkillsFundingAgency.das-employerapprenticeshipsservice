@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetPostcodeAddress
 {
-    public class GetPostcodeAddressValidator : IValidator<GetPostcodeAddressRequest>
+    public class GetPostcodeAddressValidator
     {
         //This is postcode regex found off stackoverflow that was an old version of the gov.uk office postcode
         //regex pattern. Given we only need to do basic validation on the postcode format this should be more

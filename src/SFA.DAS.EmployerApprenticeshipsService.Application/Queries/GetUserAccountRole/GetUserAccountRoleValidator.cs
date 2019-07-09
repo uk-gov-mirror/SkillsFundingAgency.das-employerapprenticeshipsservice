@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetUserAccountRole
 {
-    public class GetUserAccountRoleValidator : IValidator<GetUserAccountRoleQuery>
+    public class GetUserAccountRoleValidator
     {
         public ValidationResult Validate(GetUserAccountRoleQuery query)
         {

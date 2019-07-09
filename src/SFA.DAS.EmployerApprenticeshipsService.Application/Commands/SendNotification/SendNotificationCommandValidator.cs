@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Commands.SendNotification
 {
-    public class SendNotificationCommandValidator : IValidator<SendNotificationCommand>
+    public class SendNotificationCommandValidator
     {
         public ValidationResult Validate(SendNotificationCommand item)
         {

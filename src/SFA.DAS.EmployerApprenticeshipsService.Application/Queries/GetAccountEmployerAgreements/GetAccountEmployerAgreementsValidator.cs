@@ -6,7 +6,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.EAS.Application.Queries.GetAccountEmployerAgreements
 {
-    public class GetAccountEmployerAgreementsValidator : IValidator<GetAccountEmployerAgreementsRequest> 
+    public class GetAccountEmployerAgreementsValidator
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly ILog _logger;

@@ -36,7 +36,10 @@ namespace SFA.DAS.EAS.Application.Queries.SendTransferConnectionInvitation
 
             if (receiverAccount == null || receiverAccount.Id == message.AccountId)
             {
-                throw new ValidationException<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You must enter a valid account ID");
+                var ex = new ValidationException();
+                ex.AddError<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You must enter a valid account ID");
+
+                throw ex;
             }
 
             var isReceiverASender = await _db.Value.TransferConnectionInvitations.AnyAsync(i =>
@@ -46,7 +49,11 @@ namespace SFA.DAS.EAS.Application.Queries.SendTransferConnectionInvitation
 
             if (isReceiverASender)
             {
-                throw new ValidationException<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You can't connect with this employer because they already have pending or accepted connection requests");
+                var ex = new ValidationException();
+
+                ex.AddError<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You can't connect with this employer because they already have pending or accepted connection requests");
+
+                throw ex;
             }
 
             var anyTransferConnectionInvitations = await _db.Value.TransferConnectionInvitations.AnyAsync(i => (
@@ -57,7 +64,11 @@ namespace SFA.DAS.EAS.Application.Queries.SendTransferConnectionInvitation
 
             if (anyTransferConnectionInvitations)
             {
-                throw new ValidationException<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You can't connect with this employer because they already have a pending or accepted connection request");
+                var ex = new ValidationException();
+
+                ex.AddError<SendTransferConnectionInvitationQuery>(q => q.ReceiverAccountPublicHashedId, "You can't connect with this employer because they already have a pending or accepted connection request");
+
+                throw ex;
             }
 
             var senderAccount = await _db.Value.Accounts.ProjectTo<AccountDto>(_configurationProvider).SingleOrDefaultAsync(a => a.Id == message.AccountId);

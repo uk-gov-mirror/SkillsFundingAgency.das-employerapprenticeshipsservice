@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetCharity
 {
-    public class GetCharityQueryValidator : IValidator<GetCharityQueryRequest>
+    public class GetCharityQueryValidator
     {
         public ValidationResult Validate(GetCharityQueryRequest item)
         {

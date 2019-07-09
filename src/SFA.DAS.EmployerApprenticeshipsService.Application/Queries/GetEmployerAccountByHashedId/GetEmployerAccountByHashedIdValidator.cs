@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetEmployerAccountByHashedId
 {
-    public class GetEmployerAccountByHashedIdValidator : IValidator<GetEmployerAccountByHashedIdQuery>
+    public class GetEmployerAccountByHashedIdValidator
     {
         public ValidationResult Validate(GetEmployerAccountByHashedIdQuery item)
         {

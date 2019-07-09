@@ -5,7 +5,7 @@ using SFA.DAS.EAS.Domain.Data.Repositories;
 
 namespace SFA.DAS.EAS.Application.Queries.GetEmployerAccount
 {
-    public class GetEmployerAccountValidator : IValidator<GetEmployerAccountQuery>
+    public class GetEmployerAccountValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

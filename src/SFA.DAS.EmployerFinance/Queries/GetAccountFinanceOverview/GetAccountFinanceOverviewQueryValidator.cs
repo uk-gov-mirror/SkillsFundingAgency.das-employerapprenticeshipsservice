@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Queries.GetAccountFinanceOverview
 {
-    public class GetAccountFinanceOverviewQueryValidator : IValidator<GetAccountFinanceOverviewQuery>
+    public class GetAccountFinanceOverviewQueryValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

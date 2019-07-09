@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetPayeSchemeInUse
 {
-    public class GetPayeSchemeInUseValidator : IValidator<GetPayeSchemeInUseQuery>
+    public class GetPayeSchemeInUseValidator
     {
         public ValidationResult Validate(GetPayeSchemeInUseQuery item)
         {

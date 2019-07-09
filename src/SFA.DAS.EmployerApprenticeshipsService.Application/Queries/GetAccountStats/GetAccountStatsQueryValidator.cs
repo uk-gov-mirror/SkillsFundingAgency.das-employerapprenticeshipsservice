@@ -4,7 +4,7 @@ using SFA.DAS.EAS.Domain.Data.Repositories;
 
 namespace SFA.DAS.EAS.Application.Queries.GetAccountStats
 {
-    public class GetAccountStatsQueryValidator : IValidator<GetAccountStatsQuery>
+    public class GetAccountStatsQueryValidator
     {
         private readonly IMembershipRepository _repository;
 

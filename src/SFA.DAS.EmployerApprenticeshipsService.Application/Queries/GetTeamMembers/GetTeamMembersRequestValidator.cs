@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.GetTeamMembers
 {
-    public class GetTeamMembersRequestValidator : IValidator<GetTeamMembersRequest>
+    public class GetTeamMembersRequestValidator
     {
         public ValidationResult Validate(GetTeamMembersRequest item)
         {

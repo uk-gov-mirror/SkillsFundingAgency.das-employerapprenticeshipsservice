@@ -5,7 +5,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Commands.AuditCommand
 {
-    public class CreateAuditCommandValidator : IValidator<CreateAuditCommand>
+    public class CreateAuditCommandValidator
     {
         public ValidationResult Validate(CreateAuditCommand item)
         {

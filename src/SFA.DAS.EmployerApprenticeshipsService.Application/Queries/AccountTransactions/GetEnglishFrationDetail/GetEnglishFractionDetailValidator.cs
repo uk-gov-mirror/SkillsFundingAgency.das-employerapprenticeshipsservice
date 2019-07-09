@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Queries.AccountTransactions.GetEnglishFrationDetail
 {
-    public class GetEnglishFractionDetailValidator : IValidator<GetEnglishFractionDetailByEmpRefQuery>
+    public class GetEnglishFractionDetailValidator
     {
         public ValidationResult Validate(GetEnglishFractionDetailByEmpRefQuery item)
         {

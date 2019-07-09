@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.RefreshPaymentData
 {
-    public class RefreshPaymentDataCommandValidator : IValidator<RefreshPaymentDataCommand>
+    public class RefreshPaymentDataCommandValidator
     {
         public ValidationResult Validate(RefreshPaymentDataCommand item)
         {

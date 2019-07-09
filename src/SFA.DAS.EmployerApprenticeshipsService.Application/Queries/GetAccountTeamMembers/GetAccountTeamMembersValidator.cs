@@ -5,7 +5,7 @@ using SFA.DAS.EAS.Domain.Data.Repositories;
 
 namespace SFA.DAS.EAS.Application.Queries.GetAccountTeamMembers
 {
-    public class GetAccountTeamMembersValidator : IValidator<GetAccountTeamMembersQuery>
+    public class GetAccountTeamMembersValidator
     {
         private readonly IMembershipRepository _membershipRepository;
 

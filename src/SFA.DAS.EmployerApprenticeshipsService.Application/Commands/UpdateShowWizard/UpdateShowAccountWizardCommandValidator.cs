@@ -4,7 +4,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EAS.Application.Commands.UpdateShowWizard
 {
-    public class UpdateShowAccountWizardCommandValidator : IValidator<UpdateShowAccountWizardCommand>
+    public class UpdateShowAccountWizardCommandValidator
     {
         public ValidationResult Validate(UpdateShowAccountWizardCommand item)
         {

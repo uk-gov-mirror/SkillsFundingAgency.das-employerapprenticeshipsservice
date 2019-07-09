@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.UpdatePayeInformation
 {
-    public class UpdatePayeInformationValidator : IValidator<UpdatePayeInformationCommand>
+    public class UpdatePayeInformationValidator
     {
         public ValidationResult Validate(UpdatePayeInformationCommand item)
         {

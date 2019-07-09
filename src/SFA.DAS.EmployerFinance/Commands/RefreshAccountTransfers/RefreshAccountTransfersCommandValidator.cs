@@ -3,7 +3,7 @@ using SFA.DAS.Validation;
 
 namespace SFA.DAS.EmployerFinance.Commands.RefreshAccountTransfers
 {
-    public class RefreshAccountTransfersCommandValidator : IValidator<RefreshAccountTransfersCommand>
+    public class RefreshAccountTransfersCommandValidator
     {
         public ValidationResult Validate(RefreshAccountTransfersCommand item)
         {
