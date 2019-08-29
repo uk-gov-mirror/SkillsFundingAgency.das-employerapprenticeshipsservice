@@ -54,7 +54,20 @@ namespace SFA.DAS.EmployerAccounts.Web
                 AuthenticationMode = AuthenticationMode.Passive
             });
 
-            app.UseCodeFlowAuthentication(new OidcMiddlewareOptions
+            //this works but principal has AuthenticationType of "Cookies".
+            //relationship between AuthenticationType set when calling UseCookieAuthentication (which afaik just says to serialize and encrypt the principal and put in a cookie (and decrypt/deserialize when already authorized, and doesn't set the actual authentication scheme). actually looks like cookie auth is enough on own (https://brockallen.com/2013/10/24/a-primer-on-owin-cookie-authentication-middleware-for-the-asp-net-developer/) how does it fit in with the oidc middleware?
+            // this site says cookie and oidc both use cookie middleware ... https://benfoster.io/blog/aspnet-identity-stripped-bare-mvc-part-1
+            // and the (default) AuthenticationType set when using a particular scheme
+            // need to pass the authentication type when signing-out. can get how authenticated from principal, so we can sign out the user for the auth scheme they used to sign in, see..
+            // https://stackoverflow.com/questions/35653428/what-is-cookieauthenticationoptions-authenticationtype-used-for
+            
+            // is cookie active, and oidc passive?
+            // https://stackoverflow.com/questions/25845420/mvc-5-application-implement-oauth-authorization-code-flow
+            
+            //app.SetDefaultSignInAsAuthenticationType("code");
+            app.SetDefaultSignInAsAuthenticationType("Cookies");
+
+            var oidcMiddlewareOptions = new OidcMiddlewareOptions
             {
                 BaseUrl = config.Identity.BaseAddress,
                 ClientId = config.Identity.ClientId,
@@ -64,16 +77,20 @@ namespace SFA.DAS.EmployerAccounts.Web
                 TokenEndpoint = constants.TokenEndpoint(),
                 UserInfoEndpoint = constants.UserInfoEndpoint(),
                 TokenSigningCertificateLoader = GetSigningCertificate(config.Identity.UseCertificate),
-                TokenValidationMethod = config.Identity.UseCertificate ? TokenValidationMethod.SigningKey : TokenValidationMethod.BinarySecret,
+                TokenValidationMethod = config.Identity.UseCertificate
+                    ? TokenValidationMethod.SigningKey
+                    : TokenValidationMethod.BinarySecret,
                 AuthenticatedCallback = identity =>
                 {
                     PostAuthentiationAction(
-                        identity,                     
+                        identity,
                         constants,
                         accountDataCookieStorageService,
                         hashedAccountIdCookieStorageService);
                 }
-            });
+            };
+            
+            app.UseCodeFlowAuthentication(oidcMiddlewareOptions);
 
             ConfigurationFactory.Current = new IdentityServerConfigurationFactory(config);
             JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
