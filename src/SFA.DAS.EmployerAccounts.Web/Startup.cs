@@ -61,7 +61,7 @@ namespace SFA.DAS.EmployerAccounts.Web
             // need to pass the authentication type when signing-out. can get how authenticated from principal, so we can sign out the user for the auth scheme they used to sign in, see..
             // https://stackoverflow.com/questions/35653428/what-is-cookieauthenticationoptions-authenticationtype-used-for
             
-            // is cookie active, and oidc passive?
+            // is cookie active, and oidc passive? no
             // https://stackoverflow.com/questions/25845420/mvc-5-application-implement-oauth-authorization-code-flow
             
             //app.SetDefaultSignInAsAuthenticationType("code");
