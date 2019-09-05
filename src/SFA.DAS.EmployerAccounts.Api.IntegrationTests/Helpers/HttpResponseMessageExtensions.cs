@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Newtonsoft.Json;
 
-namespace SFA.DAS.EAS.Account.API.IntegrationTests.TestUtils.DataAccess.DataHelpers
+namespace SFA.DAS.EmployerAccounts.Api.IntegrationTests.Helpers
 {
     public static class HttpResponseMessageExtensions
     {
