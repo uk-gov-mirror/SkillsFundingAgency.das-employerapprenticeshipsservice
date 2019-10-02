@@ -35,7 +35,6 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
 
         public EmployerTeamController(
             IAuthenticationService owinWrapper,
-            IAuthorizationService authorization,
             IMultiVariantTestingService multiVariantTestingService,
             ICookieStorageService<FlashMessageViewModel> flashMessage,
             EmployerTeamOrchestrator employerTeamOrchestrator,

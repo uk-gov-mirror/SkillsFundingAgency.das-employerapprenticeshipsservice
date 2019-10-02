@@ -22,6 +22,7 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         private readonly HomeOrchestrator _homeOrchestrator;
         private readonly EmployerAccountsConfiguration _configuration;
         private readonly ICookieStorageService<ReturnUrlModel> _returnUrlCookieStorageService;
+        private readonly ICookieStorageService<ProviderHashedIdViewModel> _providerCookieStorageService;
         private readonly ILog _logger;
 
         private const string ReturnUrlCookieName = "SFA.DAS.EmployerAccounts.Web.Controllers.ReturnUrlCookie";
@@ -32,13 +33,14 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
             IMultiVariantTestingService multiVariantTestingService, 
             ICookieStorageService<FlashMessageViewModel> flashMessage,
             ICookieStorageService<ReturnUrlModel> returnUrlCookieStorageService,
-            ILog logger)
+            ILog logger, ICookieStorageService<ProviderHashedIdViewModel> providerCookieStorageService)
             : base(owinWrapper, multiVariantTestingService, flashMessage)
         {
             _homeOrchestrator = homeOrchestrator;          
             _configuration = configuration;
             _returnUrlCookieStorageService = returnUrlCookieStorageService;
             _logger = logger;
+            _providerCookieStorageService = providerCookieStorageService;
         }
 
         [Route("~/")]
@@ -153,8 +155,9 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         [Authorize]
         [HttpGet]
         [Route("register/new")]
-        public async Task<ActionResult> HandleNewRegistration()
+        public async Task<ActionResult> HandleNewRegistration(string hashedProviderId)
         {
+            _providerCookieStorageService.Create(new ProviderHashedIdViewModel{ ProviderHashedId = hashedProviderId}, "spike-provider");
             await OwinWrapper.UpdateClaims();
             return RedirectToAction(ControllerConstants.IndexActionName);
         }

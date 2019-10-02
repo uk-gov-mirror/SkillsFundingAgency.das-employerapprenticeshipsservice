@@ -21,6 +21,7 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
     {
         private const int ReviewAgreementLater = 1;
         private readonly EmployerAgreementOrchestrator _orchestrator;
+        private readonly ICookieStorageService<ProviderHashedIdViewModel> _providerCookieStorageService;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
@@ -29,11 +30,13 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
             IAuthorizationService authorization,
             IMultiVariantTestingService multiVariantTestingService,
             ICookieStorageService<FlashMessageViewModel> flashMessage,
+            ICookieStorageService<ProviderHashedIdViewModel> providerCookieStorageService,
             IMediator mediator,
             IMapper mapper)
             : base(owinWrapper, multiVariantTestingService, flashMessage)
         {
             _orchestrator = orchestrator;
+            _providerCookieStorageService = providerCookieStorageService;
             _mediator = mediator;
             _mapper = mapper;
         }
@@ -161,7 +164,11 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
 
                 ActionResult result;
 
-                if (response.Data.HasFurtherPendingAgreements)
+                //if (string.IsNullOrWhiteSpace(_providerCookieStorageService.Get("spike-provider")?.ProviderHashedId))
+                //{
+                    
+                //}
+                /*else */if (response.Data.HasFurtherPendingAgreements)
                 {
                     flashMessage.Message = "You've successfully signed an organisation agreement. There are outstanding agreements to be signed. Review the list below to sign all remaining agreements.";
 

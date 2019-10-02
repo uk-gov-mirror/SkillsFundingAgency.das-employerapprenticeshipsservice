@@ -4,7 +4,6 @@ using SFA.DAS.EmployerAccounts.Web.Extensions;
 using System.Web.Mvc;
 using MediatR;
 using SFA.DAS.Authentication;
-using SFA.DAS.Authorization;
 using SFA.DAS.EmployerAccounts.Interfaces;
 using SFA.DAS.EmployerAccounts.Queries.GetUserAornLock;
 using SFA.DAS.EmployerAccounts.Web.Helpers;
@@ -27,7 +26,6 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
         public EmployerAccountPayeController(
             IAuthenticationService owinWrapper,
             EmployerAccountPayeOrchestrator employerAccountPayeOrchestrator,
-            IAuthorizationService authorization,
             IMultiVariantTestingService multiVariantTestingService,
             ICookieStorageService<FlashMessageViewModel> flashMessage,
             IMediator mediatr) : base(owinWrapper, multiVariantTestingService, flashMessage)
