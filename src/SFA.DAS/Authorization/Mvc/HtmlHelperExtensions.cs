@@ -14,7 +14,6 @@ namespace SFA.DAS.Authorization.Mvc
 
         public static bool IsAuthorized(this HtmlHelper htmlHelper, FeatureType featureType)
         {
-            return true; //todo spike only DO NOT LEAVE IN
             var authorisationService = DependencyResolver.Current.GetService<IAuthorizationService>();
             var isAuthorized = authorisationService.IsAuthorized(featureType);
 
