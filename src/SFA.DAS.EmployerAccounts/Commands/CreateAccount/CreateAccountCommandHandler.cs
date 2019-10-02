@@ -37,7 +37,7 @@ namespace SFA.DAS.EmployerAccounts.Commands.CreateAccount
         private readonly IMembershipRepository _membershipRepository;
         private readonly IEmployerAgreementRepository _employerAgreementRepository;
         private readonly IEventPublisher _eventPublisher;
-        private readonly IAuthorizationService _authorizationService;
+        //private readonly IAuthorizationService _authorizationService;
 
         public CreateAccountCommandHandler(
             IAccountRepository accountRepository,
@@ -50,8 +50,9 @@ namespace SFA.DAS.EmployerAccounts.Commands.CreateAccount
             IAccountEventFactory accountEventFactory,
             IMembershipRepository membershipRepository,
             IEmployerAgreementRepository employerAgreementRepository,
-            IEventPublisher eventPublisher,
-            IAuthorizationService authorizationService)
+            IEventPublisher eventPublisher//,
+            //IAuthorizationService authorizationService
+            )
         {
             _accountRepository = accountRepository;
             _mediator = mediator;
@@ -64,7 +65,7 @@ namespace SFA.DAS.EmployerAccounts.Commands.CreateAccount
             _membershipRepository = membershipRepository;
             _employerAgreementRepository = employerAgreementRepository;
             _eventPublisher = eventPublisher;
-            _authorizationService = authorizationService;
+            //_authorizationService = authorizationService;
         }
 
         public async Task<CreateAccountCommandResponse> Handle(CreateAccountCommand message)
@@ -96,7 +97,8 @@ namespace SFA.DAS.EmployerAccounts.Commands.CreateAccount
                 PublicSectorDataSource = message.PublicSectorDataSource,
                 Sector = message.Sector,
                 Aorn = message.Aorn,
-                AgreementType = _authorizationService.IsAuthorized(FeatureType.ExpressionOfInterest) ? AgreementType.NonLevyExpressionOfInterest : AgreementType.Levy
+                AgreementType = AgreementType.Levy,
+                //todo DO NOT LEAVE THIS CHANGE IN AFTER SPIKE AgreementType = _authorizationService.IsAuthorized(FeatureType.ExpressionOfInterest) ? AgreementType.NonLevyExpressionOfInterest : AgreementType.Levy
             });   
             
 
