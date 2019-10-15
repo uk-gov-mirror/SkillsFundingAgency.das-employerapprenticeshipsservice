@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" 
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(USERPROFILE)\.nuget\packages\nunit3testadapter\3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('$(USERPROFILE)\.nuget\packages\nunit3testadapter\3.10.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="$(USERPROFILE)\.nuget\packages\nunit\3.10.1\build\NUnit.props" Condition="Exists('$(USERPROFILE)\.nuget\packages\nunit\3.10.1\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -123,6 +122,9 @@
     </PackageReference>
     <PackageReference Include="SFA.DAS.Support.Shared">
       <Version>2.1.70</Version>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt">
+      <Version>4.0.3.308261200</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
