@@ -1,5 +1,5 @@
-﻿using SFA.DAS.Authentication;
-using SFA.DAS.EAS.Account.Api.Client;
+﻿using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.EAS.Domain.Configuration;
 using SFA.DAS.Hmrc.Configuration;
 using SFA.DAS.Messaging.AzureServiceBus.StructureMap;
 

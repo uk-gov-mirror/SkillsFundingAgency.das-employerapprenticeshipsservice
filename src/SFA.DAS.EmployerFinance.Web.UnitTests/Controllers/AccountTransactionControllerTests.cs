@@ -1,7 +1,5 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SFA.DAS.Authentication;
-using SFA.DAS.EmployerFinance.Models.Account;
 using SFA.DAS.EmployerFinance.Models.Transaction;
 using SFA.DAS.EmployerFinance.Web.Orchestrators;
 using SFA.DAS.EmployerFinance.Web.ViewModels;
@@ -11,6 +9,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using MediatR;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Authentication;
 
 namespace SFA.DAS.EmployerFinance.Web.UnitTests.Controllers
 {

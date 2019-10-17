@@ -4,12 +4,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using NLog;
 using Owin;
-using SFA.DAS.Authentication;
+using SFA.DAS.EAS.Domain.Configuration;
 using SFA.DAS.EmployerFinance.Configuration;
 using SFA.DAS.EmployerFinance.Web;
 using SFA.DAS.EmployerFinance.Web.App_Start;
 using SFA.DAS.EmployerFinance.Web.Authentication;
-using SFA.DAS.EmployerFinance.Web.Orchestrators;
 using SFA.DAS.EmployerFinance.Web.ViewModels;
 using SFA.DAS.EmployerUsers.WebClientComponents;
 using SFA.DAS.OidcMiddleware;
@@ -19,7 +18,6 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(Startup))]

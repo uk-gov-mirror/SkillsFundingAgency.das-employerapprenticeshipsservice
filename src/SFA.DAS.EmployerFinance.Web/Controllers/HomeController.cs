@@ -1,9 +1,9 @@
 ﻿using System.Web;
-using SFA.DAS.Authentication;
 using SFA.DAS.EmployerFinance.Configuration;
 using SFA.DAS.EmployerFinance.Web.Extensions;
 using SFA.DAS.EmployerFinance.Web.Helpers;
 using System.Web.Mvc;
+using SFA.DAS.Authentication;
 
 namespace SFA.DAS.EmployerFinance.Web.Controllers
 {
