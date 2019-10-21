@@ -10,6 +10,7 @@ using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.EmployerUsers.WebClientComponents;
 using SFA.DAS.Web.Policy;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Net;
@@ -58,7 +59,7 @@ namespace SFA.DAS.EAS.Web
             FluentValidationModelValidatorProvider.Configure();
             LoggingConfig.ConfigureLogging();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
+            TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["APPINSIGHTS_INSTRUMENTATIONKEY"];
             WebMessageBuilders.Register();
             WebMessageBuilders.UserIdClaim = DasClaimTypes.Id;
             WebMessageBuilders.UserEmailClaim = DasClaimTypes.Email;
@@ -106,7 +107,7 @@ namespace SFA.DAS.EAS.Web
         {
             var exception = Server.GetLastError();
 
-            if (exception is HttpException httpException && httpException.GetHttpCode() == (int) HttpStatusCode.NotFound)
+            if (exception is HttpException httpException && httpException.GetHttpCode() == (int)HttpStatusCode.NotFound)
             {
                 return;
             }
