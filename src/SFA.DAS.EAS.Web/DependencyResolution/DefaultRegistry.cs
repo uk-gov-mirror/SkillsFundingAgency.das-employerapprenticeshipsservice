@@ -1,4 +1,3 @@
-using SFA.DAS.CookieService;
 using StructureMap;
 using System.Web;
 using SFA.DAS.Authorization.Context;
@@ -18,7 +17,6 @@ namespace SFA.DAS.EAS.Web.DependencyResolution
             });
 
             For<HttpContextBase>().Use(() => new HttpContextWrapper(HttpContext.Current));
-            For(typeof(ICookieService<>)).Use(typeof(HttpCookieService<>));
 
             For<IAuthorizationContextProvider>().Use<AuthorizationContextProvider>();
         }

@@ -1,40 +1,22 @@
 ﻿using FluentValidation.Mvc;
 using NLog;
 using NServiceBus;
-using SFA.DAS.Audit.Client.Web;
-using SFA.DAS.Audit.Types;
-using SFA.DAS.EAS.Infrastructure.Logging;
-using SFA.DAS.EAS.Web.ViewModels;
-using SFA.DAS.EmployerUsers.WebClientComponents;
 using SFA.DAS.Web.Policy;
 using System;
 using System.Configuration;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Net;
-using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using SFA.DAS.EAS.Domain.Configuration;
-using SFA.DAS.EAS.Infrastructure.NServiceBus;
 using SFA.DAS.EAS.Web.App_Start;
 using SFA.DAS.Logging;
-using SFA.DAS.Audit.Client;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights;
-using SFA.DAS.AutoConfiguration;
-using SFA.DAS.NServiceBus.Configuration.NewtonsoftJsonSerializer;
-using SFA.DAS.NServiceBus.Configuration.NLog;
-using SFA.DAS.NServiceBus.SqlServer.Configuration;
-using SFA.DAS.NServiceBus.Configuration.StructureMap;
-using SFA.DAS.UnitOfWork.NServiceBus;
-using StructureMap;
-using SFA.DAS.NServiceBus.Configuration;
-using SFA.DAS.UnitOfWork.NServiceBus.Configuration;
+using SFA.DAS.EAS.Infrastructure.Logging;
 
 namespace SFA.DAS.EAS.Web
 {
@@ -55,41 +37,6 @@ namespace SFA.DAS.EAS.Web
             LoggingConfig.ConfigureLogging();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["APPINSIGHTS_INSTRUMENTATIONKEY"];
-            WebMessageBuilders.Register();
-            WebMessageBuilders.UserIdClaim = DasClaimTypes.Id;
-            WebMessageBuilders.UserEmailClaim = DasClaimTypes.Email;
-
-            AuditMessageFactory.RegisterBuilder(m =>
-            {
-                m.Source = new Source
-                {
-                    Component = "EAS-Web",
-                    System = "EAS",
-                    Version = typeof(MvcApplication).Assembly.GetName().Version.ToString()
-                };
-            });
-
-            var container = StructuremapMvc.StructureMapDependencyScope.Container;
-
-            var environmentService = container.GetInstance<IEnvironmentService>();
-
-            if (environmentService.IsCurrent(DasEnv.LOCAL))
-            {
-                SystemDetailsViewModel.EnvironmentName = DasEnv.LOCAL.ToString();
-                SystemDetailsViewModel.VersionNumber = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-            if (environmentService.IsCurrent(DasEnv.AT))
-            {
-                SystemDetailsViewModel.EnvironmentName = DasEnv.AT.ToString();
-                SystemDetailsViewModel.VersionNumber = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-            if (environmentService.IsCurrent(DasEnv.TEST))
-            {
-                SystemDetailsViewModel.EnvironmentName = DasEnv.TEST.ToString();
-                SystemDetailsViewModel.VersionNumber = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-
-            StartServiceBusEndpoint(container);
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
@@ -129,38 +76,6 @@ namespace SFA.DAS.EAS.Web
 
             Logger.Error(exception, message, properties);
             telemetryClient.TrackException(exception);
-        }
-
-        protected void Application_End()
-        {
-            StopServiceBusEndpoint();
-        }
-
-        private void StartServiceBusEndpoint(IContainer container)
-        {
-            var endpointConfiguration = new EndpointConfiguration("SFA.DAS.EAS.Web")
-                .UseAzureServiceBusTransport(() => container.GetInstance<EmployerApprenticeshipsServiceConfiguration>().ServiceBusConnectionString, container)
-                .UseErrorQueue("SFA.DAS.EAS.Web-errors")
-                .UseInstallers()
-                .UseLicense(WebUtility.HtmlDecode(container.GetInstance<EmployerApprenticeshipsServiceConfiguration>().NServiceBusLicense))
-                .UseSqlServerPersistence(() => container.GetInstance<DbConnection>())
-                .UseNewtonsoftJsonSerializer()
-                .UseNLogFactory()
-                .UseOutbox()
-                .UseStructureMapBuilder(container)
-                .UseUnitOfWork();
-
-            _endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-
-            container.Configure(c =>
-            {
-                c.For<IMessageSession>().Use(_endpoint);
-            });
-        }
-
-        private void StopServiceBusEndpoint()
-        {
-            _endpoint?.Stop().GetAwaiter().GetResult();
         }
     }
 }
