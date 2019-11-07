@@ -102,9 +102,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Content Include="App_Data\.keep" />
-    <Content Include="AppInit.cmd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Shared\_ValidationSummary.cshtml" />
     <Content Include="Views\Shared\_Agreement_v2.cshtml" />
     <Content Include="Views\Shared\_Agreement_v2_changes.cshtml" />
