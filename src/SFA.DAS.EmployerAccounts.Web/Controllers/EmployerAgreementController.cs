@@ -122,13 +122,18 @@ namespace SFA.DAS.EmployerAccounts.Web.Controllers
 
         [HttpGet]
         [Route("agreements/{agreementId}/sign-your-agreement")]
-        public async Task<ActionResult> SignAgreement(GetEmployerAgreementRequest request)
+        public async Task<ActionResult> SignAgreement(string agreementId, string hashedAccountId)
         {
-            request.ExternalUserId = OwinWrapper.GetClaimValue(ControllerConstants.UserRefClaimKeyName);
+            var query = new GetEmployerAgreementRequest
+            {
+                HashedAccountId = hashedAccountId,
+                AgreementId = agreementId,
+                ExternalUserId = OwinWrapper.GetClaimValue(ControllerConstants.UserRefClaimKeyName)
+            };
 
-            var response = await _mediator.SendAsync(request);
+            var response = await _mediator.SendAsync(query);
             var viewModel = _mapper.Map<GetEmployerAgreementResponse, EmployerAgreementViewModel>(response);
-            var entities = await _mediator.SendAsync(new GetAccountLegalEntitiesCountByHashedAccountIdRequest { HashedAccountId = request.HashedAccountId });
+            var entities = await _mediator.SendAsync(new GetAccountLegalEntitiesCountByHashedAccountIdRequest { HashedAccountId = query.HashedAccountId });
 
             viewModel.LegalEntitiesCount = entities.LegalEntitiesCount;
 
