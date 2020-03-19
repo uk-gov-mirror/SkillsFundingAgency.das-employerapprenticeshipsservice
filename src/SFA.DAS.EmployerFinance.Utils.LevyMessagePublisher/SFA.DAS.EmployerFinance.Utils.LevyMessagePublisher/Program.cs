@@ -45,10 +45,11 @@ namespace SFA.DAS.EmployerFinance.Utils.LevyMessagePublisher
             Console.WriteLine("Enter the paye scheme:");
             var payeScheme = Console.ReadLine();
 
-            var message = new ImportAccountLevyDeclarationsCommand(accountId, payeScheme);
+            var message = new ImportLevyDeclarationsCommand();
             var messageSession = await GetNServiceBusMessageSession();
             await messageSession.Send(message);
             Console.WriteLine("Message published successfully. The app will now exit.");
+            Console.ReadLine();
         }
 
         private static async Task<IMessageSession> GetNServiceBusMessageSession()
