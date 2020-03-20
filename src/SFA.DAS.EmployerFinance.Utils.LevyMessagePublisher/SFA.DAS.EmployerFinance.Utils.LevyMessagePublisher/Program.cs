@@ -45,7 +45,7 @@ namespace SFA.DAS.EmployerFinance.Utils.LevyMessagePublisher
             Console.WriteLine("Enter the paye scheme:");
             var payeScheme = Console.ReadLine();
 
-            var message = new ImportLevyDeclarationsCommand();
+            var message = new ImportAccountLevyDeclarationsCommand(accountId, payeScheme);
             var messageSession = await GetNServiceBusMessageSession();
             await messageSession.Send(message);
             Console.WriteLine("Message published successfully. The app will now exit.");
@@ -57,8 +57,8 @@ namespace SFA.DAS.EmployerFinance.Utils.LevyMessagePublisher
             Console.WriteLine("Enter the service bus connection string:");
             var serviceBusConnectionString = Console.ReadLine();
             
-            var endpointConfiguration = new EndpointConfiguration("SFA.DAS.EmployerFinance.Jobs")
-                    .UseErrorQueue("SFA.DAS.EmployerFinance.Jobs-errors")
+            var endpointConfiguration = new EndpointConfiguration("SFA.DAS.EmployerFinance.MessageHandlers")
+                    .UseErrorQueue("SFA.DAS.EmployerFinance.MessageHandlers-errors")
                     .UseAzureServiceBusTransport(() => serviceBusConnectionString)
                     .UseNewtonsoftJsonSerializer()
                     .UseNLogFactory()
