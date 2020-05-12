@@ -41,19 +41,19 @@ namespace SFA.DAS.EmployerAccounts.Queries.GetClientContent
 
             try
             {
-                if (_cacheStorageService.TryGet(cacheKey, out string cachedContentBanner))
-                {
-                    return new GetClientContentResponse
-                    {
-                        Content = cachedContentBanner
-                    };
-                }
+                //if (_cacheStorageService.TryGet(cacheKey, out string cachedContentBanner))
+                //{
+                //    return new GetClientContentResponse
+                //    {
+                //        Content = cachedContentBanner
+                //    };
+                //}
                 var contentBanner = await _service.Get(message.ContentType, cacheKey);
 
-                if (contentBanner != null)
-                {
-                    await _cacheStorageService.Save(cacheKey, contentBanner, 1);
-                }
+                //if (contentBanner != null)
+                //{
+                //    await _cacheStorageService.Save(cacheKey, contentBanner, 1);
+                //}
                 return new GetClientContentResponse
                 {
                     Content = contentBanner
