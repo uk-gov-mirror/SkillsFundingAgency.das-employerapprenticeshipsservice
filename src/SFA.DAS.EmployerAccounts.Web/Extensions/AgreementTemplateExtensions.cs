@@ -14,6 +14,8 @@ namespace SFA.DAS.EmployerAccounts.Web.Extensions
                     return "This is a variation of the agreement that we published 1 May 2017. We updated it to add clause 7 (transfer of funding).";
                 case 3:
                     return "This is a new agreement.";
+                case 4:
+                    return "This is a variation to the agreement we published 9 January 2020. You only need to accept it if you want to access incentive payments for hiring a new apprentice.";
                 default:
                     return string.Empty;
             }
