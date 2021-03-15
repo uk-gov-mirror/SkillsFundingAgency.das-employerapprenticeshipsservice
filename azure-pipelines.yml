@@ -14,7 +14,9 @@ variables:
   buildPlatform: 'any cpu'
 
 pool:
-  vmImage: 'windows-2019'
+  name: 'DAS - Continuous Integration'
+  demands:
+    - Agent.OS -equals Windows_NT
 
 resources:
   repositories:
