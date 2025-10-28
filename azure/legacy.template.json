@@ -124,7 +124,7 @@
         "apiAppServiceName": "[concat(variables('resourceNamePrefix'), parameters('serviceName'), 'api-as')]",
         "resourceGroupName": "[concat(variables('resourceNamePrefix'), parameters('serviceName'), '-rg')]",
         "configNames": "SFA.DAS.EmployerApprenticeshipsService,SFA.DAS.Employer.GovSignIn",
-        "configNamesApi": "SFA.DAS.EmployerApprenticeshipsService,SFA.DAS.Encoding",
+        "configNamesApi": "SFA.DAS.EmployerApprenticeshipsService,SFA.DAS.Encoding"
     },
     "resources": [
         {
@@ -477,6 +477,6 @@
         "ApiAppServiceName": {
             "type": "string",
             "value": "[variables('apiAppServiceName')]"
-        },
+        }
     }
 }
