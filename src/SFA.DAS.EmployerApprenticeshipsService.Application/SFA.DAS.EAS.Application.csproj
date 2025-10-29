@@ -18,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Azure.Identity" Version="1.13.2" />
+    <PackageReference Include="Azure.Identity" Version="1.15.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
     <PackageReference Include="SFA.DAS.EmployerAccounts.Api.Types" Version="1.6.3195" />
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" Version="17.1.113" />
